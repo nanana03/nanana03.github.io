@@ -1,0 +1,4 @@
+# ZipShrink 更新チェック用（アプリが起動時に読む。書式: key=value）
+# version=Vectorで現在公開中の版 / url=案内先 / message=任意の1行告知
+version=1.0.0
+url=https://www.vector.co.jp/soft/winnt/art/se529141.html
