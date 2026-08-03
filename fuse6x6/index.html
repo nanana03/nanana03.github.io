@@ -223,7 +223,6 @@ em, .hl {
 .toy-tile[data-v="8"]  { background: oklch(66% 0.18 235); color: var(--color-paper); }
 .toy-tile[data-v="16"] { background: oklch(74% 0.16 305); }
 .toy-tile[data-v="32"] { background: oklch(68% 0.24 18); color: var(--color-paper); }
-.toy-hint { font-size: var(--text-sm); color: var(--color-ink-2); }
 @keyframes toy-breathe { 0%,100% { scale: 1; } 50% { scale: 1.04; } }
 .star-burst {
   position: absolute; inset: 0; margin: auto; width: 26px; height: 26px; pointer-events: none;
@@ -418,11 +417,7 @@ em, .hl {
     </div>
 
     <div class="toy">
-      <button class="toy-tile" type="button" id="toy" data-v="2" aria-label="タップすると数字が合体します / Tap to merge">2</button>
-      <span class="toy-hint">
-        <span data-when="ja">タップしてみてください。合体するとこうなります。</span>
-        <span data-when="en">Give it a tap. This is what merging feels like.</span>
-      </span>
+      <button class="toy-tile" type="button" id="toy" data-v="2" aria-label="タップすると合体します / Tap to merge">2</button>
     </div>
 
     <p class="count-line" data-when="ja">パネル8種 ／ 背景58枚 ／ 盤は6×6 ／ ランキングは3種類 ／ 広告なし ／ 通信なしで遊べます</p>
