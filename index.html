@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nanana Soft — アプリとソフトウェアの目録</title>
+<meta name="description" content="Nanana Soft が公開しているアプリとソフトウェアの一覧。iOS・Meta Quest・Windows 向け。お問い合わせは nanana03info@gmail.com。">
+<meta property="og:title" content="Nanana Soft">
+<meta property="og:description" content="Nanana Soft が公開しているアプリとソフトウェアの一覧。">
+<meta property="og:type" content="website">
+<!-- preconnect 先は接続の先出し用。ルートを GET すると 404 だが、実際に読む CSS
+     （下の href）は HTTP 200 を実測済み。 url-ok: https://fonts.googleapis.com
+     url-ok: https://fonts.gstatic.com -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,500&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · genre: editorial · macrostructure: Index-First · theme: Newsprint
+ * enrichment: none（typography only。写真も生成画像も使わない＝持っていない物を作らない）
+ * nav: N6 newspaper masthead · footer: Ft4 dense colophon
+ * axes: light paper / roman-serif / warm accent
+ *   ← 前回のこのリポジトリの出力（fuse6x6: Catalogue / Hum / N7 / Ft5 · light / rounded-sans / multi）
+ *      とは macrostructure・nav・footer・display style・accent hue が相違
+ * pre-emit critique: P5 H5 E4 S5 R5 V5
+ * 注記: 日本語のため CJK 用に明朝（Shippori Mincho）とゴシック（Zen Kaku Gothic New）を
+ *       足している。ラテンの display は Newsreader（roman serif）で、Newsprint の
+ *       レジスタを崩さない範囲の追加。ファミリは display / body / outlier(mono) の3系統。
+ */
+
+:root {
+  /* ── paper / ink（anchor hue 65 の温かい新聞紙。純白も純黒も使わない） ── */
+  --color-paper:   oklch(96.5% 0.010 65);
+  --color-paper-2: oklch(93.5% 0.013 65);
+  --color-rule:    oklch(82%   0.012 65);
+  --color-neutral: oklch(56%   0.010 65);
+  --color-muted:   oklch(44%   0.010 60);
+  --color-ink:     oklch(21%   0.012 60);
+
+  /* ── accent は1色だけ。リンクと現在地にしか出さない（面積 3% 未満） ── */
+  --color-accent:  oklch(52% 0.19 32);
+  --color-focus:   oklch(52% 0.19 32);
+
+  --font-display: "Newsreader", "Shippori Mincho", ui-serif, serif;
+  --font-body:    "Zen Kaku Gothic New", "Newsreader", system-ui, sans-serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
+
+  --space-2xs: 4px; --space-xs: 8px;  --space-sm: 12px; --space-md: 20px;
+  --space-lg: 32px; --space-xl: 48px; --space-2xl: 72px; --space-3xl: 104px;
+
+  --text-xs: 0.75rem;  --text-sm: 0.875rem; --text-base: 1rem;
+  --text-lg: 1.125rem; --text-xl: 1.35rem;
+  --text-mast: clamp(2.1rem, 7vw, 3.6rem);
+
+  --rule-hair: 1px;
+  --page-gutter: clamp(16px, 5vw, 40px);
+  --measure: 62ch;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:   oklch(15%   0.010 60);
+    --color-paper-2: oklch(19%   0.012 60);
+    --color-rule:    oklch(33%   0.010 60);
+    --color-neutral: oklch(62%   0.010 60);
+    --color-muted:   oklch(75%   0.008 60);
+    --color-ink:     oklch(94%   0.008 75);
+    --color-accent:  oklch(72% 0.16 40);
+    --color-focus:   oklch(72% 0.16 40);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.page { max-width: 980px; margin: 0 auto; padding: 0 var(--page-gutter) var(--space-3xl); }
+
+/* ── N6 · newspaper masthead ─────────────────────────────── */
+.mast { display: grid; gap: var(--space-2xs); padding: var(--space-xl) 0 0; text-align: center; }
+.mast-line {
+  margin: 0;
+  font-family: var(--font-outlier);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.mast-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-mast);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.mast-nav ul {
+  display: inline-flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--space-md); list-style: none; padding: 0; margin: var(--space-xs) 0 0;
+}
+.mast-nav a {
+  display: inline-block; min-height: 44px; line-height: 44px;
+  font-size: var(--text-sm); white-space: nowrap;
+  color: var(--color-muted); text-decoration: none;
+  border-bottom: var(--rule-hair) solid transparent;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.mast-nav a:hover { color: var(--color-ink); border-bottom-color: var(--color-accent); }
+.mast-rule {
+  border: 0; height: 4px; margin: var(--space-md) 0 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+/* ── 前書き（Index-First は display type を置かない） ────────── */
+.standfirst {
+  max-width: var(--measure);
+  margin: var(--space-xl) 0 0;
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+.standfirst + p { max-width: var(--measure); margin: var(--space-sm) 0 0; color: var(--color-muted); font-size: var(--text-sm); }
+
+/* ── 目録 ───────────────────────────────────────────────── */
+.group { margin: var(--space-2xl) 0 0; }
+.group-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-sm);
+  margin: 0 0 var(--space-xs);
+  font-family: var(--font-outlier); font-size: var(--text-xs); font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted);
+}
+.group-head span { white-space: nowrap; }
+
+.rows { list-style: none; margin: 0; padding: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: var(--space-xs) var(--space-lg);
+  align-items: baseline;
+  padding: var(--space-md) 0;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.row h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 500;
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  overflow-wrap: anywhere; min-width: 0;
+}
+.row p { margin: var(--space-2xs) 0 0; color: var(--color-muted); font-size: var(--text-sm); max-width: var(--measure); }
+.row .go { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-self: start; }
+.row .go a {
+  display: inline-block; min-height: 44px; line-height: 44px;
+  font-size: var(--text-sm); white-space: nowrap;
+  color: var(--color-accent); text-decoration: none;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.row .go a:hover { border-bottom-color: var(--color-accent); }
+.row .go a::after { content: " →"; color: var(--color-neutral); }
+
+@media (max-width: 620px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .group-head { flex-direction: column; align-items: flex-start; gap: 0; }
+}
+
+/* ── 問い合わせ ─────────────────────────────────────────── */
+.contact { margin: var(--space-2xl) 0 0; padding-top: var(--space-md); border-top: 4px double var(--color-rule); }
+.contact p { max-width: var(--measure); margin: 0 0 var(--space-sm); }
+a.plain {
+  color: var(--color-accent); text-decoration: none;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding: 10px 0; /* 本文中のリンクでも指で触れる高さを確保する */
+}
+a.plain:hover { border-bottom-color: var(--color-accent); }
+
+/* ── Ft4 · dense colophon ───────────────────────────────── */
+.colophon {
+  margin: var(--space-2xl) 0 0; padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-outlier); font-size: var(--text-xs); line-height: 1.9;
+  color: var(--color-neutral);
+}
+.colophon p { margin: 0; max-width: 78ch; }
+
+a:focus-visible, .mast-nav a:focus-visible {
+  outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="mast">
+  <p class="mast-line">Nanana Soft · 個人事業 · 日本</p>
+  <h1 class="mast-name">Nanana Soft</h1>
+  <nav class="mast-nav" aria-label="このページの目次">
+    <ul>
+      <li><a href="#ios">iOS アプリ</a></li>
+      <li><a href="#quest">Meta Quest</a></li>
+      <li><a href="#windows">Windows ソフト</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </nav>
+  <hr class="mast-rule" aria-hidden="true">
+</header>
+
+<main>
+  <p class="standfirst">個人でアプリとソフトウェアを作って公開しています。このページは、その全部を一枚に並べた目録です。</p>
+  <p>各製品のサポート窓口とプライバシーポリシーは、それぞれのサイトに置いてあります。</p>
+
+  <section class="group" id="ios" aria-labelledby="h-ios">
+    <h2 class="group-head" id="h-ios">iOS アプリ<span>App Store</span></h2>
+    <ul class="rows">
+
+      <li class="row">
+        <div>
+          <h3>おにコレ</h3>
+          <p>走った国道を記録して集めるコレクションアプリ。</p>
+        </div>
+        <div class="go">
+          <a href="https://apps.apple.com/jp/app/id6787720099">App Store</a>
+          <a href="https://nanana03.github.io/onikore/">サポート</a>
+        </div>
+      </li>
+
+      <li class="row">
+        <div>
+          <h3>推しくらべ</h3>
+          <p>2つのチャンネルや動画を並べて見くらべるアプリ。</p>
+        </div>
+        <div class="go">
+          <a href="https://apps.apple.com/jp/app/id6792729967">App Store</a>
+          <a href="https://oshikurabe.nananasoft.com/">公式サイト</a>
+        </div>
+      </li>
+
+      <li class="row">
+        <div>
+          <h3>Fuse 6×6</h3>
+          <p>6×6 の盤で数字を合体させていくパズル。</p>
+        </div>
+        <div class="go">
+          <a href="https://nanana03.github.io/fuse6x6/">サポート</a>
+        </div>
+      </li>
+
+      <li class="row">
+        <div>
+          <h3>MTB Hub</h3>
+          <p>マウンテンバイクのコースと機材を持ち寄って共有するアプリ。</p>
+        </div>
+        <div class="go">
+          <a href="https://nanana03.github.io/mtbhub-site/">公式サイト</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <section class="group" id="quest" aria-labelledby="h-quest">
+    <h2 class="group-head" id="h-quest">Meta Quest<span>Horizon Store</span></h2>
+    <ul class="rows">
+      <li class="row">
+        <div>
+          <h3>Peekr VR</h3>
+          <p>Quest 3 で画像・動画・漫画を読むためのビューワー。</p>
+        </div>
+        <div class="go">
+          <a href="https://www.meta.com/ja-jp/experiences/peekr-vr/1157359374130212/">Horizon Store</a>
+          <a href="https://peekrvr.github.io/">公式サイト</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="group" id="windows" aria-labelledby="h-windows">
+    <h2 class="group-head" id="h-windows">Windows ソフト<span>Vector · GitHub</span></h2>
+    <ul class="rows">
+
+      <li class="row">
+        <div>
+          <h3>ZipShrink</h3>
+          <p>画像の入った書庫を、中身を保ったまま小さくするツール。</p>
+        </div>
+        <div class="go">
+          <a href="https://www.vector.co.jp/soft/winnt/art/se529141.html">Vector</a>
+        </div>
+      </li>
+
+      <li class="row">
+        <div>
+          <h3>StockValuation</h3>
+          <p>非上場株式の評価計算ソフト。Nanax Soft ブランドで出しています。</p>
+        </div>
+        <div class="go">
+          <a href="https://www.vector.co.jp/soft/winnt/business/se529138.html">Vector</a>
+        </div>
+      </li>
+
+      <li class="row">
+        <div>
+          <h3>PathlessMark</h3>
+          <p>フリーソフト。MIT ライセンスで公開しています。</p>
+        </div>
+        <div class="go">
+          <a href="https://github.com/nanana03/pathlessmark">GitHub</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="h-contact">
+    <h2 class="group-head" id="h-contact">お問い合わせ</h2>
+    <p>製品についてのご連絡は <a class="plain" href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a> までお願いします。日本語と英語で受け付けています。</p>
+    <p>不具合の報告は、どの製品のどの画面で起きたかを書き添えていただけると、こちらで再現しやすくなります。</p>
+  </section>
+</main>
+
+<footer class="colophon">
+  <p>Nanana Soft — 個人事業（日本）。組版は Newsreader / Shippori Mincho / Zen Kaku Gothic New / IBM Plex Mono。掲載しているのは公開済みの製品のみで、各ストアの表記が正です。連絡先 nanana03info@gmail.com。</p>
+</footer>
+
+</div>
+</body>
+</html>
