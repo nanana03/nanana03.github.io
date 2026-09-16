@@ -1,0 +1,69 @@
+/* Hallmark · tokens · おにコレ（国道走破コレクション）
+ * genre: editorial · theme: Sport（light paper / display-condensed roman / cool accent）
+ * axes: light · display-condensed · cool
+ * 前2件との差＝Newsprint（light/roman-serif/warm）・Hum（light/rounded-sans/multi）から
+ *   display-style と accent-hue の2軸で外してある。
+ * accent は道路標識の青。ページ内の占有は 5% 未満に保つ。
+ */
+
+:root {
+  /* ── paper / ink（純白・純黒は使わない） ── */
+  --color-paper:    oklch(96.5% 0.006 250);
+  --color-paper-2:  oklch(93.5% 0.009 250);
+  --color-paper-3:  oklch(90%   0.012 250);
+  --color-ink:      oklch(23%   0.022 255);
+  --color-ink-2:    oklch(47%   0.016 255);
+  --color-ink-3:    oklch(62%   0.012 255);
+  --color-rule:     oklch(86%   0.010 250);
+
+  /* ── accent（単一・国道標識の青） ── */
+  --color-accent:      oklch(46% 0.130 250);
+  --color-accent-deep: oklch(36% 0.120 252);
+  --color-accent-soft: oklch(46% 0.130 250 / 0.10);
+  --color-focus:       oklch(52% 0.170 250);
+
+  /* ── type ── */
+  --font-display: "Oswald", "Zen Kaku Gothic New", system-ui, sans-serif;
+  --font-body:    "Zen Kaku Gothic New", system-ui, -apple-system, "Hiragino Sans", sans-serif;
+  --font-label:   "Oswald", "Zen Kaku Gothic New", system-ui, sans-serif;
+
+  --text-figure: clamp(5.5rem, 22vw, 13rem);
+  --text-display: clamp(2rem, 6.2vw, 3.4rem);
+  --text-display-s: clamp(1.6rem, 4.6vw, 2.4rem);
+  --text-xl: clamp(1.25rem, 2.8vw, 1.6rem);
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.9375rem;
+  --text-xs: 0.8125rem;
+
+  /* ── space（4pt） ── */
+  --space-2xs: 4px;
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  24px;
+  --space-lg:  40px;
+  --space-xl:  64px;
+  --space-2xl: 96px;
+
+  /* ── rule / radius ── */
+  --rule-hair: 1px;
+  --rule-heavy: 3px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* ── motion ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-short: 120ms;
+  --dur-mid:   260ms;
+  --dur-long:  520ms;
+
+  /* ── z（六段） ── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+}

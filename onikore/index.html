@@ -3,57 +3,553 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>おにコレ - 国道走破コレクション | サポート</title>
+<title>おにコレ - 国道走破コレクション</title>
+<meta name="description" content="日本の一般国道459路線を「走って集める」ドライブ記録アプリ。GPSで自動記録し、路線ごとの走破率・都道府県マップ・標高プロファイルで走った跡を残します。iPhone・無料。">
+<meta property="og:title" content="おにコレ - 国道走破コレクション">
+<meta property="og:description" content="日本の一般国道は459本。走った分だけ、地図が塗られる。">
+<meta property="og:type" content="website">
+<link rel="icon" href="./favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./img/icon-180.png">
+<!-- url-ok: https://fonts.googleapis.com  preconnect 用のオリジン。素の GET は 404 を返すが、
+     実際に使うのは下の css2?family=… で、そちらは 200（fuse6x6/index.html で実績あり） -->
+<!-- url-ok: https://fonts.gstatic.com  同上＝フォント本体の配信元。素の GET は 404 -->
+<!-- url-ok: https://play.google.com/store/apps/details?id=com.nanabit.kokudo
+     いま 404 なのは意図どおり＝Play の審査待ちで未公開のため、下の <a> は
+     コメントアウトしてある。公開されたら 200 になることを確かめてから有効にする -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./tokens.css">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; line-height: 1.8; }
-  h1 { font-size: 1.5rem; border-bottom: 2px solid #E0A92E; padding-bottom: 8px; }
-  h2 { font-size: 1.15rem; margin-top: 2em; }
-  .en { margin-top: 4em; border-top: 1px dashed #aaa; padding-top: 2em; }
-  dt { font-weight: 700; margin-top: 1.2em; }
-  dd { margin-left: 0; }
-  a { color: #C8860A; }
+/* Hallmark · genre: editorial · macrostructure: Stat-Led · theme: Sport
+ * enrichment: 実素材のみ（アプリの実スクリーンショット4枚＋実機シミュレータの録画1本。
+ *   生成画像・それらしい代用・作り物の端末フレームは使っていない）
+ * nav: N9 edge-aligned minimal · footer: Ft1 mast-headed
+ * axes: light paper / display-condensed / cool accent
+ * pre-emit critique: P5 H5 E4 S5 R4 V4
+ * 数字の出どころ（でっち上げない）:
+ *   459 路線  = Product/kari-kokudo/src/cells.js:134 ほか（一般国道の本数）
+ *   ¥490      = Product/kari-kokudo/src/pro.js:67 PRO_PRICE_LABEL
+ *   無料10本  = Product/kari-kokudo/src/pro.js:70-76 PRO_FEATURES
+ *   ダウンロード数・利用者数は把握していないので、どこにも書いていない。
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+a { color: var(--color-accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--color-accent-deep); }
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-inline: var(--space-md);
+}
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* ── nav · N9 edge-aligned minimal ───────────────────────────── */
+.nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-block: var(--space-md) var(--space-sm);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.nav__mark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-lg);
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.nav__links {
+  display: flex;
+  gap: var(--space-md);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+}
+.nav__links a { white-space: nowrap; text-decoration: none; }
+.nav__links a:hover { text-decoration: underline; }
+
+/* ── hero · H4 stat-led ──────────────────────────────────────── */
+.hero {
+  padding-block: var(--space-xl) var(--space-lg);
+}
+.hero__figure {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-figure);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+.hero__unit {
+  font-family: var(--font-label);
+  font-size: var(--text-xl);
+  letter-spacing: 0.12em;
+  color: var(--color-ink-2);
+  margin-left: 0.3em;
+}
+.hero__head {
+  font-size: var(--text-display);
+  max-width: 18ch;
+  margin-top: var(--space-md);
+}
+.hero__lede {
+  margin-top: var(--space-md);
+  max-width: 52ch;
+  color: var(--color-ink-2);
+  font-size: var(--text-lg);
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* ── CTA · C1 outlined chip ──────────────────────────────────── */
+.chip {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: var(--font-label);
+  font-size: var(--text-base);
+  letter-spacing: 0.04em;
+  padding: 12px 22px;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-accent);
+  background: transparent;
+  text-decoration: none;
+  transition: background-color var(--dur-short) var(--ease-out),
+              color var(--dur-short) var(--ease-out),
+              transform var(--dur-short) var(--ease-out);
+}
+.chip:hover { background: var(--color-accent); color: var(--color-paper); }
+.chip:active { transform: translateY(1px); }
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── section rhythm（節ごとに詰め方を変える） ────────────────── */
+section { border-top: var(--rule-hair) solid var(--color-rule); }
+.s-zoom   { padding-block: var(--space-xl) var(--space-lg); }
+.s-steps  { padding-block: var(--space-2xl) var(--space-xl); }
+.s-shots  { padding-block: var(--space-xl); }
+.s-pro    { padding-block: var(--space-2xl) var(--space-xl); }
+.s-faq    { padding-block: var(--space-xl) var(--space-2xl); }
+.s-en     { padding-block: var(--space-lg) var(--space-xl); background: var(--color-paper-2); }
+
+/* section head · S2 hanging（番号ラベルは置かない） */
+.head {
+  font-size: var(--text-display-s);
+  max-width: 24ch;
+}
+.head + .sub {
+  margin-top: var(--space-sm);
+  max-width: 54ch;
+  color: var(--color-ink-2);
+}
+
+/* ── zoom（実素材の動画） ───────────────────────────────────── */
+.zoom {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-lg);
+  align-items: center;
+  margin-top: var(--space-lg);
+}
+.zoom figure { margin: 0; }
+.zoom video {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-sm);
+}
+.zoom figcaption {
+  margin-top: var(--space-xs);
+  font-size: var(--text-xs);
+  color: var(--color-ink-3);
+  max-width: 34ch;
+}
+
+/* ── steps · F4 step sequence ────────────────────────────────── */
+.steps {
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.step {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.step:first-child { border-top: none; }
+.step__n {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-accent);
+  line-height: 1.4;
+}
+.step__t { font-size: var(--text-lg); font-weight: 700; }
+.step__b { color: var(--color-ink-2); font-size: var(--text-sm); }
+
+/* ── shots · F5（実スクリーンショット・端末の作り枠は描かない） ── */
+.shots {
+  margin-top: var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--space-md);
+}
+.shots figure { margin: 0; }
+.shots img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  background: var(--color-paper-2);
+}
+.shots figcaption {
+  margin-top: var(--space-xs);
+  font-size: var(--text-xs);
+  color: var(--color-ink-2);
+}
+
+/* ── pro · F3 tabular spec sheet ─────────────────────────────── */
+.spec {
+  width: 100%;
+  margin-top: var(--space-lg);
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.spec caption {
+  text-align: left;
+  color: var(--color-ink-3);
+  font-size: var(--text-xs);
+  padding-bottom: var(--space-xs);
+}
+.spec th, .spec td {
+  text-align: left;
+  padding: 10px var(--space-xs);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  vertical-align: top;
+}
+.spec thead th {
+  font-family: var(--font-label);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-bottom: var(--rule-heavy) solid var(--color-ink);
+  white-space: nowrap;
+}
+.spec .yes { color: var(--color-accent); font-weight: 700; }
+.spec .no  { color: var(--color-ink-3); }
+.price {
+  margin-top: var(--space-md);
+  font-size: var(--text-xl);
+}
+.price strong { font-family: var(--font-display); font-weight: 500; }
+
+/* ── faq ─────────────────────────────────────────────────────── */
+.faq { margin-top: var(--space-lg); }
+.faq dt {
+  font-weight: 700;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.faq dd { margin: var(--space-2xs) 0 0; color: var(--color-ink-2); }
+
+/* ── english ─────────────────────────────────────────────────── */
+.s-en h2 { font-size: var(--text-display-s); }
+.s-en p { margin-top: var(--space-sm); max-width: 62ch; color: var(--color-ink-2); }
+.s-en dt { font-weight: 700; margin-top: var(--space-md); }
+.s-en dd { margin: 0; color: var(--color-ink-2); }
+
+/* ── footer · Ft1 mast-headed ────────────────────────────────── */
+.foot {
+  border-top: var(--rule-heavy) solid var(--color-ink);
+  padding-block: var(--space-lg) var(--space-xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: var(--space-md);
+  align-items: end;
+}
+.foot__mark {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.02em;
+}
+.foot__tag { color: var(--color-ink-2); font-size: var(--text-sm); }
+.foot__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  font-size: var(--text-sm);
+}
+.foot__links a { white-space: nowrap; }
+.foot__legal {
+  grid-column: 1 / -1;
+  color: var(--color-ink-3);
+  font-size: var(--text-xs);
+  margin-top: var(--space-sm);
+}
+
+/* ── 一度きりの入場 ──────────────────────────────────────────── */
+.enter { opacity: 0; transform: translateY(8px); }
+.is-ready .enter {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--dur-long) var(--ease-out),
+              transform var(--dur-long) var(--ease-out);
+}
+.is-ready .hero__head { transition-delay: 60ms; }
+.is-ready .hero__lede { transition-delay: 120ms; }
+
+@media (max-width: 720px) {
+  .zoom { grid-template-columns: minmax(0, 1fr); }
+  .zoom video { max-width: 260px; }
+  .foot { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .hero { padding-block: var(--space-lg) var(--space-md); }
+  .s-steps, .s-pro { padding-block: var(--space-xl) var(--space-lg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter { opacity: 1; transform: none; }
+  .is-ready .enter { transition: opacity 150ms linear; }
+  .chip { transition: none; }
+}
 </style>
 </head>
 <body>
 
-<h1>おにコレ - 国道走破コレクション</h1>
-<p>日本の一般国道459路線を「走って集める」ドライブ記録アプリです。GPSで走行を自動記録し、路線ごとの走破率・都道府県別の走破マップ・標高プロファイルなどで、あなたの走破の旅を可視化します。</p>
+<nav class="nav wrap" aria-label="このページ">
+  <a class="nav__mark" href="./">おにコレ</a>
+  <div class="nav__links">
+    <a href="#faq">よくある質問</a>
+    <a href="#contact">お問い合わせ</a>
+  </div>
+</nav>
 
-<h2>よくある質問</h2>
-<dl>
-  <dt>Q. 走行データはどこに保存されますか？</dt>
-  <dd>A. すべてあなたの端末内に保存されます。開発者のサーバーには送信されません。詳しくは<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</dd>
-  <dt>Q. 機種変更にデータを引き継げますか？</dt>
-  <dd>A. 統計画面の「書き出し」でバックアップファイルを作成し、新しい端末で「読み込み」してください。</dd>
-  <dt>Q. 一部の国道で地図の線が途切れています。</dt>
-  <dd>A. 未開通区間・フェリー航路などにより実際に分断されている路線です（該当路線の詳細画面に注記があります）。</dd>
-  <dt>Q. 購入したProが復元できません。</dt>
-  <dd>A. ペイウォール画面の「購入を復元」を、購入時と同じApple Accountでお試しください。解決しない場合は下記までご連絡ください。</dd>
-</dl>
+<main>
 
-<h2>お問い合わせ</h2>
-<p>メール: <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
-<p><a href="./privacy.html">プライバシーポリシー / Privacy Policy</a></p>
+  <header class="hero wrap">
+    <p class="enter"><span class="hero__figure tnum" id="figure">459</span><span class="hero__unit">路線</span></p>
+    <h1 class="hero__head enter">日本の一般国道は459本。走った分だけ、地図が塗られる。</h1>
+    <p class="hero__lede enter">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
+    <div class="hero__actions">
+      <a class="chip" href="https://apps.apple.com/app/id6787720099">App Store で入手</a>
+      <!-- android-link: Play の審査が通ったら下の1行を有効にし、右の注記から「Android 版は準備中」を外す。
+           2026-09-17 時点で https://play.google.com/store/apps/details?id=com.nanabit.kokudo は HTTP 404。
+      <a class="chip" href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play で入手</a>
+      -->
+      <span class="note">iPhone・無料（アプリ内課金あり）／Android 版は準備中</span>
+    </div>
+  </header>
 
-<div class="en">
-<h1>Onikore - Japan Route Collection</h1>
-<p>A drive-logging app for "collecting" all 459 of Japan's national routes. It records your drives via GPS and visualizes your journey with per-route completion rates, a prefecture map, and elevation profiles.</p>
+  <section class="s-zoom">
+    <div class="wrap">
+      <h2 class="head">引くと、走った国道が日本の形になる。</h2>
+      <p class="sub">走破済みの区間は、地図をどれだけ引いても消えません。倍率に合わせて線を細くするので、日本全体まで引いても道の形が潰れずに残ります。</p>
+      <div class="zoom">
+        <figure>
+          <video src="./media/zoom.mp4" poster="./media/zoom-poster.jpg"
+                 autoplay muted loop playsinline preload="metadata" fetchpriority="high"
+                 width="720" height="1494"></video>
+          <figcaption>国道1〜20号を全部塗った状態の画面です。実在の走行記録ではなく、見え方を示すための例です。</figcaption>
+        </figure>
+        <div>
+          <p>路線ごとの走破率、都道府県別の走破マップ、坂の上り下りが分かる標高プロファイル。走った跡は、数字と形の両方で残ります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<h2>Support / FAQ</h2>
-<dl>
-  <dt>Q. Where is my driving data stored?</dt>
-  <dd>A. Entirely on your device. Nothing is sent to the developer's servers. See our <a href="./privacy.html">Privacy Policy</a>.</dd>
-  <dt>Q. Can I transfer data to a new phone?</dt>
-  <dd>A. Use "Export" in the Stats screen to create a backup file, then "Import" on the new device.</dd>
-  <dt>Q. Restore purchase issues?</dt>
-  <dd>A. Tap "Restore Purchases" on the paywall with the same Apple Account used for purchase. Contact us if it persists.</dd>
-</dl>
+  <section class="s-steps">
+    <div class="wrap">
+      <h2 class="head">やることは、記録を入れて走るだけ。</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step__n tnum">1</div>
+          <div>
+            <div class="step__t">記録をオンにする</div>
+            <p class="step__b">走り出す前に記録をオンにします。あとの操作は要りません。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__n tnum">2</div>
+          <div>
+            <div class="step__t">いつもどおり走る</div>
+            <p class="step__b">走行中の位置から、いまどの国道にいるかを判定して記録します。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__n tnum">3</div>
+          <div>
+            <div class="step__t">地図が塗られる</div>
+            <p class="step__b">走った区間が路線ごとに積み上がり、走破率が伸びます。写真を添えることもできます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<h2>Contact</h2>
-<p>Email: <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
-</div>
+  <section class="s-shots">
+    <div class="wrap">
+      <h2 class="head">画面</h2>
+      <div class="shots">
+        <figure>
+          <img src="./img/shot-01.jpg" alt="国道の一覧を走破率の高い順に並べた画面" loading="lazy" width="640" height="1387">
+          <figcaption>走破率の高い順に並べた一覧</figcaption>
+        </figure>
+        <figure>
+          <img src="./img/shot-02.jpg" alt="国道299号の標高プロファイル。獲得標高と坂のグラフ" loading="lazy" width="640" height="1387">
+          <figcaption>標高プロファイル（Pro）</figcaption>
+        </figure>
+        <figure>
+          <img src="./img/shot-03.jpg" alt="走破済みの区間を青く重ねた地図画面" loading="lazy" width="640" height="1387">
+          <figcaption>走破済みを重ねた地図</figcaption>
+        </figure>
+        <figure>
+          <img src="./img/shot-04.jpg" alt="統計画面。実績と、バックアップの書き出し" loading="lazy" width="640" height="1387">
+          <figcaption>統計と、書き出し / 読み込み</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-pro">
+    <div class="wrap">
+      <h2 class="head">無料で始められます。Pro は買い切りです。</h2>
+      <p class="sub">サブスクリプションではありません。一度買えば、そのあとの課金はありません。</p>
+      <table class="spec">
+        <caption>2026年9月時点の内容です。</caption>
+        <thead>
+          <tr><th scope="col">できること</th><th scope="col">無料</th><th scope="col">Pro</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>走行の自動記録・走破率・地図</td><td class="yes">○</td><td class="yes">○</td></tr>
+          <tr><td>記録できる路線の数</td><td class="no tnum">10本まで</td><td class="yes">無制限</td></tr>
+          <tr><td>標高プロファイル（獲得標高・坂の可視化）</td><td class="no">—</td><td class="yes">○</td></tr>
+          <tr><td>写真の添付</td><td class="no">枚数に上限</td><td class="yes">無制限</td></tr>
+          <tr><td>シェア画像</td><td class="no">透かしあり</td><td class="yes">高解像度・透かしなし</td></tr>
+          <tr><td>最高標高で並べ替える</td><td class="no">—</td><td class="yes">○</td></tr>
+        </tbody>
+      </table>
+      <p class="price">おにコレ Pro <strong class="tnum">¥490</strong> — 買い切り。</p>
+    </div>
+  </section>
+
+  <section class="s-faq" id="faq">
+    <div class="wrap">
+      <h2 class="head">よくある質問</h2>
+      <dl class="faq">
+        <dt>走行データはどこに保存されますか？</dt>
+        <dd>すべてあなたの端末内に保存されます。開発者のサーバーには送信されません。詳しくは<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</dd>
+        <dt>機種変更にデータを引き継げますか？</dt>
+        <dd>統計画面の「書き出し」でバックアップファイルを作成し、新しい端末で「読み込み」してください。</dd>
+        <dt>一部の国道で地図の線が途切れています。</dt>
+        <dd>未開通区間・フェリー航路などにより実際に分断されている路線です（該当路線の詳細画面に注記があります）。</dd>
+        <dt>購入した Pro が復元できません。</dt>
+        <dd>ペイウォール画面の「購入を復元」を、購入時と同じ Apple Account でお試しください。解決しない場合は下記までご連絡ください。</dd>
+        <dt>Android 版はありますか？</dt>
+        <dd>準備中です。公開できしだい、このページに入手先を追加します。</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="s-en" id="en" lang="en">
+    <div class="wrap">
+      <h2>Onikore — Japan Route Collection</h2>
+      <p>A drive-logging app for “collecting” all 459 of Japan's national routes. It records your drives via GPS and shows how far you have driven each route — with per-route completion rates, a prefecture map, and elevation profiles. Free on iPhone, with an optional one-time Pro unlock (¥490). An Android version is in preparation.</p>
+      <dl>
+        <dt>Where is my driving data stored?</dt>
+        <dd>Entirely on your device. Nothing is sent to the developer's servers. See our <a href="./privacy.html">Privacy Policy</a>.</dd>
+        <dt>Can I transfer data to a new phone?</dt>
+        <dd>Use “Export” in the Stats screen to create a backup file, then “Import” on the new device.</dd>
+        <dt>Restore purchase issues?</dt>
+        <dd>Tap “Restore Purchases” on the paywall with the same Apple Account used for purchase. Contact us if it persists.</dd>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot wrap" id="contact">
+  <div>
+    <div class="foot__mark">おにコレ</div>
+    <p class="foot__tag">国道走破コレクション / Japan Route Collection</p>
+  </div>
+  <div class="foot__links">
+    <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>
+    <a href="./privacy.html">プライバシーポリシー</a>
+    <a href="https://apps.apple.com/app/id6787720099">App Store</a>
+  </div>
+  <p class="foot__legal">Nanana Soft — お問い合わせはメールでお願いします。</p>
+</footer>
+
+<script>
+(function () {
+  document.body.classList.add('is-ready');
+
+  // 見出しの数字を 0 から 459 へ。動きを減らす設定のときは動かさない。
+  var el = document.getElementById('figure');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var target = 459, start = null, dur = 520;
+  el.textContent = '0';
+  requestAnimationFrame(function tick(t) {
+    if (start === null) start = t;
+    var p = Math.min(1, (t - start) / dur);
+    el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = String(target);
+  });
+})();
+</script>
 
 </body>
 </html>
