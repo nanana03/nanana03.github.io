@@ -165,6 +165,39 @@ a:hover { color: var(--color-accent-deep); }
 .chip:hover { background: var(--color-accent); color: var(--color-paper); }
 .chip:active { transform: translateY(1px); }
 
+/* ── App Store バッジ（原本のまま・動かさない・傾けない） ───── */
+.badge {
+  display: inline-block;
+  line-height: 0;
+  /* Apple の規定＝周囲にバッジ高さの 1/4 以上（48px の 1/4 = 12px）を空ける */
+  margin: var(--space-xs) var(--space-sm) var(--space-xs) 0;
+  border-radius: var(--radius-md);
+}
+.badge img { height: 48px; width: auto; display: block; }
+.badge:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+
+/* ── QR（スマホ幅では隠す＝自分の画面は読み取れないため） ───── */
+.qr {
+  display: none;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-ink-3);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+.qr img {
+  width: 96px;
+  height: 96px;
+  display: block;
+  padding: 6px;
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-sm);
+}
+@media (min-width: 720px) and (pointer: fine) {
+  .qr { display: flex; }
+}
+
 .note {
   font-size: var(--text-sm);
   color: var(--color-ink-3);
@@ -381,11 +414,22 @@ section { border-top: var(--rule-hair) solid var(--color-rule); }
     <h1 class="hero__head enter">日本の一般国道は459本。走った分だけ、地図が塗られる。</h1>
     <p class="hero__lede enter">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
     <div class="hero__actions">
-      <a class="chip" href="https://apps.apple.com/app/id6787720099">App Store で入手</a>
-      <!-- android-link: Play の審査が通ったら下の1行を有効にし、右の注記から「Android 版は準備中」を外す。
-           2026-09-17 時点で https://play.google.com/store/apps/details?id=com.nanabit.kokudo は HTTP 404。
-      <a class="chip" href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play で入手</a>
-      -->
+      <!-- App Store バッジは Apple 提供の原本をそのまま置いている（作り直し・改変・回転・
+           アニメーションは禁止＝developer.apple.com/app-store/marketing/guidelines/）。
+           取得元＝toolbox.marketingtools.apple.com の ja-jp / black（2026-09-18 取得・9,880 B）。
+           原本の寸法は 108.85×40。ここでは高さ 48px で等比表示している（画面上の下限は 40px）。
+           余白は高さの 1/4 以上（12px 以上）を空けること。1つのレイアウトにバッジは1つまで。
+           Android を足すときは **App Store を先頭**に置き、黒バッジのまま並べる。 -->
+      <a class="badge" href="https://apps.apple.com/app/id6787720099">
+        <img src="./img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="131" height="48">
+      </a>
+      <!-- android-link: Play の審査が通ったら、Google 提供の公式バッジを
+           play.google.com/intl/ja/badges/ から取って、この位置（App Store の後ろ）に足す。
+           2026-09-17 時点で https://play.google.com/store/apps/details?id=com.nanabit.kokudo は HTTP 404。 -->
+      <div class="qr">
+        <img src="./img/qr-appstore.svg" alt="App Store のページを開く QR コード" width="96" height="96">
+        <span>カメラで読み取ると<br>App Store が開きます</span>
+      </div>
       <span class="note">iPhone・無料（アプリ内課金あり）／Android 版は準備中</span>
     </div>
   </header>
