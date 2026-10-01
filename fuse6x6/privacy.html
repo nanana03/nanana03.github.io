@@ -59,7 +59,7 @@ a { color: var(--color-accent); }
 <article class="legal">
 
 <h1>Fuse 6×6 プライバシーポリシー</h1>
-<p class="updated">最終更新日: 2026年8月3日</p>
+<p class="updated">最終更新日: 2026年10月1日（Android 版の公開に合わせて第1・2・4条を改訂）</p>
 
 <p>「Fuse 6×6」（以下「本アプリ」）は、あなたのプライバシーを最優先に設計されています。</p>
 
@@ -68,7 +68,7 @@ a { color: var(--color-accent); }
   <li>本アプリは<strong>広告を表示しません</strong>。行動追跡・解析SDKも搭載していません。</li>
   <li><strong>位置情報・写真・連絡先・カレンダー・マイク・カメラには一切アクセスしません。</strong></li>
   <li>氏名・メールアドレス・電話番号・生年月日などの個人を特定する情報を求めることはありません。</li>
-  <li>広告識別子（IDFA）は取得しません。アプリ間のトラッキングも行いません。</li>
+  <li>広告識別子（iPhone の IDFA、Android の広告 ID）は取得しません。アプリ間のトラッキングも行いません。</li>
 </ul>
 
 <h2>2. 端末内にのみ保存されるもの</h2>
@@ -80,7 +80,7 @@ a { color: var(--color-accent); }
   <li>端末ごとに1つ作られるランダムな識別子（ランキングであなたの記録を同じ行として更新するためのもので、氏名や端末の固有IDとは無関係です）</li>
   <li>購入したコンティニュー回数の受け渡し記録</li>
 </ul>
-<p>アプリを削除すると、これらの多くは端末から消えます。ただし<strong>ランキング用のランダムな識別子は、iOSのキーチェーンに保存されるため、アプリを削除しても端末に残ります</strong>（再インストールしたときに、あなたのランキング記録が別人の記録として二重に登録されるのを防ぐためです）。この識別子から個人を特定することはできません。</p>
+<p>アプリを削除すると、これらの多くは端末から消えます。ただし<strong>iPhone では、ランキング用のランダムな識別子は iOS のキーチェーンに保存されるため、アプリを削除しても端末に残ります</strong>（再インストールしたときに、あなたのランキング記録が別人の記録として二重に登録されるのを防ぐためです）。<strong>Android では、この識別子もアプリの削除とともに端末から消えます</strong>（端末のバックアップにも含めません）。この識別子から個人を特定することはできません。</p>
 
 <h2>3. オンラインランキング（任意参加）について</h2>
 <ul>
@@ -97,7 +97,7 @@ a { color: var(--color-accent); }
 <h2>4. アプリ内課金について</h2>
 <ul>
   <li>本アプリは「コンティニュー3回」の買い切り課金を提供します。</li>
-  <li>課金処理はすべて<strong>AppleのApp Store</strong>を通じて行われます。<strong>開発者があなたの氏名・住所・クレジットカード情報を取得することはありません。</strong></li>
+  <li>課金処理はすべて、iPhone では<strong>Apple の App Store</strong>、Android では<strong>Google Play</strong>を通じて行われます。<strong>開発者があなたの氏名・住所・クレジットカード情報を取得することはありません。</strong></li>
   <li>購入が二重に反映されないよう、購入取引の識別子を<strong>端末内にのみ</strong>控えます。この控えが外部へ送信されることはありません。</li>
   <li>購入管理のための第三者サービス（購入管理SDK等）は使用していません。</li>
 </ul>
@@ -123,7 +123,7 @@ a { color: var(--color-accent); }
 
 <div class="en" id="en">
 <h1>Fuse 6×6 Privacy Policy</h1>
-<p class="updated">Last updated: August 3, 2026</p>
+<p class="updated">Last updated: October 1, 2026 (Sections 1, 2 and 4 revised for the Android release)</p>
 
 <p>Fuse 6×6 ("the App") is designed with your privacy as the top priority.</p>
 
@@ -132,7 +132,7 @@ a { color: var(--color-accent); }
   <li>The App displays <strong>no ads</strong> and contains no behavioral tracking or analytics SDKs.</li>
   <li><strong>It never accesses your location, photos, contacts, calendar, microphone, or camera.</strong></li>
   <li>It never asks for your name, email address, phone number, date of birth, or any other personally identifying information.</li>
-  <li>It does not collect the advertising identifier (IDFA) and does not track you across apps.</li>
+  <li>It does not collect advertising identifiers (the IDFA on iPhone or the advertising ID on Android) and does not track you across apps.</li>
 </ul>
 
 <h2>2. Data Stored Only on Your Device</h2>
@@ -144,7 +144,7 @@ a { color: var(--color-accent); }
   <li>A random identifier generated once per device (used solely to update your own ranking entry; it is unrelated to your name or to any device hardware ID)</li>
   <li>A record of purchased continues that have not yet been granted</li>
 </ul>
-<p>Deleting the App removes most of this from your device. However, <strong>the random ranking identifier is stored in the iOS Keychain and therefore remains on your device even after the App is deleted</strong> (this prevents your ranking entry from being duplicated as a different person if you reinstall). This identifier cannot be used to identify you.</p>
+<p>Deleting the App removes most of this from your device. However, <strong>on iPhone, the random ranking identifier is stored in the iOS Keychain and therefore remains on your device even after the App is deleted</strong> (this prevents your ranking entry from being duplicated as a different person if you reinstall). <strong>On Android, this identifier is also removed from your device when the App is deleted</strong> (it is excluded from device backups). This identifier cannot be used to identify you.</p>
 
 <h2>3. Online Ranking (Opt-in)</h2>
 <ul>
@@ -161,7 +161,7 @@ a { color: var(--color-accent); }
 <h2>4. In-App Purchases</h2>
 <ul>
   <li>The App offers a one-time purchase of "3 continues."</li>
-  <li>All payment processing is handled by <strong>Apple's App Store</strong>. <strong>The developer never receives your name, address, or payment details.</strong></li>
+  <li>All payment processing is handled by <strong>Apple's App Store</strong> on iPhone and by <strong>Google Play</strong> on Android. <strong>The developer never receives your name, address, or payment details.</strong></li>
   <li>To prevent a purchase from being granted twice, the transaction identifier is recorded <strong>only on your device</strong>. It is never transmitted.</li>
   <li>No third-party purchase-management service or SDK is used.</li>
 </ul>
