@@ -221,6 +221,12 @@ a:hover { text-decoration-thickness: 2px; }
   .intro .count a:hover b { transform: none; }
   .item:hover .obj img { transform: none; }
 }
+
+/* 日本語見出しは文節で改行する（語の途中で折らない）。keep-all＋文節ごとの <wbr> で全ブラウザ同じ切れ目にする
+   （auto-phrase は 320px で「一般／国道」を切ったので使わない）。数字＋単位は .nb で離さない。
+   幅が足りないときだけ overflow-wrap で救う（第3周後に 1687px で「走／った」を見つけて追加） */
+h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-break: strict; }
+.nb { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -294,7 +300,7 @@ a:hover { text-decoration-thickness: 2px; }
       <li class="item">
         <div class="stand"><div class="obj"><img class="tool" src="./img/icon-stockvaluation.webp" alt="上場株式の相続税評価額 計算ツールのアイコン" width="240" height="240" loading="lazy"></div></div>
         <div class="label">
-          <h3>上場株式の相続税評価額 計算ツール</h3>
+          <h3>上場株式の<wbr>相続税評価額 計算ツール</h3>
           <p>上場株式の相続税評価額を、財産評価基本通達どおりに4つの価額から自動で選び、国税庁様式の評価明細書 PDF と根拠の証跡まで出すソフト。</p>
           <p class="go"><a href="https://www.vector.co.jp/soft/winnt/business/se529138.html">Vector</a></p>
         </div>

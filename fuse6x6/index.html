@@ -285,6 +285,12 @@ figure { margin: 0; }
   .btn, .toy-tile { transition: none; }
   .toy-tile.is-pop { animation: none; }
 }
+
+/* 日本語見出しは文節で改行する（語の途中で折らない）。keep-all＋文節ごとの <wbr> で全ブラウザ同じ切れ目にする
+   （auto-phrase は 320px で「一般／国道」を切ったので使わない）。数字＋単位は .nb で離さない。
+   幅が足りないときだけ overflow-wrap で救う（第3周後に 1687px で「走／った」を見つけて追加） */
+h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-break: strict; }
+.nb { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -309,7 +315,7 @@ figure { margin: 0; }
 
   <section class="t t-hero" aria-labelledby="h1">
     <div>
-      <h1 id="h1"><span data-when="ja">数字を合体させる、<span class="hl">6×6</span> のパズル。</span><span data-when="en">A merge puzzle on a <span class="hl">6×6</span> board.</span></h1>
+      <h1 id="h1"><span data-when="ja">数字を<wbr>合体させる、<wbr><span class="hl">6×6</span>&nbsp;の<wbr>パズル。</span><span data-when="en">A merge puzzle on a <span class="hl">6×6</span> board.</span></h1>
       <p class="lede" data-when="ja">スワイプで数字を寄せて合体させます。盤には8種類のパネルが降ってきて、毎回ちがう展開になります。このページは遊び方とお問い合わせのための公式サポートページです。</p>
       <p class="lede" data-when="en">Swipe to push numbers together and merge them. Eight kinds of panels drop onto the board, so no two runs play the same. This is the official support page — how to play, and how to reach us.</p>
       <p class="count" data-when="ja">パネル8種 ／ 背景58枚 ／ 盤は6×6 ／ ランキングは3種類 ／ 広告なし ／ 通信なしで遊べます</p>
@@ -332,7 +338,7 @@ figure { margin: 0; }
   </div>
 
   <section class="t t-steps" id="play" aria-labelledby="h-play">
-    <h2 id="h-play"><span data-when="ja">基本は3つだけ</span><span data-when="en">Three things, that's all</span></h2>
+    <h2 id="h-play"><span data-when="ja">基本は<wbr>3つだけ</span><span data-when="en">Three things, that's all</span></h2>
     <ol class="steps" data-when="ja">
       <li><p><strong>スワイプで寄せる。</strong>上下左右のどれかへ、盤の数字をまとめて動かします。同じ数字がぶつかると合体して倍になります。</p></li>
       <li><p><strong>パネルを育てる。</strong>×2 やスイープなどの役に立つパネルは、置かれた直後は「準備中」で合体しません。カウントが 0 になるまでに盤を整えて、当てたい数字へ狙って当てます。</p></li>
@@ -346,7 +352,7 @@ figure { margin: 0; }
   </section>
 
   <section class="t t-ph" id="panels" aria-labelledby="h-panels">
-    <h2 id="h-panels"><span data-when="ja">盤に降ってくる8種類</span><span data-when="en">Eight kinds drop onto the board</span></h2>
+    <h2 id="h-panels"><span data-when="ja">盤に<wbr>降ってくる<wbr>8種類</span><span data-when="en">Eight kinds drop onto the board</span></h2>
     <p class="sub" data-when="ja">はじめの6つは役に立つパネル、あとの2つは邪魔物です。役に立つ側は「準備中」のあいだ合体しません。</p>
     <p class="sub" data-when="en">The first six help you; the last two get in your way. The helpful ones don't merge while they're charging.</p>
   </section>
@@ -403,7 +409,7 @@ figure { margin: 0; }
   <section class="t t-life" id="life" aria-labelledby="h-life">
     <p class="bignum">10<small data-when="ja">枚で残機+1</small><small data-when="en">iron = +1 life</small></p>
     <div>
-      <h2 id="h-life"><span data-when="ja">鉄を壊すことが、そのまま生存につながる</span><span data-when="en">Breaking iron is what keeps you alive</span></h2>
+      <h2 id="h-life"><span data-when="ja">鉄を<wbr>壊すことが、<wbr>そのまま<wbr>生存に<wbr>つながる</span><span data-when="en">Breaking iron is what keeps you alive</span></h2>
       <p class="sub" data-when="ja" style="margin-top: var(--space-sm)">鉄はボムでしか壊せません。壊しにいくのは手間ですが、そのぶん見返りがあります。積み上げた成果ほど失いにくい設計です。</p>
       <p class="sub" data-when="en" style="margin-top: var(--space-sm)">Only a bomb removes iron, so going after it costs you moves — and pays you back. The more you've built up, the harder it is to lose.</p>
     </div>
@@ -420,7 +426,7 @@ figure { margin: 0; }
 
   <section class="t t-iap" aria-labelledby="h-iap">
     <div data-when="ja">
-      <h2 id="h-iap">コンティニュー3回（買い切り・<span class="price">¥200</span>）</h2>
+      <h2 id="h-iap">コンティニュー3回<wbr>（買い切り・<wbr><span class="price">¥200</span>）</h2>
       <div class="cols" style="margin-top: var(--space-sm)">
       <p class="sub">本体は無料で、広告もありません。残機が尽きて盤面も詰まったときにだけ、コンティニュー3回ぶんを購入できます。買った回数に上限は掛かりません。購入は任意で、買わなくても最後まで遊べます。</p>
       <p class="sub">購入が反映されない場合は、通信状況をご確認のうえアプリを開き直してください。それでも反映されないときは、下記のメールまでご連絡ください。</p>
@@ -436,20 +442,20 @@ figure { margin: 0; }
   </section>
 
   <section class="t t-rank" id="rank" aria-labelledby="h-rank">
-    <h2 id="h-rank"><span data-when="ja">3つの軸で競えます</span><span data-when="en">Three ways to compete</span></h2>
+    <h2 id="h-rank"><span data-when="ja">3つの軸で<wbr>競えます</span><span data-when="en">Three ways to compete</span></h2>
     <p class="sub" data-when="ja"><strong>スコア</strong>・<strong>手数</strong>・<strong>鉄破壊数</strong>の3つです。参加は任意で、送るのは集計した数字とニックネームだけです。走った内容そのものや、端末を特定する情報は送りません。詳しくは<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p>
     <p class="sub" data-when="en"><strong>Score</strong>, <strong>moves</strong>, and <strong>iron destroyed</strong>. Taking part is your choice, and only the final numbers and your nickname are sent — never the details of your run. See the <a href="./privacy.html">Privacy Policy</a> for the specifics.</p>
   </section>
 
   <section class="t t-mail" id="contact" aria-labelledby="h-contact">
-    <h2 id="h-contact"><span data-when="ja">お問い合わせ</span><span data-when="en">Get in touch</span></h2>
+    <h2 id="h-contact"><span data-when="ja">お問い<wbr>合わせ</span><span data-when="en">Get in touch</span></h2>
     <p class="sub" data-when="ja">不具合のご報告・ご要望・購入に関するお問い合わせは、こちらのメールまでどうぞ。返信にはお時間をいただくことがあります。</p>
     <p class="sub" data-when="en">Bug reports, requests, and purchase questions all go to the address below. Replies may take a little time.</p>
     <a class="mailto" href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>
   </section>
 
   <section class="t t-faq" id="faq" aria-labelledby="h-faq">
-    <h2 id="h-faq"><span data-when="ja">よくある質問</span><span data-when="en">Frequently asked</span></h2>
+    <h2 id="h-faq"><span data-when="ja">よくある<wbr>質問</span><span data-when="en">Frequently asked</span></h2>
     <div class="faq" data-when="ja">
       <details><summary>データはどこに保存されますか？</summary>
         <p>スコアや「つづき」は端末内に保存されます。ランキングに参加したときだけ、集計した数字とニックネームが送信されます。詳細は<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p></details>
@@ -496,7 +502,7 @@ figure { margin: 0; }
     <li style="--bg: var(--tile-1024); --fg: var(--tile-1024-fg)">1024</li>
     <li style="--bg: var(--tile-2048); --fg: var(--tile-2048-fg)">2048</li>
   </ol>
-  <p class="statement"><span data-when="ja">詰んだところが、はじまり。</span><span data-when="en">Stuck is where it starts.</span></p>
+  <p class="statement"><span data-when="ja">詰んだ<wbr>ところが、<wbr>はじまり。</span><span data-when="en">Stuck is where it starts.</span></p>
   <p class="line">
     <span>Fuse 6×6 — Nanana</span>
     <a href="./privacy.html">プライバシーポリシー / Privacy</a>

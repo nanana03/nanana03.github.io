@@ -20,13 +20,15 @@
      コメントアウトしてある。公開されたら 200 になることを確かめてから有効にする -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link id="font-disp" data-text-from="h1,h2,h3,.disp,.rail a,.mark" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@700&amp;display=swap&amp;text=%20014579CEJOPRaceghiklnoprstu%E2%80%94%E3%80%81%E3%80%82%E3%81%82%E3%81%84%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8F%E3%81%91%E3%81%93%E3%81%99%E3%81%9B%E3%81%9F%E3%81%A0%E3%81%A3%E3%81%A4%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%BE%E3%82%81%E3%82%82%E3%82%84%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8F%E3%82%92%E3%82%AA%E3%82%B3%E3%83%AC%E3%83%B3%E4%B8%80%E4%BD%BF%E5%85%A5%E5%88%86%E5%88%87%E5%8F%B7%E5%90%88%E5%95%8F%E5%9B%B3%E5%9B%BD%E5%9C%B0%E5%A1%97%E5%A7%8B%E5%BC%95%E5%BD%A2%E6%96%99%E6%96%B9%E6%97%A5%E6%9C%AC%E7%84%A1%E7%94%BB%E7%95%AA%E8%88%AC%E8%A1%A8%E8%A8%98%E8%B2%B7%E8%B3%AA%E8%B5%B0%E9%81%93%E9%8C%B2%E9%9D%A2">
+<link id="font-disp" data-text-from="h1,h2,h3,.disp,.rail a,.mark" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@700&amp;display=swap&amp;text=%200145789CEJOPRaceghiklnoprstu%E2%80%94%E3%80%81%E3%80%82%E3%81%82%E3%81%84%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8F%E3%81%91%E3%81%93%E3%81%99%E3%81%9B%E3%81%9F%E3%81%A0%E3%81%A3%E3%81%A4%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%BE%E3%82%81%E3%82%82%E3%82%84%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8F%E3%82%92%E3%82%AA%E3%82%B3%E3%83%AC%E3%83%B3%E4%B8%80%E4%BD%BF%E5%85%A5%E5%88%86%E5%88%87%E5%8F%B7%E5%90%88%E5%95%8F%E5%9B%B3%E5%9B%BD%E5%9C%B0%E5%A1%97%E5%A7%8B%E5%BC%95%E5%BD%A2%E6%96%99%E6%96%B9%E6%97%A5%E6%9C%AC%E7%84%A1%E7%94%BB%E7%95%AA%E8%88%AC%E8%A1%A8%E8%A8%98%E8%B2%B7%E8%B3%AA%E8%B5%B0%E9%81%93%E9%8C%B2%E9%9D%A2">
 <link id="font-num" data-text-from=".num" data-text-extra="0123456789,.%km−–-+¥" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@800&amp;display=swap&amp;text=%20%25%2B%2C-.0123456789km%C2%A5%E2%80%93%E2%88%92">
 <style>
-/* Hallmark · genre: editorial · macrostructure: Map / Diagram · design-system: onikore/design.md · designed-as-app
+/* Hallmark · genre: editorial · macrostructure: Map / Diagram（番号表→長さの稜線 v2_ridge・2026-10-01 ユーザー選択） · design-system: onikore/design.md · designed-as-app
  * theme: studied-DNA（source: アプリ本体 kari-kokudo/src/theme.js）· axes: dark / signage-sans / cool
  * nav: N3 side-rail · footer: Ft4 dense colophon
- * enrichment: 番号表（データ＝kari-kokudo/src/data/kokudo.json＝道路統計年報2025 表26 由来・459路線）
+ * enrichment: 長さの稜線（データ＝kari-kokudo/src/data/kokudo.json＝道路統計年報2025 表26 由来・459路線）
+ *   紹介文・愛称・注記＝data/route-text.json（kari-kokudo/src/data/routeNotes.js から export_route_text.mjs で
+ *   機械的に書き出し・遅延読み込み）。表示規則はアプリ RouteDetail.js:952-971 と同じ
  *   国道標識の外形＝kari-kokudo/src/RouteShield.js の PLATE / KOKUDO パス（Wikimedia Commons
  *   “Japanese National Route Sign 0001.svg”・パブリックドメイン）
  *   実スクリーンショット4枚・録画1本は前回からの実素材（img/・media/）。作り物の端末枠なし
@@ -141,55 +143,32 @@ a:hover { color: var(--color-ink); }
 .dia-body { margin-top: var(--space-lg); display: grid; gap: var(--space-lg); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 64rem) { .dia-body { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; } }
 
-.table { display: grid; grid-template-columns: 2.4em repeat(20, minmax(0, 1fr)); gap: 2px 2px; align-items: center; }
-.table .row-label { font-size: 10px; color: var(--color-sub); text-align: right; padding-right: 6px; font-family: var(--font-num); font-weight: 800; }
-.sh {
-  appearance: none; border: 0; padding: 0; margin: 0; cursor: pointer; width: 100%; aspect-ratio: 455 / 435;
-  background: var(--shield) center / contain no-repeat; color: var(--color-white);
-  font-family: var(--font-num); font-weight: 800; font-size: 0; line-height: 1;
-  display: grid; place-items: center; padding-bottom: 14%; border-radius: 30%;
-}
-.sh:focus-visible { outline: 2px solid var(--color-current); outline-offset: 1px; }
-.sh[aria-pressed="true"] { outline: 3px solid var(--color-current); outline-offset: 1px; }
-@media (hover: hover) and (pointer: fine) { .sh:hover { outline: 2px solid var(--color-current); outline-offset: 1px; } }
-.gap { display: block; width: 100%; aspect-ratio: 455 / 435; position: relative; }
-.gap::after { content: ""; position: absolute; left: 30%; right: 30%; top: 48%; height: 2px; background: var(--color-line); }
-@media (min-width: 48rem) {
-  .table { gap: 4px 4px; }
-  .sh { font-size: clamp(9px, 0.95vw, 13px); }
-  .table .row-label { font-size: 11px; }
-}
-.table-wrap { position: relative; }
-.gap-note {
-  position: absolute; display: flex; align-items: center; justify-content: center; pointer-events: none;
-  font-size: clamp(11px, 0.4rem + 0.6vw, 14px); color: var(--color-sub); letter-spacing: 0.08em; white-space: nowrap;
-  border: 1px dashed var(--color-line); border-radius: 4px;
-}
-.gap-note .num { color: var(--color-ink); margin: 0 0.2em; }
-.gap.in-note::after { display: none; }
-.legend { margin-top: var(--space-md); display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-lg); font-size: var(--text-xs); color: var(--color-sub); }
-.legend span { display: inline-flex; align-items: center; gap: 8px; }
-.legend i { width: 18px; height: 17px; background: var(--shield) center / contain no-repeat; display: inline-block; }
-.legend i.g { background: none; position: relative; }
-.legend i.g::after { content: ""; position: absolute; left: 4px; right: 4px; top: 8px; height: 2px; background: var(--color-sub); }
-.source { margin-top: var(--space-xs); font-size: var(--text-xs); color: var(--color-sub); }
-
-/* 詳細（狭い幅＝下に張り付く／広い幅＝右に張り付く） */
+/* 長さの稜線（459本を総延長の長い順に並べた棒。v2_ridge＝ユーザー選択 2026-10-01） */
+.ridge { position: relative; height: 240px; touch-action: none; cursor: crosshair; outline-offset: 6px; }
+.ridge svg { width: 100%; height: 100%; display: block; }
+.ridge rect { fill: var(--color-accent); }
+.ridge rect.sel { fill: var(--color-current); }
+.ridge .base { stroke: var(--color-line); }
+@media (max-width: 40rem) { .ridge { height: 180px; } }
+.ridge-anno { display: flex; justify-content: space-between; gap: var(--space-md); margin-top: var(--space-xs); flex-wrap: wrap; }
+.anno { font-size: var(--text-xs); color: var(--color-sub); }
+.anno .num { color: var(--color-ink); }
+.source { margin-top: var(--space-md); font-size: var(--text-xs); color: var(--color-sub); }
+/* 詳細カード＝アプリの路線画面と同じ順（名前 → 愛称チップ → 紹介文 → ⓘ 注記） */
 .card {
   background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius);
-  padding: var(--space-md); display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: var(--space-sm) var(--space-md); align-items: start;
-  position: sticky; bottom: var(--space-xs); z-index: 2;
+  padding: var(--space-md); display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: var(--space-sm) var(--space-md); align-items: start;
 }
-@media (min-width: 64rem) { .card { top: var(--space-md); bottom: auto; grid-template-columns: minmax(0, 1fr); } .card svg { width: 132px; } }
-.card svg { width: 76px; height: auto; display: block; }
-@media (max-width: 63.99rem) {
-  .card { grid-template-columns: 52px minmax(0, 1fr); padding: var(--space-sm) var(--space-md); gap: var(--space-sm); box-shadow: 0 -12px 24px -8px var(--color-paper); }
-  .card svg { width: 52px; }
-  .card .prefs { display: none; }
-}
+@media (min-width: 64rem) { .card { grid-template-columns: minmax(0, 1fr); } .card svg { width: 120px; } }
+.card svg { width: 64px; height: auto; display: block; }
 .card h3 { font-size: var(--text-lg); }
 .card p { margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--color-sub); }
-.card .prefs { color: var(--color-ink); }
+.alias { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-xs); }
+.alias:empty { display: none; }
+.alias span { font-size: var(--text-xs); line-height: 1.5; padding: 2px 10px; border-radius: 999px; background: var(--color-card-2); border: 1px solid var(--color-line); color: var(--color-ink); }
+#card-text[aria-busy="true"] { min-height: 3.4em; }
+.card p.rnote { color: var(--color-ink); }
+.rnote:empty { display: none; }
 .find { display: flex; align-items: center; gap: var(--space-xs); margin-bottom: var(--space-md); font-size: var(--text-sm); color: var(--color-sub); flex-wrap: wrap; }
 .find label { white-space: nowrap; }
 .find input {
@@ -263,6 +242,12 @@ a:hover { color: var(--color-ink); }
 .colo .fine { margin-top: var(--space-md); max-width: 70em; line-height: 1.9; }
 
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+
+/* 日本語見出しは文節で改行する（語の途中で折らない）。keep-all＋文節ごとの <wbr> で全ブラウザ同じ切れ目にする
+   （auto-phrase は 320px で「一般／国道」を切ったので使わない）。数字＋単位は .nb で離さない。
+   幅が足りないときだけ overflow-wrap で救う（第3周後に 1687px で「走／った」を見つけて追加） */
+h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-break: strict; }
+.nb { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -270,7 +255,7 @@ a:hover { color: var(--color-ink); }
 <nav class="rail" aria-label="このページ">
   <a class="mark" href="./"><i aria-hidden="true"></i>おにコレ</a>
   <ul>
-    <li class="wide"><a href="#table">番号表</a></li>
+    <li class="wide"><a href="#table">459本</a></li>
     <li class="wide"><a href="#zoom">地図</a></li>
     <li class="wide"><a href="#how">使い方</a></li>
     <li class="wide"><a href="#pro">Pro</a></li>
@@ -284,7 +269,7 @@ a:hover { color: var(--color-ink); }
 
   <header class="head wrap">
     <p class="route-line"><span>国道</span><span class="num">1</span><span class="dash" aria-hidden="true"></span><span class="num">507</span><span>号</span></p>
-    <h1>日本の一般国道は<span class="num">459</span>本。走った分だけ、地図が塗られる。</h1>
+    <h1>日本の<wbr>一般国道は<wbr><span class="nb"><span class="num">459</span>本。</span><wbr>走った<wbr>分だけ、<wbr>地図が<wbr>塗られる。</h1>
     <p class="lede">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
     <div class="get">
       <!-- App Store バッジは Apple 提供の原本をそのまま置いている（作り直し・改変・回転・
@@ -310,8 +295,8 @@ a:hover { color: var(--color-ink); }
 
   <section class="dia" id="table" aria-labelledby="h-table">
     <div class="wrap">
-      <h2 id="h-table"><span class="num">1</span>号から<span class="num">507</span>号まで。番号があるのは<span class="num">459</span>本。</h2>
-      <p class="intro">おにコレが集める国道の一覧です。標識を押すと、その国道の長さと通る都道府県が出ます。文はアプリの路線画面と同じ組み立てです。59号から100号のあいだのように、番号のない所は空けてあります。</p>
+      <h2 id="h-table"><span class="nb"><span class="num">1</span>号から</span><wbr><span class="nb"><span class="num">507</span>号まで。</span><wbr>番号があるのは<wbr><span class="nb"><span class="num">459</span>本。</span></h2>
+      <p class="intro">459本を、総延長の長い順に左から並べました。棒の高さが長さです。触れると、その国道の紹介が出ます。紹介の文はアプリの路線画面と同じものです。</p>
       <div class="dia-body">
         <div>
           <div class="find">
@@ -319,26 +304,24 @@ a:hover { color: var(--color-ink); }
             <input id="find-no" type="number" inputmode="numeric" min="1" max="507" placeholder="299">
             <output id="find-msg" for="find-no"></output>
           </div>
-          <div class="table-wrap">
-          <div class="table" id="numbers" role="group" aria-label="国道の番号表（1号〜507号）">
-            <noscript><p class="sub" style="grid-column: 1 / -1">番号表の表示には JavaScript が必要です。</p></noscript>
+          <div class="ridge" id="ridge" tabindex="0" role="slider" aria-label="総延長の長い順に並べた国道" aria-valuemin="1" aria-valuemax="459">
+            <noscript><p class="sub">この図の表示には JavaScript が必要です。</p></noscript>
           </div>
-          <p class="gap-note" id="gap-note" hidden><span class="num">59</span>〜<span class="num">100</span>号　番号なし</p>
-          </div>
-          <p class="legend"><span><i aria-hidden="true"></i>番号のある国道（<span class="num">459</span>）</span><span><i class="g" aria-hidden="true"></i>番号のない所（<span class="num">48</span>）</span></p>
+          <div class="ridge-anno"><p class="anno" id="a-long"></p><p class="anno" id="a-short" style="text-align:right"></p></div>
           <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。</p>
         </div>
         <aside class="card" id="card" aria-live="polite">
-          <svg id="card-shield" viewBox="0 0 455 435" role="img" aria-label="国道1号の標識">
+          <svg id="card-shield" viewBox="0 0 455 435" role="img" aria-label="国道58号の標識">
             <path fill="#0140FF" stroke="#F4F8FC" stroke-width="16" stroke-linejoin="round" d="M 226.99991,425.39429 C 252.11645,425.39429 275.26756,415.76966 293.19578,399.78937 C 362.13553,330.75326 413.14928,244.91516 439.46426,150.46104 C 442.20297,142.16307 443.99982,131.7287 443.99982,120.87729 C 443.99982,76.02669 413.30428,38.28204 369.9794,27.07436 C 323.9411,15.75291 277.71818,9.99998 226.99992,9.99998 C 176.28166,9.99998 130.05873,15.75291 84.02044,27.07436 C 40.69555,38.28204 10.00001,76.02669 10.00001,120.87729 C 10.00001,131.7287 11.79686,142.16307 14.53557,150.46104 C 40.85055,244.91516 91.86431,330.75326 160.80406,399.78937 C 178.73227,415.76966 201.88339,425.39429 226.99991,425.39429 z"/>
             <path fill="#F4F8FC" d="M 297.94123,50.59376 C 296.0089,50.85725 296.02792,53.33515 295.18341,54.65626 C 294.57803,55.98989 293.89381,57.32001 293.14435,58.5547 C 289.97109,58.51222 286.60477,58.63911 283.5506,58.4922 C 283.61831,56.44435 282.12104,54.65541 281.54279,52.72657 C 281.25683,51.40823 280.03361,50.2006 278.58966,50.68751 C 276.87595,51.08072 276.81854,53.3601 277.71459,54.57684 C 278.05808,55.81295 279.39605,57.70744 279.15216,58.5547 C 276.36079,58.7026 273.48574,58.27506 270.7381,58.73438 C 268.9843,59.50733 269.50654,62.74385 271.54279,62.67188 C 276.20912,62.69038 280.87618,62.67429 285.54279,62.6797 C 284.83458,63.6515 285.02173,65.98378 283.3631,65.5547 C 280.63275,65.68642 277.83255,65.31069 275.13654,65.70313 C 273.3133,66.43477 274.16478,68.89156 273.97248,70.3672 C 274.02982,77.68961 273.86118,85.03425 274.0506,92.34376 C 274.50446,94.21201 276.93734,93.65068 278.31623,93.71095 C 286.62354,93.66096 294.94994,93.80891 303.24591,93.64063 C 304.84631,93.39524 304.8803,91.42032 304.72248,90.1797 C 304.66558,82.43795 304.83316,74.67423 304.64435,66.94532 C 304.16553,65.07032 301.72384,65.58795 300.31623,65.5547 C 296.53498,65.5547 292.75373,65.5547 288.97248,65.5547 C 289.38721,64.60647 289.78898,63.66066 290.08966,62.6797 C 295.66282,62.60671 301.26946,62.81902 306.82404,62.58595 C 308.85627,62.08422 308.51477,58.42264 306.28498,58.5547 C 303.50633,58.5547 300.72768,58.5547 297.94904,58.5547 C 298.85368,56.50775 300.20587,54.46687 300.32404,52.20313 C 300.20572,51.06093 299.02887,50.44165 297.94123,50.59376 z M 258.60529,52.12501 C 256.79067,52.28004 255.93203,55.02246 257.62873,55.96876 C 260.53331,57.8305 263.09696,60.17796 265.62091,62.47657 C 267.4138,63.61595 269.66799,61.04248 268.33966,59.40626 C 265.73257,56.6208 262.67622,54.17629 259.39435,52.20313 C 259.13952,52.1265 258.87137,52.0969 258.60529,52.12501 z M 146.1756,52.35938 C 144.53796,52.4777 144.24836,54.43134 144.47248,55.7422 C 144.51531,70.37849 144.38758,85.02817 144.53498,99.65626 C 144.91063,101.50205 147.24754,101.19025 148.62873,101.14845 C 162.91869,101.11116 177.22189,101.22248 191.50373,101.09376 C 193.18898,100.8998 193.26149,98.82259 193.09748,97.52345 C 193.0546,82.96264 193.18243,68.38877 193.03498,53.83595 C 192.67381,51.98276 190.33164,52.27363 188.94123,52.33595 C 174.68653,52.35171 160.42786,52.3045 146.1756,52.35938 z M 188.72248,56.71095 C 188.72248,70.09636 188.72248,83.48178 188.72248,96.8672 C 175.43081,96.8672 162.13914,96.8672 148.84748,96.8672 C 148.84748,83.48178 148.84748,70.09636 148.84748,56.71095 C 162.13914,56.71095 175.43081,56.71095 188.72248,56.71095 z M 153.52716,60.59376 C 151.23352,60.52108 150.97798,64.39968 153.15216,64.76563 C 157.49653,64.93978 161.86827,64.7817 166.22248,64.83595 C 166.22248,67.3672 166.22248,69.89845 166.22248,72.4297 C 162.35532,72.53493 158.43563,72.2295 154.59748,72.56251 C 152.63923,73.13474 152.99353,76.5713 155.07404,76.64845 C 158.78675,76.72525 162.50703,76.65601 166.22248,76.6797 C 166.22248,80.58595 166.22248,84.4922 166.22248,88.39845 C 161.5336,88.47764 156.78418,88.2473 152.12873,88.50001 C 150.06694,88.96554 150.31978,92.59344 152.48029,92.71095 C 163.67602,92.74678 174.89073,92.79548 186.08185,92.68751 C 188.31856,92.3565 188.09738,88.31086 185.73029,88.39845 C 180.64435,88.39845 175.55841,88.39845 170.47248,88.39845 C 170.47248,84.4922 170.47248,80.58595 170.47248,76.6797 C 174.67335,76.58793 178.93669,76.85153 183.10529,76.57032 C 185.19778,76.05955 184.81532,72.31004 182.5506,72.4297 C 178.52456,72.4297 174.49852,72.4297 170.47248,72.4297 C 170.47248,69.89845 170.47248,67.3672 170.47248,64.83595 C 175.35217,64.75405 180.26942,64.99085 185.12873,64.73438 C 187.16854,64.26878 186.9546,60.68255 184.77716,60.60938 C 174.36381,60.55974 163.94131,60.59125 153.52716,60.59376 z M 300.50373,69.71095 C 300.12724,70.86571 301.42555,73.69527 299.50373,73.3047 C 292.40998,73.3047 285.31623,73.3047 278.22248,73.3047 C 278.59896,72.14993 277.30065,69.32037 279.22248,69.71095 C 286.31623,69.71095 293.40998,69.71095 300.50373,69.71095 z M 257.15216,71.43751 C 254.73351,71.43876 254.80148,75.70609 257.19904,75.67188 C 259.59192,75.69098 261.98556,75.67385 264.37873,75.6797 C 264.37873,80.68751 264.37873,85.69532 264.37873,90.70313 C 261.89915,93.65423 258.63507,95.898 255.60529,98.25001 C 254.57186,99.55778 255.66093,101.83397 257.40998,101.58595 C 259.32729,101.41452 260.47265,99.46411 262.02768,98.52302 C 263.36226,97.46058 264.73814,96.2046 266.00373,95.20313 C 269.2338,99.4958 275.07585,100.63595 280.20683,100.73747 C 289.0655,100.69844 297.94835,100.83714 306.79279,100.67188 C 308.92074,100.21826 308.4618,96.45757 306.23029,96.58595 C 296.85622,96.51657 287.4751,96.72384 278.10529,96.48438 C 274.8154,96.13314 270.70239,95.48273 269.04279,92.21095 C 268.19563,89.58184 268.88125,86.71174 268.65998,83.9922 C 268.57322,80.25354 268.82169,76.47696 268.55841,72.75782 C 267.98177,70.83488 265.46254,71.54579 264.00373,71.4297 C 261.72019,71.43538 259.43439,71.41863 257.15216,71.43751 z M 177.08966,77.25001 C 175.3772,77.36714 174.32684,79.7354 175.67782,80.98077 C 177.15323,82.78756 178.2058,84.94815 179.35529,86.96095 C 180.5688,88.3277 183.28948,87.36431 183.03498,85.4297 C 182.73889,83.48683 181.14181,81.98109 180.31149,80.23855 C 179.44341,79.10812 178.88662,77.0363 177.08966,77.25001 z M 300.50373,77.52345 C 300.1286,78.7004 301.331,81.45489 299.75373,81.4297 C 292.57664,81.4297 285.39956,81.4297 278.22248,81.4297 C 278.5976,80.25274 277.3952,77.49826 278.97248,77.52345 C 286.14956,77.52345 293.32664,77.52345 300.50373,77.52345 z M 300.50373,85.64845 C 300.12462,86.81101 301.33734,89.56539 299.75373,89.52345 C 292.57664,89.52345 285.39956,89.52345 278.22248,89.52345 C 278.60158,88.36088 277.38887,85.6065 278.97248,85.64845 C 286.14956,85.64845 293.32664,85.64845 300.50373,85.64845 z"/>
-            <text id="card-no" x="227" y="265" fill="#F4F8FC" font-size="190" font-family="Overpass, sans-serif" font-weight="800" text-anchor="middle">1</text>
+            <text id="card-no" x="227" y="256.6" fill="#F4F8FC" font-size="165" font-family="Overpass, sans-serif" font-weight="800" text-anchor="middle">58</text>
             <text x="227" y="325" fill="#F4F8FC" font-size="44" font-family="Overpass, sans-serif" font-weight="800" text-anchor="middle" letter-spacing="4">ROUTE</text>
           </svg>
           <div>
-            <h3 id="card-name">国道1号</h3>
-            <p id="card-text">8都道府県にまたがる、総延長764.6kmの一般国道です。</p>
-            <p class="prefs" id="card-prefs"></p>
+            <h3 id="card-name">国道58号</h3>
+            <p class="alias" id="card-alias"></p>
+            <p id="card-text" aria-busy="true"></p>
+            <p class="rnote" id="card-note"></p>
           </div>
         </aside>
       </div>
@@ -347,7 +330,7 @@ a:hover { color: var(--color-ink); }
 
   <section class="sec" id="zoom" aria-labelledby="h-zoom">
     <div class="wrap">
-      <h2 id="h-zoom">引くと、走った国道が日本の形になる。</h2>
+      <h2 id="h-zoom">引くと、<wbr>走った<wbr>国道が<wbr>日本の<wbr>形になる。</h2>
       <p class="sub">走破済みの区間は、地図をどれだけ引いても消えません。倍率に合わせて線を細くするので、日本全体まで引いても道の形が潰れずに残ります。</p>
       <div class="zoom">
         <figure>
@@ -363,11 +346,11 @@ a:hover { color: var(--color-ink); }
 
   <section class="sec" id="how" aria-labelledby="h-how">
     <div class="wrap">
-      <h2 id="h-how">やることは、記録を入れて走るだけ。</h2>
+      <h2 id="h-how">やることは、<wbr>記録を<wbr>入れて<wbr>走るだけ。</h2>
       <ol class="steps">
-        <li><span class="k" aria-hidden="true">1</span><h3>記録をオンにする</h3><p>走り出す前に記録をオンにします。あとの操作は要りません。</p></li>
-        <li><span class="k" aria-hidden="true">2</span><h3>いつもどおり走る</h3><p>走行中の位置から、いまどの国道にいるかを判定して記録します。</p></li>
-        <li><span class="k" aria-hidden="true">3</span><h3>地図が塗られる</h3><p>走った区間が路線ごとに積み上がり、走破率が伸びます。写真を添えることもできます。</p></li>
+        <li><span class="k" aria-hidden="true">1</span><h3>記録を<wbr>オンにする</h3><p>走り出す前に記録をオンにします。あとの操作は要りません。</p></li>
+        <li><span class="k" aria-hidden="true">2</span><h3>いつもどおり<wbr>走る</h3><p>走行中の位置から、いまどの国道にいるかを判定して記録します。</p></li>
+        <li><span class="k" aria-hidden="true">3</span><h3>地図が<wbr>塗られる</h3><p>走った区間が路線ごとに積み上がり、走破率が伸びます。写真を添えることもできます。</p></li>
       </ol>
     </div>
   </section>
@@ -398,7 +381,7 @@ a:hover { color: var(--color-ink); }
 
   <section class="sec" id="pro" aria-labelledby="h-pro">
     <div class="wrap">
-      <h2 id="h-pro">無料で始められます。Pro は買い切りです。</h2>
+      <h2 id="h-pro">無料で<wbr>始められます。<wbr>Pro&nbsp;は<wbr>買い切りです。</h2>
       <p class="sub">サブスクリプションではありません。一度買えば、そのあとの課金はありません。</p>
       <table class="spec">
         <caption>2026年9月時点の内容です。</caption>
@@ -471,109 +454,104 @@ a:hover { color: var(--color-ink); }
 (function () {
   var raw = document.getElementById('routes-data');
   if (!raw) return;
-  var D = JSON.parse(raw.textContent), P = D.p, BY = {};
+  var D = JSON.parse(raw.textContent), P = D.p, BY = {}, MAX = 507;
   D.r.forEach(function (r) { BY[r[0]] = r; });
-  var COLS = 20, MAX = 507, ROWS = Math.ceil(MAX / COLS);
 
-  // アプリの概要文と同じ組み立て（kari-kokudo/src/RouteDetail.js overview()）
+  // アプリの自動概要（kari-kokudo/src/RouteDetail.js overview()）。紹介文の無い路線だけに出す＝アプリと同じ
   function overview(r) {
     var prefs = r[3].map(function (i) { return P[i]; });
-    var len = '総延長' + r[1].toFixed(1) + 'km';
-    var np = prefs.length;
+    var len = '総延長' + r[1].toFixed(1) + 'km', np = prefs.length;
     var span = np >= 2 ? np + '都道府県にまたがる' : np === 1 ? prefs[0] + '内を通る' : '';
     var s = span + (span ? '、' : '') + len + 'の一般国道です。';
     if (r[2] > 0) s += '海上区間（約' + r[2].toFixed(0) + 'km）を含みます。';
-    return { text: s, prefs: prefs };
+    return s;
   }
 
-  var table = document.getElementById('numbers');
-  var frag = document.createDocumentFragment();
-  for (var row = 0; row < ROWS; row++) {
-    var lab = document.createElement('span');
-    lab.className = 'row-label'; lab.setAttribute('aria-hidden', 'true');
-    lab.textContent = row * COLS + 1;
-    frag.appendChild(lab);
-    for (var c = 1; c <= COLS; c++) {
-      var n = row * COLS + c;
-      if (n > MAX) break;
-      if (BY[n]) {
-        var b = document.createElement('button');
-        b.type = 'button'; b.className = 'sh'; b.textContent = n;
-        b.setAttribute('data-no', n); b.setAttribute('aria-label', '国道' + n + '号');
-        b.setAttribute('aria-pressed', 'false'); b.tabIndex = -1;
-        frag.appendChild(b);
-      } else {
-        var g = document.createElement('span'); g.className = 'gap'; g.setAttribute('aria-hidden', 'true');
-        frag.appendChild(g);
-      }
-    }
+  // 紹介文（data/route-text.json＝routeNotes.js から機械的に書き出したもの・約117KB）は初回表示では読まない。
+  // 稜線の節が見えたとき、または最初に操作したときに1回だけ読む。
+  var TXT = null, loading = null, cur;
+  function loadText() {
+    if (loading) return loading;
+    loading = fetch('./data/route-text.json')
+      .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
+      .then(function (j) { TXT = j; })
+      .catch(function () { TXT = { a: {}, d: {}, n: {} }; })   // 読めなければアプリと同じく自動概要に落とす
+      .then(function () { render(cur); });
+    return loading;
   }
-  table.appendChild(frag);
 
-  // 地図への書き込み：59〜100号の空き（いちばん大きい空白）に注記を重ねる。位置は実際のマスから測る
-  var note = document.getElementById('gap-note');
-  function placeNote() {
-    var first = null, last = null;
-    // 61〜100 の空き＝行61・81 の20マス（59・60 は行41の末尾なので含めない）
-    var cells = table.querySelectorAll('.sh, .gap'), k = 0;
-    for (var i = 0; i < cells.length; i++) {
-      var el = cells[i]; k++;
-      if (k === 61) first = el; if (k === 100) last = el;
-      if (k >= 61 && k <= 100) el.classList.add('in-note');
-    }
-    if (!first || !last) return;
-    var wrap = note.parentNode.getBoundingClientRect(), a = first.getBoundingClientRect(), b = last.getBoundingClientRect();
-    note.style.left = (a.left - wrap.left) + 'px'; note.style.top = (a.top - wrap.top) + 'px';
-    note.style.width = (b.right - a.left) + 'px'; note.style.height = (b.bottom - a.top) + 'px';
-    note.hidden = false;
-  }
-  placeNote();
-  window.addEventListener('resize', placeNote);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeNote);
-
-  var btns = Array.prototype.slice.call(table.querySelectorAll('.sh'));
   var card = { no: document.getElementById('card-no'), name: document.getElementById('card-name'),
-    text: document.getElementById('card-text'), prefs: document.getElementById('card-prefs'),
-    svg: document.getElementById('card-shield') };
-  var current = null;
-
-  function select(n, focus) {
-    var r = BY[n]; if (!r) return false;
-    if (current) { current.setAttribute('aria-pressed', 'false'); current.tabIndex = -1; }
-    current = table.querySelector('.sh[data-no="' + n + '"]');
-    current.setAttribute('aria-pressed', 'true'); current.tabIndex = 0;
-    if (focus) current.focus();
-    var o = overview(r), d = String(n).length;
-    card.no.textContent = n;
-    card.no.setAttribute('font-size', d >= 3 ? 120 : d === 2 ? 165 : 190);
-    card.no.setAttribute('y', 198 + (d >= 3 ? 120 : d === 2 ? 165 : 190) * 0.355);
+    alias: document.getElementById('card-alias'), text: document.getElementById('card-text'),
+    note: document.getElementById('card-note'), svg: document.getElementById('card-shield') };
+  function render(n) {
+    var r = BY[n]; if (!r) return;
+    var d = String(n).length, fs = d >= 3 ? 120 : d === 2 ? 165 : 190;
+    card.no.textContent = n; card.no.setAttribute('font-size', fs); card.no.setAttribute('y', 198 + fs * 0.355);
     card.svg.setAttribute('aria-label', '国道' + n + '号の標識');
     card.name.textContent = '国道' + n + '号';
-    card.text.textContent = o.text;
-    card.prefs.textContent = o.prefs.join('・');
+    card.alias.textContent = ''; card.note.textContent = '';
+    if (!TXT) { card.text.setAttribute('aria-busy', 'true'); card.text.textContent = ''; return; }
+    card.text.removeAttribute('aria-busy');
+    // アプリの路線画面と同じ規則（RouteDetail.js:952-971）：愛称チップ／紹介文（無ければ自動概要）／ⓘ 注記
+    (TXT.a[n] || []).forEach(function (a) { var c = document.createElement('span'); c.textContent = a; card.alias.appendChild(c); });
+    card.text.textContent = TXT.d[n] || overview(r);
+    card.note.textContent = TXT.n[n] ? 'ⓘ ' + TXT.n[n] : '';
+  }
+
+  // ── 長さの稜線 ──
+  var sorted = D.r.slice().sort(function (a, b) { return b[1] - a[1] || a[0] - b[0]; });
+  var N = sorted.length, maxL = sorted[0][1], ridge = document.getElementById('ridge'), rects = {}, idx = {};
+  var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + N + ' 100'); svg.setAttribute('preserveAspectRatio', 'none'); svg.setAttribute('aria-hidden', 'true');
+  sorted.forEach(function (r, i) {
+    var h = Math.max(0.6, r[1] / maxL * 96), rc = document.createElementNS(ns, 'rect');
+    rc.setAttribute('x', i + 0.12); rc.setAttribute('width', 0.76); rc.setAttribute('y', 100 - h); rc.setAttribute('height', h);
+    svg.appendChild(rc); rects[r[0]] = rc; idx[r[0]] = i;
+  });
+  var base = document.createElementNS(ns, 'line'); base.setAttribute('class', 'base'); base.setAttribute('vector-effect', 'non-scaling-stroke');
+  base.setAttribute('x1', 0); base.setAttribute('x2', N); base.setAttribute('y1', 100); base.setAttribute('y2', 100);
+  svg.appendChild(base); ridge.appendChild(svg);
+  var L = sorted[0], S = sorted[N - 1];
+  document.getElementById('a-long').innerHTML = '← 最長 国道<span class="num">' + L[0] + '</span>号 <span class="num">' + L[1].toFixed(1) + '</span>km（うち海上 約<span class="num">' + L[2].toFixed(0) + '</span>km）';
+  document.getElementById('a-short').innerHTML = '最短 国道<span class="num">' + S[0] + '</span>号 <span class="num">' + S[1].toFixed(1) + '</span>km →';
+
+  function select(n) {
+    if (!BY[n]) return false;
+    if (rects[cur]) rects[cur].classList.remove('sel');
+    cur = n; rects[n].classList.add('sel');
+    ridge.setAttribute('aria-valuenow', idx[n] + 1); ridge.setAttribute('aria-valuetext', '国道' + n + '号・長い順に' + (idx[n] + 1) + '番目');
+    render(n);
     return true;
   }
-  select(1, false);
-
-  table.addEventListener('click', function (e) {
-    var b = e.target.closest('.sh'); if (b) select(+b.getAttribute('data-no'), false);
+  function at(e) {
+    loadText();
+    var rc = ridge.getBoundingClientRect(), i = Math.floor((e.clientX - rc.left) / rc.width * N);
+    select(sorted[Math.max(0, Math.min(N - 1, i))][0]);
+  }
+  ridge.addEventListener('pointerdown', at);
+  ridge.addEventListener('pointermove', function (e) { if (e.buttons || e.pointerType === 'mouse') at(e); });
+  ridge.addEventListener('keydown', function (e) {
+    var st = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!st) return;
+    e.preventDefault(); loadText();
+    select(sorted[Math.max(0, Math.min(N - 1, idx[cur] + st))][0]);
   });
-  // 矢印キーで番号表を動ける（Tab で 459 個を渡らせない）
-  table.addEventListener('keydown', function (e) {
-    var b = e.target.closest('.sh'); if (!b) return;
-    var n = +b.getAttribute('data-no'), step = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: COLS, ArrowUp: -COLS }[e.key];
-    if (!step) return;
-    e.preventDefault();
-    for (var m = n + step; m >= 1 && m <= MAX; m += step) { if (BY[m]) { select(m, true); break; } }
-  });
+  select(L[0]);
 
   var input = document.getElementById('find-no'), msg = document.getElementById('find-msg');
+  input.addEventListener('focus', loadText);
   input.addEventListener('input', function () {
     var n = parseInt(input.value, 10);
     if (!n) { msg.textContent = ''; return; }
     if (n < 1 || n > MAX) { msg.textContent = '1〜507 の番号です'; return; }
-    msg.textContent = select(n, false) ? '' : '国道' + n + '号はありません';
+    loadText();
+    msg.textContent = select(n) ? '' : '国道' + n + '号はありません';
   });
+  if ('IntersectionObserver' in window) {
+    var tio = new IntersectionObserver(function (es) {
+      if (es.some(function (en) { return en.isIntersecting; })) { tio.disconnect(); loadText(); }
+    }, { threshold: 0.25 });
+    tio.observe(ridge);   // 節の見出しではなく稜線そのものが4分の1見えたとき（第4周：節の上端が初回画面に入って読まれていた）
+  } else { loadText(); }
 
   // 録画：画面に入ったときだけ読み込んで再生。動きを減らす設定ではコントロールのまま止めておく
   var v = document.getElementById('zoom-video');

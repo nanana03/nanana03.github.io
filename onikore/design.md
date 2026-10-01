@@ -40,3 +40,11 @@
 
 ## privacy.html
 - 同じ色・同じ書体で包むだけ。本文（`<article class="legal">` の中）は一字一句変えない。
+
+## 変更（2026-10-01 第4周）
+- 番号表（20列×26段）を**長さの稜線**に置き換えた（ユーザー選択＝PICK `v2_ridge.html`）。459本を総延長の長い順に並べた棒。
+- 詳細カードの文は**アプリの路線画面と同じ規則**（`kari-kokudo/src/RouteDetail.js:952-971`）：
+  愛称チップ（ROUTE_INFO.alias）→ 紹介文（ROUTE_INFO.desc。無ければ自動概要）→「ⓘ 」＋注記（ROUTE_NOTES）。
+  文言は `data/route-text.json`＝`routeNotes.js` から `export_route_text.mjs` で機械的に書き出したもの（手で写さない）。
+  初回表示では読まず、稜線が4分の1見えたとき／最初に操作したときに読む。
+- 日本語見出しは `word-break: keep-all`＋文節ごとの `<wbr>`、数字＋単位は `.nb`（nowrap）。
