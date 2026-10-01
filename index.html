@@ -23,7 +23,7 @@
  *   zipshrink ＝ 社長室\開発部\ZipShrink\icon.png ／ stockvaluation ＝ 社長室\開発部\StockValuation\exe_build\app_icon.png
  *   pathlessmark ＝ Product\PathlessMark\assets\vector_src\01_explorer.png（Vector 用に撮った実画面）から印の付いたフォルダを1つ切り出し＝アイコンを持たないソフトのため
  * 前回（2026-08-19 Index-First / Newsprint / N6 / Ft4）から macrostructure・nav・footer・display・accent を変えた
- * pre-emit critique: P5 H5 E5 S5 R5 V5
+ * pre-emit critique: P5 H5 E5 S5 R5 V5 · motion: 入場1回（棚に置く）＋ホバー1つ
  */
 :root {
   --color-paper:  oklch(96.6% 0.008 85);
@@ -58,6 +58,7 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-short: 220ms;
+  --dur-long: 460ms;
   --z-sticky: 20;
 }
 @media (prefers-color-scheme: dark) {
@@ -83,6 +84,7 @@ body {
 }
 h1, h2, h3 { font-family: var(--font-display); font-style: normal; margin: 0; overflow-wrap: anywhere; min-width: 0; }
 p { margin: 0; text-wrap: pretty; }
+h1, h2 { text-wrap: balance; }
 a { color: var(--color-accent); text-decoration-thickness: 1px; text-underline-offset: 0.28em; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 4px; }
@@ -175,6 +177,13 @@ a:hover { text-decoration-thickness: 2px; }
   display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; font-size: var(--text-sm);
 }
 
+/* 1回だけの入場：品物が棚に置かれる（上から 10px 降りて接地、影が広がる）。以後は動かない */
+@keyframes place { from { transform: translateY(-10px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes land { from { transform: scaleX(0.5); opacity: 0; } to { transform: none; opacity: 1; } }
+.obj img { animation: place var(--dur-long) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.obj::after { animation: land var(--dur-long) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.item:nth-child(2) { --i: 1; } .item:nth-child(3) { --i: 2; } .item:nth-child(4) { --i: 3; }
+.shelf--short .item { --i: 0; } .shelf--short .item:nth-child(2) { --i: 1; } .shelf--short .item:nth-child(3) { --i: 2; }
 @media (hover: hover) and (pointer: fine) {
   .item:hover .obj img { transform: translateY(-4px); }
   .item:hover .obj::after { transform: scaleX(0.8); opacity: 0.6; }
@@ -208,7 +217,7 @@ a:hover { text-decoration-thickness: 2px; }
 .letter .colophon { margin-top: var(--space-xs); color: var(--color-muted); font-size: var(--text-xs); max-width: 48em; }
 
 @media (prefers-reduced-motion: reduce) {
-  .obj img, .obj::after, .intro .count b { transition: none; }
+  .obj img, .obj::after, .intro .count b { transition: none; animation: none; }
   .intro .count a:hover b { transform: none; }
   .item:hover .obj img { transform: none; }
 }

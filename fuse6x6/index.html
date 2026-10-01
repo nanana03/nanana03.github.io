@@ -94,6 +94,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; font-style: nor
 /* 漢字の多い見出しは Dela Gothic One だと潰れる（第1周の撮影で確認）＝丸ゴシックの極太に */
 h2, h3, .statement { font-family: var(--font-round); font-weight: 800; letter-spacing: 0.02em; }
 p { margin: 0; text-wrap: pretty; }
+h1, h2 { text-wrap: balance; }
 a { color: var(--color-ink); text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
 a:hover { color: var(--color-accent); }
 :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 6px; }
@@ -153,9 +154,9 @@ strong { color: var(--color-ink); }
   .t-steps { grid-column: span 4; }
   .t-ph    { grid-column: span 2; }
   .t-panel { grid-column: span 2; }
-  .t-life  { grid-column: span 2; grid-row: span 2; }
+  .t-life  { grid-column: span 2; }
   .t-facts { grid-column: span 4; }
-  .t-iap   { grid-column: span 4; }
+  .t-iap   { grid-column: span 6; }
   .t-rank  { grid-column: span 3; }
   .t-mail  { grid-column: span 3; }
   .t-faq   { grid-column: span 6; }
@@ -245,6 +246,7 @@ figure { margin: 0; }
 .facts b { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1.1; color: var(--color-accent); }
 .facts span { color: var(--color-sub); }
 .t-iap h2 { font-size: var(--text-lg); }
+@media (min-width: 64rem) { .t-iap .cols { columns: 2; column-gap: var(--space-xl); } .t-iap .cols p { break-inside: avoid; } }
 .price { font-family: var(--font-display); color: var(--color-accent); }
 
 /* FAQ */
@@ -419,13 +421,17 @@ figure { margin: 0; }
   <section class="t t-iap" aria-labelledby="h-iap">
     <div data-when="ja">
       <h2 id="h-iap">コンティニュー3回（買い切り・<span class="price">¥200</span>）</h2>
-      <p class="sub" style="margin-top: var(--space-sm)">本体は無料で、広告もありません。残機が尽きて盤面も詰まったときにだけ、コンティニュー3回ぶんを購入できます。買った回数に上限は掛かりません。購入は任意で、買わなくても最後まで遊べます。</p>
+      <div class="cols" style="margin-top: var(--space-sm)">
+      <p class="sub">本体は無料で、広告もありません。残機が尽きて盤面も詰まったときにだけ、コンティニュー3回ぶんを購入できます。買った回数に上限は掛かりません。購入は任意で、買わなくても最後まで遊べます。</p>
       <p class="sub">購入が反映されない場合は、通信状況をご確認のうえアプリを開き直してください。それでも反映されないときは、下記のメールまでご連絡ください。</p>
+      </div>
     </div>
     <div data-when="en">
       <h2>3 Continues (one-time purchase, <span class="price">JPY 200</span>)</h2>
-      <p class="sub" style="margin-top: var(--space-sm)">The game is free and carries no ads. When your lives run out and the board is stuck, you can buy three continues. There's no cap on how many you buy, and it's entirely optional — the game is complete without it.</p>
+      <div class="cols" style="margin-top: var(--space-sm)">
+      <p class="sub">The game is free and carries no ads. When your lives run out and the board is stuck, you can buy three continues. There's no cap on how many you buy, and it's entirely optional — the game is complete without it.</p>
       <p class="sub">If a purchase doesn't appear, check your connection and reopen the app. If it still doesn't show up, email us at the address below.</p>
+      </div>
     </div>
   </section>
 
