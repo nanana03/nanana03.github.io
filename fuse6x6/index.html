@@ -2,706 +2,508 @@
 <html lang="ja" data-lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fuse 6×6 — サポート / Support</title>
 <meta name="description" content="6×6の盤で数字を合体させるパズル「Fuse 6×6」の公式サポートページ。遊び方、パネル8種、残機とコンティニュー、ランキング、よくある質問。">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#14131b">
 <link rel="icon" href="./favicon.png" sizes="32x32">
 <link rel="apple-touch-icon" href="./img/icon-180.png">
+<!-- url-ok: https://fonts.googleapis.com  url-ok: https://fonts.gstatic.com
+     preconnect 用のオリジン（素の GET は 404）。実際に読む css2?family=… は 200。 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link id="font-disp" data-text-from="h1,.toy-tile,.ladder li,.bignum,.facts b,.pill .mark,.price" data-text-extra="0123456789+−" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;display=swap&amp;text=%20%25%2B.0123456789%3DAEFJPSUYabdefgilmnopruz%C2%A5%C3%97%E2%88%92%E3%80%81%E3%80%82%E3%81%95%E3%81%9B%E3%81%A7%E3%81%AE%E3%82%8B%E3%82%92%E3%82%BA%E3%83%91%E3%83%AB%E4%BD%93%E5%90%88%E5%AD%97%E6%95%B0%E6%9E%9A%E6%A9%9F%E6%AE%8B">
+<link id="font-round" data-text-from="h2,h3,.statement" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&amp;display=swap&amp;text=%20%27%28%29%2C-.0238BCDEFGIJMPQSTUWYabcdeghiklmnopqrstuvwy%C2%A5%E3%80%81%E3%80%82%E3%81%82%E3%81%84%E3%81%88%E3%81%8A%E3%81%8C%E3%81%8F%E3%81%91%E3%81%93%E3%81%98%E3%81%99%E3%81%9B%E3%81%9D%E3%81%A0%E3%81%A3%E3%81%A4%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%BE%E3%82%88%E3%82%8A%E3%82%8B%E3%82%8D%E3%82%8F%E3%82%92%E3%82%93%E3%82%A2%E3%82%A3%E3%82%A4%E3%82%AF%E3%82%B0%E3%82%B3%E3%82%B9%E3%83%80%E3%83%83%E3%83%86%E3%83%88%E3%83%89%E3%83%8B%E3%83%8D%E3%83%96%E3%83%97%E3%83%9C%E3%83%9E%E3%83%A0%E3%83%A5%E3%83%AB%E3%83%B3%E3%83%BB%E3%83%BC%E5%88%87%E5%90%88%E5%95%8F%E5%9B%9E%E5%9F%BA%E5%A3%8A%E5%AD%98%E6%9C%A8%E6%9C%AC%E7%94%9F%E7%9B%A4%E7%A8%AE%E7%AB%B6%E8%A9%B0%E8%B2%B7%E8%B3%AA%E8%BB%B8%E9%89%84%E9%99%8D%E9%A1%9E%EF%BC%88%EF%BC%89">
+<link rel="preload" as="image" href="./img/board.webp" fetchpriority="high">
 <style>
-/* Hallmark · genre: playful · macrostructure: Catalogue · theme: Hum
- * enrichment: real product art (アプリの assets を Web 用に縮小したもの。生成画像や
- *   それらしい代用は一切使っていない) · nav: N7 brutal slab · footer: Ft5 statement
- * axes: light paper / rounded-sans / multi-accent
+/* Hallmark · genre: playful · macrostructure: Bento Grid · design-system: fuse6x6/design.md · designed-as-app
+ * theme: studied-DNA（source: アプリ本体 src/ui/theme.js・src/game/format.js）· axes: dark / display-heavy / multi
+ * nav: N5 floating pill · footer: Ft2 inline single line（＋数字タイルの段）
+ * enrichment: 実物のみ＝img/board.webp（_store/shots/iphone69/2_game.png から盤面を切り出し）／
+ *   panels/*.webp（アプリの assets/items を縮小・既存）／img/bg2.webp（アプリ同梱の背景・既存）
+ * 前回（2026-08-03 Catalogue / Hum / N7 / Ft5 · light / rounded-sans）から macrostructure・nav・footer・paper・display を変えた
+ * 書体：h1・数字＝Dela Gothic One／h2・h3＝M PLUS Rounded 1c 800（漢字の多い見出しで Dela が潰れたため）
+ * 色はアプリの値をそのまま使う（OKLCH に直さない＝製品の色そのもの）。タイル色は tileColor() の出力。
  * pre-emit critique: P5 H5 E4 S5 R4 V5
- * 注記1: Hum は本来 Plus Jakarta Sans + JetBrains Mono の2ファミリだが、日本語が
- *        必要なため丸ゴシックの Zen Maru Gothic を CJK 用に足している（Hum の
- *        rounded-sans レジスタを保つ選択。明朝は使わない）。
- * 注記2: N7 は本来 角丸を嫌うが、Hum は角丸必須。ナビのスラブ自体は直角のまま、
- *        中の CTA だけ pill にしてある（意図的な例外）。
  */
-
 :root {
-  /* ── paper / ink（Hum：純白も純黒も使わない） ── */
-  --color-paper:    oklch(97% 0.012 95);
-  --color-paper-2:  oklch(94% 0.016 95);
-  --color-paper-3:  oklch(91% 0.020 95);
-  --color-ink:      oklch(20% 0.012 250);
-  --color-ink-2:    oklch(42% 0.012 250);
-  --color-rule:     oklch(85% 0.014 95);
+  --color-paper:  #14131b;
+  --color-board:  #241f31;
+  --color-cell:   #2f2940;
+  --color-cell-2: #3b3550;
+  --color-ink:    #f5f2ff;
+  --color-sub:    #b9b0d3;
+  --color-accent: #ffc23c;
+  --color-accent-ink: #14131b;
+  --color-ready:  #f5f2ff;
+  --color-focus:  #ffc23c;
+  --color-dim:    rgba(20, 19, 27, 0.78);
 
-  /* ── multi-accent（それぞれ持ち場が違う） ── */
-  --color-accent:      oklch(86% 0.18 95);    /* pear = 主役の行動・ライフ */
-  --color-accent-deep: oklch(72% 0.19 88);    /* pear の縁（ボタンの厚み） */
-  --color-accent-2:    oklch(66% 0.18 235);   /* cyan = リンク・ランキング */
-  --color-accent-3:    oklch(68% 0.24 18);    /* coral = 1ページに1回の山場 */
-  --color-mint:        oklch(80% 0.16 150);
-  --color-lavender:    oklch(74% 0.16 305);
-  --color-focus:       oklch(55% 0.19 235);
+  /* 数字タイル（format.js tileColor の出力そのもの） */
+  --tile-2: hsl(262, 38%, 34%);   --tile-2-fg: #ffffff;
+  --tile-4: hsl(286, 41%, 36%);   --tile-4-fg: #ffffff;
+  --tile-8: hsl(310, 45%, 38%);   --tile-8-fg: #ffffff;
+  --tile-16: hsl(334, 48%, 40%);  --tile-16-fg: #ffffff;
+  --tile-32: hsl(358, 51%, 43%);  --tile-32-fg: #ffffff;
+  --tile-64: hsl(22, 54%, 45%);   --tile-64-fg: #060409;
+  --tile-128: hsl(46, 58%, 47%);  --tile-128-fg: #060409;
+  --tile-256: hsl(70, 61%, 49%);  --tile-256-fg: #060409;
+  --tile-512: hsl(94, 64%, 51%);  --tile-512-fg: #060409;
+  --tile-1024: hsl(118, 68%, 53%); --tile-1024-fg: #060409;
+  --tile-2048: hsl(142, 71%, 55%); --tile-2048-fg: #060409;
 
-  --font-display: "Plus Jakarta Sans", "Zen Maru Gothic", system-ui, sans-serif;
-  --font-body:    "Plus Jakarta Sans", "Zen Maru Gothic", system-ui, sans-serif;
-  --font-label:   "JetBrains Mono", ui-monospace, monospace;
+  /* パネル（format.js ITEM_STYLE） */
+  --p-magnet: #a3e635; --p-up: #2fd4c4; --p-sweep: #ff9f1c; --p-x2: #4d9dff;
+  --p-x4: #7c6bff; --p-bomb: #ff4d6d; --p-iron: #6b7280; --p-wood: #8a6b4a;
 
-  --space-2xs: 4px;  --space-xs: 8px;  --space-sm: 12px; --space-md: 20px;
-  --space-lg: 32px;  --space-xl: 48px; --space-2xl: 72px; --space-3xl: 104px;
+  --font-display: "Dela Gothic One", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-round: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
 
-  --text-sm: 0.875rem; --text-base: 1rem; --text-lg: 1.125rem;
-  --text-2xl: clamp(1.35rem, 2.4vw + .8rem, 1.9rem);
-  --text-3xl: clamp(1.8rem, 4vw + .8rem, 3rem);
-  --text-num: clamp(2.6rem, 7vw + .5rem, 5rem);
+  --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 20px;
+  --space-lg: 28px; --space-xl: 44px; --space-2xl: 72px;
 
-  --radius-card: 20px; --radius-pill: 999px; --radius-input: 12px;
-  --rule-hair: 1.5px;
+  --text-xs: 0.78rem; --text-sm: 0.875rem; --text-base: 1rem; --text-lg: 1.125rem;
+  --text-h2: clamp(1.3rem, 1.05rem + 1vw, 1.75rem);
+  --text-h1: clamp(2rem, 1.2rem + 3.4vw, 3.6rem);
+  --text-num: clamp(4.5rem, 2rem + 9vw, 9rem);
 
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-snap:   cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out:    cubic-bezier(0.2, 0.7, 0.3, 1);
+  --gap: clamp(6px, 0.9vw, 12px);
+  --radius-tile: clamp(10px, 1.4vw, 16px);
+  --radius-btn: 12px;
+  --radius-pill: 999px;
+  --shell: 1200px;
+  --gutter: clamp(10px, 2.6vw, 32px);
 
-  --page-max: 1080px;
-  --page-gutter: clamp(1rem, 4vw, 2rem);
-  --section-gap: var(--space-2xl);
-  --shell: var(--page-max);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 90ms;
+  --dur-short: 200ms;
+  --z-sticky: 20;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
-html { scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
 body {
-  margin: 0;
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: 1.85;
-  font-variant-numeric: tabular-nums;
-  -webkit-text-size-adjust: 100%;
+  margin: 0; background: var(--color-paper); color: var(--color-ink);
+  font-family: var(--font-body); font-size: var(--text-base); line-height: 1.8;
 }
-h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 700; font-style: normal;
-  letter-spacing: -0.02em; line-height: 1.25;
-  overflow-wrap: anywhere; min-width: 0;
-}
-p { margin: 0 0 1em; max-width: 62ch; }
-a { color: var(--color-ink); text-decoration-thickness: 1.5px; text-underline-offset: .2em; }
-a:hover { color: oklch(45% 0.14 235); }
-:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; font-style: normal; margin: 0;
+  overflow-wrap: anywhere; min-width: 0; letter-spacing: 0.01em; line-height: 1.3; }
+/* 漢字の多い見出しは Dela Gothic One だと潰れる（第1周の撮影で確認）＝丸ゴシックの極太に */
+h2, h3, .statement { font-family: var(--font-round); font-weight: 800; letter-spacing: 0.02em; }
+p { margin: 0; text-wrap: pretty; }
+a { color: var(--color-ink); text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+a:hover { color: var(--color-accent); }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 6px; }
+strong { color: var(--color-ink); }
 
-/* ── 一つのシェル幅。帯セクションも中身の左右端は必ず揃える ── */
-.section { max-width: var(--shell); margin-inline: auto; padding: var(--section-gap) var(--page-gutter); }
-.section--band { max-width: none; padding-inline: 0; }
-.section--band > .inner { max-width: var(--shell); margin-inline: auto; padding-inline: var(--page-gutter); }
-.band-pear  { background: var(--color-paper-2); }
-.band-cyan  { background: oklch(66% 0.18 235 / 0.08); }
-.band-coral { background: oklch(68% 0.24 18 / 0.07); }
+/* ── 言語切替（JS なしでも日本語が出る） ── */
+[data-lang="ja"] [data-when="en"] { display: none !important; }
+[data-lang="en"] [data-when="ja"] { display: none !important; }
 
-.mono-label {
-  font-family: var(--font-label); font-size: 11px; letter-spacing: .10em;
-  text-transform: uppercase; color: var(--color-ink-2); display: block;
-  margin: 0 0 var(--space-xs);
+/* ── N5 floating pill ── */
+.pill {
+  position: sticky; top: var(--space-sm); z-index: var(--z-sticky);
+  display: flex; align-items: center; gap: var(--space-xs);
+  width: fit-content; max-width: calc(100% - 2 * var(--gutter)); margin: var(--space-sm) auto 0;
+  padding: 4px 4px 4px var(--space-md);
+  background: var(--color-board); border: 1px solid var(--color-cell-2); border-radius: var(--radius-pill);
 }
-em, .hl {
-  font-style: normal; color: inherit;
-  background-image: linear-gradient(var(--hl, oklch(86% 0.18 95 / 0.6)) 0 0);
-  background-repeat: no-repeat; background-size: 100% 0.34em; background-position: 0 82%;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+.pill .mark { font-family: var(--font-display); font-size: var(--text-sm); text-decoration: none; white-space: nowrap; letter-spacing: 0.04em; }
+.pill nav ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.pill nav a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-sm);
+  font-size: var(--text-sm); color: var(--color-sub); text-decoration: none; white-space: nowrap;
 }
+.pill nav a:hover { color: var(--color-ink); }
+.lang { display: inline-flex; background: var(--color-paper); border-radius: var(--radius-pill); padding: 3px; }
+.lang button {
+  min-height: 38px; min-width: 44px; padding: 0 var(--space-sm); border: 0; border-radius: var(--radius-pill);
+  background: transparent; color: var(--color-sub); font: inherit; font-size: var(--text-xs); cursor: pointer; white-space: nowrap;
+}
+.lang button[aria-pressed="true"] { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 700; }
+@media (max-width: 47.99rem) { .pill nav { display: none; } }
 
-/* ── N7 Brutal slab（直角のまま。中の CTA だけ pill） ── */
-.nav-slab {
-  position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;
-  padding: var(--space-sm) var(--page-gutter);
-  border-bottom: 2px solid var(--color-ink);
-  background: var(--color-paper);
+/* ── 盤（6列の格子） ── */
+.board {
+  max-width: var(--shell); margin: var(--space-lg) auto 0; padding: var(--gap);
+  background: var(--color-board); border-radius: calc(var(--radius-tile) + var(--gap));
+  display: grid; gap: var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.slab-mark {
-  font-family: var(--font-display); font-weight: 700; letter-spacing: .02em;
-  font-size: var(--text-lg); text-decoration: none; white-space: nowrap;
+@media (max-width: 75rem) { .board { margin-inline: var(--gutter); } }
+.t {
+  grid-column: span 2; min-width: 0; position: relative;
+  background: var(--color-cell); border-radius: var(--radius-tile);
+  padding: var(--space-lg) var(--space-md);
 }
-.slab-nav ul {
-  display: flex; gap: var(--space-md); list-style: none; padding: 0; margin: 0;
-  flex-wrap: wrap;
-}
-.slab-nav a {
-  font-family: var(--font-label); font-size: 11px; letter-spacing: .08em;
-  text-transform: uppercase; text-decoration: none; color: var(--color-ink-2);
-  white-space: nowrap;
-  /* タップ領域は 44px 以上（実測して下回っていたので明示。padding では足りない） */
-  display: inline-flex; align-items: center; min-height: 45px; padding-inline: 2px;
-}
-.slab-nav a:hover { color: var(--color-ink); }
-.slab-right { margin-left: auto; display: flex; align-items: center; gap: var(--space-xs); }
+.t h2 { font-size: var(--text-h2); }
+.t h2 + p, .t h2 + .steps, .t h2 + ol { margin-top: var(--space-sm); }
+.t p + p { margin-top: var(--space-sm); }
+.sub { color: var(--color-sub); }
+.small { font-size: var(--text-sm); }
 
-/* ── 言語トグル ── */
-.lang-toggle {
-  display: inline-flex; border: 2px solid var(--color-ink); border-radius: var(--radius-pill);
-  overflow: hidden; background: var(--color-paper);
+@media (min-width: 48rem) {
+  .board { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .t { padding: var(--space-xl) var(--space-lg); }
+  .t-hero  { grid-column: span 4; grid-row: span 2; }
+  .t-shot  { grid-column: span 2; grid-row: span 2; }
+  .t-toy   { grid-column: span 2; }
+  .t-steps { grid-column: span 4; }
+  .t-ph    { grid-column: span 2; }
+  .t-panel { grid-column: span 2; }
+  .t-life  { grid-column: span 2; grid-row: span 2; }
+  .t-facts { grid-column: span 4; }
+  .t-iap   { grid-column: span 4; }
+  .t-rank  { grid-column: span 3; }
+  .t-mail  { grid-column: span 3; }
+  .t-faq   { grid-column: span 6; }
 }
-.lang-toggle button {
-  font-family: var(--font-label); font-size: 11px; letter-spacing: .08em;
-  padding: 8px 14px; min-height: 45px; border: 0; background: transparent;
-  color: var(--color-ink-2); cursor: pointer; white-space: nowrap;
-  transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
-}
-.lang-toggle button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-paper); }
-.lang-toggle button:hover:not([aria-pressed="true"]) { background: var(--color-paper-3); }
-
-/* ── Hum のボタン（押し込みが手ごたえ） ── */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
-  padding: .8rem 1.4rem; min-height: 44px;
-  font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm);
-  color: var(--color-ink); background: var(--color-accent);
-  border: 0; border-radius: var(--radius-pill); cursor: pointer; text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 6px 12px -3px oklch(76% 0.20 95 / .45);
-  transition: transform 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
-}
-.btn:hover  { color: var(--color-ink); transform: translateY(-2px);
-  box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px oklch(76% 0.20 95 / .45); }
-.btn:active { transform: translateY(3px); transition-duration: 70ms;
-  box-shadow: 0 1px 0 0 var(--color-accent-deep), 0 2px 6px -2px oklch(76% 0.20 95 / .45); }
-
-/* ── ヘッダ（Catalogue：大見出しでなく、屋号＋在庫の数え上げ） ── */
-.masthead {
-  display: grid; gap: var(--space-lg) var(--space-xl); padding-top: var(--space-xl);
-  grid-template-columns: minmax(0, 1fr);
-}
-@media (min-width: 62rem) {
-  .masthead { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: start; }
-  .masthead > .hero-art { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
-}
-/* タイトル絵はアプリの assets/title.jpg そのもの（ロゴもキャラもこの1枚に入っている） */
-.hero-art {
-  width: 100%; max-width: 248px; height: auto; justify-self: center;
-  border-radius: var(--radius-card); display: block;
-  box-shadow: 0 20px 44px -24px oklch(20% .012 250 / .55);
-  rotate: -1.2deg;   /* 版面を1枚だけ外す。全部が真っ直ぐだと組版が機械的に見える */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .t-hero, .t-steps, .t-iap, .t-ph { grid-column: span 6; }
+  .t-shot, .t-life { grid-column: span 3; grid-row: auto; }
+  .t-toy, .t-panel, .t-facts { grid-column: span 3; }
 }
 
-/* ── 背景の見本（アプリに実在する58枚から機械的に6枚） ── */
-/* 6枚が入る幅で折り返す。横スクロールにすると狭い列では1枚しか見えない
-   （実測で確認：列幅557pxに対し必要幅708px＝5枚が隠れていた） */
-.bg-strip {
-  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: var(--space-xs); margin-top: var(--space-md);
-}
-@media (max-width: 30rem) { .bg-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.bg-strip img {
-  width: 100%; height: auto; aspect-ratio: 720 / 1052; object-fit: cover;
-  border-radius: 10px; display: block;
-  transition: transform 220ms var(--ease-spring);
-}
-.bg-strip img:hover { transform: translateY(-4px); }
-.masthead h1 { font-size: var(--text-3xl); margin: 0; }
-.masthead .lede { font-size: var(--text-lg); color: var(--color-ink-2); }
-.count-line {
-  font-family: var(--font-label); font-size: var(--text-sm); letter-spacing: .04em;
-  color: var(--color-ink-2); border-top: var(--rule-hair) solid var(--color-rule);
-  padding-top: var(--space-sm); margin: 0;
-  max-width: none;   /* 本文の 62ch 制限を受けると1語だけ折り返して不格好になる */
-}
-
-/* ── キャラクターモーメント：クリックで 2 が 4 になる小さなパネル ── */
-.toy { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
-.toy-tile {
-  position: relative; width: 68px; height: 68px; flex: none;
-  display: grid; place-items: center; border: 0; cursor: pointer;
-  border-radius: 16px; background: var(--color-accent); color: var(--color-ink);
-  font-family: var(--font-display); font-weight: 700; font-size: 1.6rem;
-  box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 10px 20px -8px oklch(76% .2 95 / .5);
-  animation: toy-breathe 4s ease-in-out infinite;
-  transition: transform 220ms var(--ease-spring), background-color 200ms;
-}
-.toy-tile:hover { transform: translateY(-3px); }
-.toy-tile:active { transform: translateY(2px); }
-.toy-tile[data-v="4"]  { background: oklch(80% 0.16 150); }
-.toy-tile[data-v="8"]  { background: oklch(66% 0.18 235); color: var(--color-paper); }
-.toy-tile[data-v="16"] { background: oklch(74% 0.16 305); }
-.toy-tile[data-v="32"] { background: oklch(68% 0.24 18); color: var(--color-paper); }
-@keyframes toy-breathe { 0%,100% { scale: 1; } 50% { scale: 1.04; } }
-.star-burst {
-  position: absolute; inset: 0; margin: auto; width: 26px; height: 26px; pointer-events: none;
+/* ヒーロー：アプリ同梱の背景を、アプリと同じように暗く沈めて敷く */
+.t-hero {
   background:
-    linear-gradient(90deg, transparent 47%, var(--color-accent-3) 47% 53%, transparent 53%),
-    linear-gradient(0deg,  transparent 47%, var(--color-accent-3) 47% 53%, transparent 53%);
-  animation: star-burst 420ms ease-out forwards;
+    linear-gradient(var(--color-dim), var(--color-dim)),
+    url("./img/bg2.webp") center 30% / cover no-repeat,
+    var(--color-cell);
+  display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-xl);
 }
-@keyframes star-burst {
-  0%   { transform: scale(0) rotate(0deg);    opacity: 1; }
-  60%  { transform: scale(1.3) rotate(35deg); opacity: .9; }
-  100% { transform: scale(1.6) rotate(45deg); opacity: 0; }
+.t-hero h1 { font-size: var(--text-h1); line-height: 1.18; max-width: 14em; }
+.t-hero h1 .hl { color: var(--color-accent); }
+.t-hero .lede { margin-top: var(--space-md); max-width: 34em; color: var(--color-ink); font-size: var(--text-lg); }
+.t-hero .count { margin-top: var(--space-md); color: var(--color-sub); font-size: var(--text-sm); }
+.stores { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--space-md);
+  border-radius: var(--radius-btn); font-weight: 700; font-size: var(--text-sm); text-decoration: none; white-space: nowrap;
+  background: var(--color-accent); color: var(--color-accent-ink); border: 2px solid var(--color-accent);
+  transition: transform var(--dur-micro) var(--ease-out);
 }
+.btn:hover { color: var(--color-accent-ink); }
+.btn:active { transform: translateY(2px); }
+.btn--ghost { background: var(--color-paper); color: var(--color-accent); }
+.btn--ghost:hover { color: var(--color-accent); background: var(--color-board); }
 
-/* ── 遊び方：番号つきの一本道（3枚並べたカードにしない） ── */
-.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: var(--space-md); }
-.steps li {
-  counter-increment: s; display: grid; grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-md); align-items: start;
-  padding-bottom: var(--space-md); border-bottom: 1px dashed var(--color-rule);
+.t-shot { padding: 0; overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--color-board); }
+.t-shot img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; object-position: center; display: block; }
+.t-shot figcaption { padding: var(--space-sm) var(--space-md); font-size: var(--text-xs); color: var(--color-sub); background: var(--color-cell); }
+figure { margin: 0; }
+
+/* 合体の玩具：数字タイル（色は tileColor そのもの） */
+.t-toy { display: flex; align-items: center; gap: var(--space-md); }
+.toy-tile {
+  flex: none; width: 88px; height: 88px; border-radius: var(--radius-tile); border: 0; cursor: pointer;
+  font-family: var(--font-display); font-size: 2.1rem; line-height: 1;
+  background: var(--bg, var(--tile-2)); color: var(--fg, var(--tile-2-fg));
+  transition: transform var(--dur-micro) var(--ease-out);
 }
-.steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+.toy-tile:active { transform: scale(0.94); }
+.toy-tile.is-pop { animation: pop var(--dur-short) var(--ease-out); }
+@keyframes pop { 0% { transform: scale(0.9); } 100% { transform: scale(1); } }
+
+/* 遊び方 */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: var(--space-sm); counter-increment: s; }
 .steps li::before {
-  content: counter(s); font-family: var(--font-display); font-weight: 700;
-  font-size: 1.6rem; line-height: 1; color: var(--color-accent-deep);
-  min-width: 1.6ch;
+  content: counter(s); font-family: var(--font-display); font-size: 1.15rem; line-height: 2.4rem; text-align: center;
+  width: 2.4rem; height: 2.4rem; border-radius: 8px; background: var(--tile-2); color: var(--tile-2-fg);
 }
-.steps p { margin: 0; }
+.steps li:nth-child(2)::before { background: var(--tile-4); color: var(--tile-4-fg); }
+.steps li:nth-child(3)::before { background: var(--tile-8); color: var(--tile-8-fg); }
+.steps strong { display: block; }
+.steps p { color: var(--color-sub); }
+.steps p strong { color: var(--color-ink); }
+@media (min-width: 64rem) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); } .steps li { grid-template-columns: minmax(0, 1fr); } }
 
-/* ── パネル図鑑（Catalogue の背骨） ── */
-.catalog {
-  display: grid; gap: var(--space-md);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  margin-top: var(--space-lg);
+/* パネル8枚。区画にポインタ／フォーカスが来るとアプリの「準備完了」と同じ白枠 */
+.t-ph { display: flex; flex-direction: column; justify-content: flex-end; background: var(--color-board); border: 1px dashed var(--color-cell-2); }
+.t-panel {
+  display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: var(--space-md); align-items: start;
+  padding: var(--space-md); outline: 2px solid transparent; outline-offset: -2px;
 }
-.panel-card {
-  --tint: var(--color-accent);
-  display: grid; gap: var(--space-xs); align-content: start;
-  padding: var(--space-md); border-radius: var(--radius-card);
-  background: color-mix(in oklch, var(--tint) 8%, var(--color-paper));
-  transition: transform 220ms var(--ease-spring), background-color 220ms, box-shadow 220ms;
-}
-.panel-card:hover {
-  transform: translateY(-4px);
-  background: color-mix(in oklch, var(--tint) 16%, var(--color-paper));
-  box-shadow: 0 14px 30px -18px oklch(20% .012 250 / .35);
-}
-/* パネルの絵はアプリの実物（assets/ の PANEL_ART と同じ画像を Web 用に縮小）。
-   絵が自前の背景（濃紺・青・藍）を持つので、下にタイル色は敷かない。 */
-.panel-glyph {
-  width: 96px; height: 96px; border-radius: 16px; display: block;
-  object-fit: cover; background: var(--tint);
-  box-shadow: 0 6px 16px -10px oklch(20% .012 250 / .6);
-  transition: transform 220ms var(--ease-spring);
-}
-.panel-card:hover .panel-glyph { transform: scale(1.04) rotate(-1.5deg); }
-.panel-card h3 { margin: var(--space-2xs) 0 0; font-size: var(--text-lg); }
-.panel-card p  { margin: 0; font-size: var(--text-sm); line-height: 1.7; color: var(--color-ink-2); }
-.panel-card .tag {
-  font-family: var(--font-label); font-size: 10px; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--color-ink-2);
-}
+.t-panel:hover, .t-panel:focus-within { outline-color: var(--color-ready); }
+.t-panel img { width: 72px; height: 72px; border-radius: 14px; display: block; background: var(--c); }
+.t-panel h3 { font-size: var(--text-lg); }
+.t-panel .tag { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-xs); color: var(--color-sub); letter-spacing: 0.04em; }
+.t-panel .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+.t-panel p { margin-top: var(--space-2xs); color: var(--color-sub); font-size: var(--text-sm); line-height: 1.7; }
 
-/* ── ライフ：ページで1回だけの山場。数字が版面からはみ出す ── */
-.life-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
-@media (min-width: 60rem) { .life-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
-.bignum {
-  font-family: var(--font-display); font-weight: 700; font-size: var(--text-num);
-  line-height: .92; letter-spacing: -.04em; color: var(--color-accent-3);
-  margin: 0 0 var(--space-2xs);
-}
-.bignum small { font-size: .32em; letter-spacing: 0; color: var(--color-ink-2); margin-left: .4em; }
-.facts { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-sm); }
-.facts li {
-  display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: var(--space-md);
-  align-items: baseline; padding-block: var(--space-xs);
-  border-bottom: 1px dashed var(--color-rule);
-}
-.facts b { font-family: var(--font-display); font-size: 1.35rem; color: var(--color-accent-3); }
-.facts span { font-size: var(--text-sm); color: var(--color-ink-2); }
+/* ライフ：ページで1回の山場（ボムの赤） */
+.t-life { background: var(--color-cell); display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-lg); }
+.bignum { font-family: var(--font-display); font-size: var(--text-num); line-height: 0.9; color: var(--p-bomb); letter-spacing: -0.02em; }
+.bignum small { display: block; margin-top: var(--space-sm); font-family: var(--font-body); font-weight: 700; font-size: var(--text-lg); line-height: 1.4; letter-spacing: 0; color: var(--color-ink); }
+.t-life h2 { font-size: var(--text-h2); }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.facts li { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: var(--space-md); align-items: baseline; padding: var(--space-sm) 0; border-top: 1px solid var(--color-cell-2); }
+.facts li:first-child { border-top: 0; padding-top: 0; }
+.facts b { font-family: var(--font-display); font-weight: 400; font-size: 1.6rem; line-height: 1.1; color: var(--color-accent); }
+.facts span { color: var(--color-sub); }
+.t-iap h2 { font-size: var(--text-lg); }
+.price { font-family: var(--font-display); color: var(--color-accent); }
 
-.note {
-  border-left: 4px solid var(--color-accent); border-radius: 0 var(--radius-input) var(--radius-input) 0;
-  background: var(--color-paper-2); padding: var(--space-md); margin-top: var(--space-md);
-}
-.note p:last-child { margin-bottom: 0; }
-
-/* ── FAQ ── */
-.faq { display: grid; gap: var(--space-sm); margin-top: var(--space-lg); }
-.faq details {
-  background: var(--color-paper); border-radius: var(--radius-card);
-  padding: var(--space-sm) var(--space-md);
-  box-shadow: 0 1px 0 0 var(--color-rule), 0 10px 26px -22px oklch(20% .012 250 / .5);
-}
+/* FAQ */
+.faq { margin-top: var(--space-md); display: grid; gap: var(--gap); }
+@media (min-width: 64rem) { .faq { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.faq details { background: var(--color-board); border-radius: calc(var(--radius-tile) - 4px); padding: 0 var(--space-md); }
 .faq summary {
-  cursor: pointer; font-family: var(--font-display); font-weight: 600;
-  padding-block: var(--space-xs); min-height: 44px; display: flex; align-items: center;
-  list-style: none;
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--space-sm); min-height: 56px;
+  font-weight: 700;
 }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::before {
-  content: "＋"; margin-right: .6em; color: var(--color-accent-deep); font-weight: 700;
-  transition: transform 180ms var(--ease-out); display: inline-block;
+  content: "+"; flex: none; width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center;
+  background: var(--color-cell-2); color: var(--color-accent); font-family: var(--font-display); font-size: 0.95rem;
 }
 .faq details[open] summary::before { content: "−"; }
-.faq details p { margin: 0 0 var(--space-xs); color: var(--color-ink-2); font-size: var(--text-sm); }
+.faq details p { padding: 0 0 var(--space-md) calc(26px + var(--space-sm)); color: var(--color-sub); font-size: var(--text-sm); }
 
-/* ── 問い合わせ ── */
-.contact-row { display: flex; gap: var(--space-md); flex-wrap: wrap; align-items: center; margin-top: var(--space-md); }
-.mailto { font-family: var(--font-label); font-size: var(--text-base); word-break: break-all; }
+.mailto { display: inline-block; margin-top: var(--space-md); font-family: var(--font-body); font-weight: 700; font-size: var(--text-lg); overflow-wrap: anywhere; }
 
-/* ── Ft5 Statement ── */
-.foot-stmt {
-  border-top: 2px solid var(--color-ink);
-  padding: var(--space-2xl) var(--page-gutter) var(--space-xl);
-  display: grid; gap: var(--space-lg);
-  max-width: var(--shell); margin-inline: auto;
+/* ── 足：数字タイルの段＋1行 ── */
+.foot { max-width: var(--shell); margin: var(--space-2xl) auto 0; padding: 0 var(--gutter) var(--space-xl); }
+@media (min-width: 75rem) { .foot { padding-inline: 0; } }
+.ladder { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px; }
+.ladder li {
+  aspect-ratio: 1; border-radius: 6px; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: clamp(0.5rem, 0.2rem + 1.1vw, 1rem); line-height: 1;
+  background: var(--bg); color: var(--fg);
 }
-.foot-stmt__line {
-  font-family: var(--font-display); font-size: clamp(1.6rem, 4.5vw, 2.8rem);
-  line-height: 1.15; letter-spacing: -.02em; max-width: 22ch; margin: 0;
-}
-.foot-stmt__meta {
-  display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md);
-  flex-wrap: wrap; padding-top: var(--space-sm);
-  border-top: var(--rule-hair) solid var(--color-rule);
-  font-size: var(--text-sm); color: var(--color-ink-2);
-}
-.foot-stmt__meta a {
-  color: var(--color-ink-2); white-space: nowrap;
-  display: inline-flex; align-items: center; min-height: 45px;  /* タップ領域 */
-}
-
-/* ── 言語切替（JSなしなら両方出す） ── */
-[data-lang="ja"] [data-when="en"] { display: none; }
-[data-lang="en"] [data-when="ja"] { display: none; }
+.foot .statement { margin-top: var(--space-lg); font-size: var(--text-h2); }
+.foot .line { margin-top: var(--space-md); display: flex; flex-wrap: wrap; gap: 0 var(--space-lg); font-size: var(--text-sm); color: var(--color-sub); }
+.foot .line a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-sub); white-space: nowrap; }
+.foot .line span { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important; }
-  .star-burst { display: none; }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-paper: oklch(22% 0.012 95); --color-paper-2: oklch(26% 0.014 95);
-    --color-paper-3: oklch(30% 0.016 95); --color-ink: oklch(94% 0.010 95);
-    --color-ink-2: oklch(78% 0.010 95); --color-rule: oklch(38% 0.012 95);
-  }
-  .btn, .panel-glyph, .toy-tile { color: oklch(20% 0.012 250); }
-  .faq details { background: var(--color-paper-2); }
+  .btn, .toy-tile { transition: none; }
+  .toy-tile.is-pop { animation: none; }
 }
 </style>
 </head>
 <body>
 
-<header class="nav-slab">
-  <a class="slab-mark" href="#top">FUSE 6×6</a>
-  <nav class="slab-nav" aria-label="Primary">
+<header class="pill">
+  <a class="mark" href="#top">FUSE 6×6</a>
+  <nav aria-label="このページ">
     <ul>
       <li><a href="#play"><span data-when="ja">あそびかた</span><span data-when="en">How to play</span></a></li>
       <li><a href="#panels"><span data-when="ja">パネル</span><span data-when="en">Panels</span></a></li>
       <li><a href="#life"><span data-when="ja">ライフ</span><span data-when="en">Lives</span></a></li>
-      <li><a href="#rank"><span data-when="ja">ランキング</span><span data-when="en">Ranking</span></a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
-  <div class="slab-right">
-    <div class="lang-toggle" role="group" aria-label="Language">
-      <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
-      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-    </div>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-set-lang="ja" aria-pressed="true">日本語</button>
+    <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
   </div>
 </header>
 
-<main id="top">
+<main class="board" id="top">
 
-  <!-- ── Masthead（Catalogue：屋号＋在庫の数え上げ） ── -->
-  <section class="section masthead">
-    <img class="hero-art" src="./img/title.webp" alt="Fuse 6×6 のタイトル画面"
-         width="640" height="1385" fetchpriority="high" decoding="async">
+  <section class="t t-hero" aria-labelledby="h1">
+    <div>
+      <h1 id="h1"><span data-when="ja">数字を合体させる、<span class="hl">6×6</span> のパズル。</span><span data-when="en">A merge puzzle on a <span class="hl">6×6</span> board.</span></h1>
+      <p class="lede" data-when="ja">スワイプで数字を寄せて合体させます。盤には8種類のパネルが降ってきて、毎回ちがう展開になります。このページは遊び方とお問い合わせのための公式サポートページです。</p>
+      <p class="lede" data-when="en">Swipe to push numbers together and merge them. Eight kinds of panels drop onto the board, so no two runs play the same. This is the official support page — how to play, and how to reach us.</p>
+      <p class="count" data-when="ja">パネル8種 ／ 背景58枚 ／ 盤は6×6 ／ ランキングは3種類 ／ 広告なし ／ 通信なしで遊べます</p>
+      <p class="count" data-when="en">8 panels · 58 backgrounds · a 6×6 board · 3 leaderboards · no ads · playable offline</p>
+    </div>
+    <div class="stores">
+      <a class="btn" href="https://apps.apple.com/jp/app/id6797504007"><span data-when="ja">App Store で入手</span><span data-when="en">Get it on the App Store</span></a>
+      <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.nanabit.fuse6x6"><span data-when="ja">Google Play で入手</span><span data-when="en">Get it on Google Play</span></a>
+    </div>
+  </section>
 
+  <figure class="t t-shot">
+    <img src="./img/board.webp" alt="プレイ中の盤面。数字のタイル、鉄、木、マグネットが並んでいる / A board in play with number tiles, iron, wood and a magnet" width="624" height="624" fetchpriority="high">
+    <figcaption><span data-when="ja">ストア掲載のスクリーンショット（2026年8月撮影）から盤面を切り出したもの</span><span data-when="en">Cropped from the store screenshot (taken August 2026)</span></figcaption>
+  </figure>
+
+  <div class="t t-toy">
+    <button class="toy-tile" type="button" id="toy" data-v="2" aria-label="タップすると合体します / Tap to merge">2</button>
+    <p class="sub small"><span data-when="ja">押すと合体します。色はアプリと同じ計算で決めています。</span><span data-when="en">Tap it to merge. The colours come from the same formula the app uses.</span></p>
+  </div>
+
+  <section class="t t-steps" id="play" aria-labelledby="h-play">
+    <h2 id="h-play"><span data-when="ja">基本は3つだけ</span><span data-when="en">Three things, that's all</span></h2>
+    <ol class="steps" data-when="ja">
+      <li><p><strong>スワイプで寄せる。</strong>上下左右のどれかへ、盤の数字をまとめて動かします。同じ数字がぶつかると合体して倍になります。</p></li>
+      <li><p><strong>パネルを育てる。</strong>×2 やスイープなどの役に立つパネルは、置かれた直後は「準備中」で合体しません。カウントが 0 になるまでに盤を整えて、当てたい数字へ狙って当てます。</p></li>
+      <li><p><strong>鉄を壊す。</strong>鉄はボムでしか壊せない邪魔物ですが、壊すたびに見返りがあります（ライフの節）。途中でやめても、次に開いたとき「つづき」から再開できます。</p></li>
+    </ol>
+    <ol class="steps" data-when="en">
+      <li><p><strong>Swipe to push.</strong> Every number on the board slides the way you swipe. Matching numbers collide and merge into one that's twice as big.</p></li>
+      <li><p><strong>Let panels charge.</strong> Helpful panels like x2 and Sweep arrive “charging” and won't merge yet. Use that time to arrange the board and aim them at the number you actually want.</p></li>
+      <li><p><strong>Break the iron.</strong> Iron is a blocker only a bomb can remove — but every one you break pays you back (see Lives). Stop whenever you like; the game picks up where you left off.</p></li>
+    </ol>
+  </section>
+
+  <section class="t t-ph" id="panels" aria-labelledby="h-panels">
+    <h2 id="h-panels"><span data-when="ja">盤に降ってくる8種類</span><span data-when="en">Eight kinds drop onto the board</span></h2>
+    <p class="sub" data-when="ja">はじめの6つは役に立つパネル、あとの2つは邪魔物です。役に立つ側は「準備中」のあいだ合体しません。</p>
+    <p class="sub" data-when="en">The first six help you; the last two get in your way. The helpful ones don't merge while they're charging.</p>
+  </section>
+
+  <article class="t t-panel" style="--c: var(--p-magnet)" tabindex="0">
+    <img src="./panels/magnet.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Positive</span><h3><span data-when="ja">マグネット</span><span data-when="en">Magnet</span></h3>
+      <p data-when="ja">準備が終わると、同じ数字を盤面中から吸い寄せて1枚ぶんずつ倍化する。</p>
+      <p data-when="en">Pulls every matching number across the board and steps each one up.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-up)" tabindex="0">
+    <img src="./panels/up.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Trigger</span><h3><span data-when="ja">アップ</span><span data-when="en">Up</span></h3>
+      <p data-when="ja">0になると上下左右4マスの数字が1段上がる。自分は消える。</p>
+      <p data-when="en">At zero, raises the four neighboring numbers one step, then disappears.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-sweep)" tabindex="0">
+    <img src="./panels/sweep.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Trigger</span><h3><span data-when="ja">スイープ</span><span data-when="en">Sweep</span></h3>
+      <p data-when="ja">0になると盤面の 2 をすべて消す。長く待つぶん、盤面が広く空く。</p>
+      <p data-when="en">At zero, clears every 2 on the board. The long wait buys you a lot of room.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-x2)" tabindex="0">
+    <img src="./panels/x2.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Positive</span><h3><span data-when="ja">ダブル</span><span data-when="en">Double</span></h3>
+      <p data-when="ja">準備が終わると、相方なしで数字を2倍にする。</p>
+      <p data-when="en">Once charged, doubles a number with no partner needed.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-x4)" tabindex="0">
+    <img src="./panels/x4.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Positive</span><h3><span data-when="ja">クアッド</span><span data-when="en">Quad</span></h3>
+      <p data-when="ja">準備が終わると、相方なしで数字を4倍にする。</p>
+      <p data-when="en">Once charged, quadruples a number with no partner needed.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-bomb)" tabindex="0">
+    <img src="./panels/bomb.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Trigger</span><h3><span data-when="ja">ボム</span><span data-when="en">Bomb</span></h3>
+      <p data-when="ja">0になると十字5マスが爆発。鉄は消え、数字は4段下がる。鉄を壊せる唯一の手段。</p>
+      <p data-when="en">At zero, explodes in a cross of 5 cells. Iron is destroyed; numbers drop four steps. The only thing that removes iron.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-iron)" tabindex="0">
+    <img src="./panels/iron.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Blocker</span><h3><span data-when="ja">鉄</span><span data-when="en">Iron</span></h3>
+      <p data-when="ja">合体しない邪魔物。1手に1マスしか動かない。ボムでしか消せない。</p>
+      <p data-when="en">A blocker that never merges. Moves only one cell per turn; only a bomb removes it.</p></div>
+  </article>
+  <article class="t t-panel" style="--c: var(--p-wood)" tabindex="0">
+    <img src="./panels/wood.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+    <div><span class="tag">Blocker</span><h3><span data-when="ja">木</span><span data-when="en">Wood</span></h3>
+      <p data-when="ja">鉄の軽い版。3回動かすと自分から壊れる。ボムなら1発。</p>
+      <p data-when="en">A lighter blocker. Move it three times and it breaks on its own; a bomb does it in one.</p></div>
+  </article>
+
+  <section class="t t-life" id="life" aria-labelledby="h-life">
+    <p class="bignum">10<small data-when="ja">枚で残機+1</small><small data-when="en">iron = +1 life</small></p>
+    <div>
+      <h2 id="h-life"><span data-when="ja">鉄を壊すことが、そのまま生存につながる</span><span data-when="en">Breaking iron is what keeps you alive</span></h2>
+      <p class="sub" data-when="ja" style="margin-top: var(--space-sm)">鉄はボムでしか壊せません。壊しにいくのは手間ですが、そのぶん見返りがあります。積み上げた成果ほど失いにくい設計です。</p>
+      <p class="sub" data-when="en" style="margin-top: var(--space-sm)">Only a bomb removes iron, so going after it costs you moves — and pays you back. The more you've built up, the harder it is to lose.</p>
+    </div>
+  </section>
+
+  <section class="t t-facts" aria-label="ライフの数字 / Life in numbers">
+    <ul class="facts">
+      <li><b>10</b><span data-when="ja">鉄を10枚壊すごとに残機がひとつ増える</span><span data-when="en">every 10 iron blocks broken earns one life</span></li>
+      <li><b>5</b><span data-when="ja">残機の上限は5つ</span><span data-when="en">lives cap at five</span></li>
+      <li><b>18</b><span data-when="ja">残機を使うと、64以下の数字を小さい順に最大18枚消して続行できる</span><span data-when="en">spending a life clears up to 18 tiles of 64 or less, smallest first, so you can keep going</span></li>
+      <li><b>30%</b><span data-when="ja">鉄を壊した瞬間、この確率でいちばん大きい数字に加護が付く（爆風を1回だけ無効化・使うと消える）</span><span data-when="en">chance on each break to shield your largest number — it absorbs one blast, then it's gone</span></li>
+    </ul>
+  </section>
+
+  <section class="t t-iap" aria-labelledby="h-iap">
     <div data-when="ja">
-      <span class="mono-label">Support · Fuse 6×6</span>
-      <h1>数字を合体させる、<em>6×6</em> のパズル。</h1>
-      <p class="lede">スワイプで数字を寄せて合体させます。盤には8種類のパネルが降ってきて、毎回ちがう展開になります。このページは遊び方とお問い合わせのための公式サポートページです。</p>
+      <h2 id="h-iap">コンティニュー3回（買い切り・<span class="price">¥200</span>）</h2>
+      <p class="sub" style="margin-top: var(--space-sm)">本体は無料で、広告もありません。残機が尽きて盤面も詰まったときにだけ、コンティニュー3回ぶんを購入できます。買った回数に上限は掛かりません。購入は任意で、買わなくても最後まで遊べます。</p>
+      <p class="sub">購入が反映されない場合は、通信状況をご確認のうえアプリを開き直してください。それでも反映されないときは、下記のメールまでご連絡ください。</p>
     </div>
     <div data-when="en">
-      <span class="mono-label">Support · Fuse 6×6</span>
-      <h1>A merge puzzle on a <em>6×6</em> board.</h1>
-      <p class="lede">Swipe to push numbers together and merge them. Eight kinds of panels drop onto the board, so no two runs play the same. This is the official support page — how to play, and how to reach us.</p>
-    </div>
-
-    <div class="toy">
-      <button class="toy-tile" type="button" id="toy" data-v="2" aria-label="タップすると合体します / Tap to merge">2</button>
-    </div>
-
-    <p class="count-line" data-when="ja">パネル8種 ／ 背景58枚 ／ 盤は6×6 ／ ランキングは3種類 ／ 広告なし ／ 通信なしで遊べます</p>
-    <p class="count-line" data-when="en">8 panels · 58 backgrounds · a 6×6 board · 3 leaderboards · no ads · playable offline</p>
-    <div class="bg-strip">
-      <img src="./img/bg1.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-      <img src="./img/bg2.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-      <img src="./img/bg3.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-      <img src="./img/bg4.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-      <img src="./img/bg5.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-      <img src="./img/bg6.webp" alt="" width="240" height="351" loading="lazy" decoding="async">
-    </div>
-    <p style="font-size:var(--text-sm);color:var(--color-ink-2);margin-top:var(--space-xs)">
-      <span data-when="ja">背景は全58枚。遊んでいるあいだに移り変わります（上は6枚だけ）。</span>
-      <span data-when="en">58 backgrounds in all — they change as you play. Six of them shown here.</span>
-    </p>
-
-  </section>
-
-  <!-- ── 遊び方 ── -->
-  <section class="section section--band band-pear" id="play">
-    <div class="inner">
-      <span class="mono-label">01 · How to play</span>
-      <div data-when="ja">
-        <h2>基本は3つだけ</h2>
-        <ol class="steps">
-          <li><p><strong>スワイプで寄せる。</strong>上下左右のどれかへ、盤の数字をまとめて動かします。同じ数字がぶつかると合体して倍になります。</p></li>
-          <li><p><strong>パネルを育てる。</strong>×2 や 🧹 などの役に立つパネルは、置かれた直後は「準備中」で合体しません。カウントが 0 になるまでに盤を整えて、当てたい数字へ狙って当てます。</p></li>
-          <li><p><strong>鉄を壊す。</strong>⬛鉄はボムでしか壊せない邪魔物ですが、壊すたびに見返りがあります（次の節）。</p></li>
-        </ol>
-        <p style="margin-top:var(--space-md)">途中でやめても、次に開いたとき「つづき」から再開できます。</p>
-      </div>
-      <div data-when="en">
-        <h2>Three things, that's all</h2>
-        <ol class="steps">
-          <li><p><strong>Swipe to push.</strong> Every number on the board slides the way you swipe. Matching numbers collide and merge into one that's twice as big.</p></li>
-          <li><p><strong>Let panels charge.</strong> Helpful panels like x2 and Sweep arrive "charging" and won't merge yet. Use that time to arrange the board and aim them at the number you actually want.</p></li>
-          <li><p><strong>Break the iron.</strong> Iron is a blocker only a bomb can remove — but every one you break pays you back (see below).</p></li>
-        </ol>
-        <p style="margin-top:var(--space-md)">Stop whenever you like; the game picks up where you left off.</p>
-      </div>
+      <h2>3 Continues (one-time purchase, <span class="price">JPY 200</span>)</h2>
+      <p class="sub" style="margin-top: var(--space-sm)">The game is free and carries no ads. When your lives run out and the board is stuck, you can buy three continues. There's no cap on how many you buy, and it's entirely optional — the game is complete without it.</p>
+      <p class="sub">If a purchase doesn't appear, check your connection and reopen the app. If it still doesn't show up, email us at the address below.</p>
     </div>
   </section>
 
-  <!-- ── パネル図鑑 ── -->
-  <section class="section" id="panels">
-    <span class="mono-label">02 · The eight panels</span>
-    <div data-when="ja">
-      <h2>盤に降ってくる8種類</h2>
-      <p>上の6つは役に立つパネル、下の2つは邪魔物です。役に立つ側は「準備中」のあいだ合体しません。</p>
-    </div>
-    <div data-when="en">
-      <h2>Eight kinds drop onto the board</h2>
-      <p>The first six help you; the last two get in your way. The helpful ones don't merge while they're charging.</p>
-    </div>
-
-    <div class="catalog">
-      <article class="panel-card" style="--tint: #556728">
-        <img class="panel-glyph" src="./panels/magnet.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Positive</span>
-        <h3><span data-when="ja">マグネット</span><span data-when="en">Magnet</span></h3>
-        <p data-when="ja">準備が終わると、同じ数字を盤面中から吸い寄せて1枚ぶんずつ倍化する。</p>
-        <p data-when="en">Pulls every matching number across the board and steps each one up.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #2fd4c4">
-        <img class="panel-glyph" src="./panels/up.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Trigger</span>
-        <h3><span data-when="ja">アップ</span><span data-when="en">Up</span></h3>
-        <p data-when="ja">0になると上下左右4マスの数字が1段上がる。自分は消える。</p>
-        <p data-when="en">At zero, raises the four neighboring numbers one step, then disappears.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #ff9f1c">
-        <img class="panel-glyph" src="./panels/sweep.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Trigger</span>
-        <h3><span data-when="ja">スイープ</span><span data-when="en">Sweep</span></h3>
-        <p data-when="ja">0になると盤面の 2 をすべて消す。長く待つぶん、盤面が広く空く。</p>
-        <p data-when="en">At zero, clears every 2 on the board. The long wait buys you a lot of room.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #4d9dff">
-        <img class="panel-glyph" src="./panels/x2.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Positive</span>
-        <h3><span data-when="ja">ダブル</span><span data-when="en">Double</span></h3>
-        <p data-when="ja">準備が終わると、相方なしで数字を2倍にする。</p>
-        <p data-when="en">Once charged, doubles a number with no partner needed.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #7c6bff">
-        <img class="panel-glyph" src="./panels/x4.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Positive</span>
-        <h3><span data-when="ja">クアッド</span><span data-when="en">Quad</span></h3>
-        <p data-when="ja">準備が終わると、相方なしで数字を4倍にする。</p>
-        <p data-when="en">Once charged, quadruples a number with no partner needed.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #ff4d6d">
-        <img class="panel-glyph" src="./panels/bomb.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Trigger</span>
-        <h3><span data-when="ja">ボム</span><span data-when="en">Bomb</span></h3>
-        <p data-when="ja">0になると十字5マスが爆発。鉄は消え、数字は4段下がる。鉄を壊せる唯一の手段。</p>
-        <p data-when="en">At zero, explodes in a cross of 5 cells. Iron is destroyed; numbers drop four steps. The only thing that removes iron.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #656b75">
-        <img class="panel-glyph" src="./panels/iron.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Blocker</span>
-        <h3><span data-when="ja">鉄</span><span data-when="en">Iron</span></h3>
-        <p data-when="ja">合体しない邪魔物。1手に1マスしか動かない。ボムでしか消せない。</p>
-        <p data-when="en">A blocker that never merges. Moves only one cell per turn; only a bomb removes it.</p>
-      </article>
-
-      <article class="panel-card" style="--tint: #8a643d">
-        <img class="panel-glyph" src="./panels/wood.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
-        <span class="tag">Blocker</span>
-        <h3><span data-when="ja">木</span><span data-when="en">Wood</span></h3>
-        <p data-when="ja">鉄の軽い版。3回動かすと自分から壊れる。ボムなら1発。</p>
-        <p data-when="en">A lighter blocker. Move it three times and it breaks on its own; a bomb does it in one.</p>
-      </article>
-    </div>
+  <section class="t t-rank" id="rank" aria-labelledby="h-rank">
+    <h2 id="h-rank"><span data-when="ja">3つの軸で競えます</span><span data-when="en">Three ways to compete</span></h2>
+    <p class="sub" data-when="ja"><strong>スコア</strong>・<strong>手数</strong>・<strong>鉄破壊数</strong>の3つです。参加は任意で、送るのは集計した数字とニックネームだけです。走った内容そのものや、端末を特定する情報は送りません。詳しくは<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+    <p class="sub" data-when="en"><strong>Score</strong>, <strong>moves</strong>, and <strong>iron destroyed</strong>. Taking part is your choice, and only the final numbers and your nickname are sent — never the details of your run. See the <a href="./privacy.html">Privacy Policy</a> for the specifics.</p>
   </section>
 
-  <!-- ── ライフとコンティニュー（ページで1回の山場） ── -->
-  <section class="section section--band band-coral" id="life">
-    <div class="inner">
-      <span class="mono-label">03 · Lives &amp; continues</span>
-      <div class="life-grid">
-        <div>
-          <div data-when="ja">
-            <p class="bignum">10<small>枚で残機+1</small></p>
-            <h2>鉄を壊すことが、そのまま生存につながる</h2>
-            <p>鉄はボムでしか壊せません。壊しにいくのは手間ですが、そのぶん見返りがあります。積み上げた成果ほど失いにくい設計です。</p>
-          </div>
-          <div data-when="en">
-            <p class="bignum">10<small>iron = +1 life</small></p>
-            <h2>Breaking iron is what keeps you alive</h2>
-            <p>Only a bomb removes iron, so going after it costs you moves — and pays you back. The more you've built up, the harder it is to lose.</p>
-          </div>
-        </div>
-        <div>
-          <ul class="facts">
-            <li><b>10</b><span data-when="ja">鉄を10枚壊すごとに残機がひとつ増える</span><span data-when="en">every 10 iron blocks broken earns one life</span></li>
-            <li><b>5</b><span data-when="ja">残機の上限は5つ</span><span data-when="en">lives cap at five</span></li>
-            <li><b>64</b><span data-when="ja">残機を使うと、64以下の数字をまとめて消して続行できる</span><span data-when="en">spending a life clears every tile of 64 or less so you can keep going</span></li>
-            <li><b>30%</b><span data-when="ja">鉄を壊した瞬間、この確率でいちばん大きい数字に加護が付く（爆風を1回だけ無効化・使うと消える）</span><span data-when="en">chance on each break to shield your largest number — it absorbs one blast, then it's gone</span></li>
-          </ul>
-
-          <div class="note">
-            <div data-when="ja">
-              <p><strong>コンティニュー3回（買い切り・¥200）</strong></p>
-              <p>本体は無料で、広告もありません。残機が尽きて盤面も詰まったときにだけ、コンティニュー3回ぶんを購入できます。買った回数に上限は掛かりません。購入は任意で、買わなくても最後まで遊べます。</p>
-              <p>購入が反映されない場合は、通信状況をご確認のうえアプリを開き直してください。それでも反映されないときは、下記のメールまでご連絡ください。</p>
-            </div>
-            <div data-when="en">
-              <p><strong>3 Continues (one-time purchase, JPY 200)</strong></p>
-              <p>The game is free and carries no ads. When your lives run out and the board is stuck, you can buy three continues. There's no cap on how many you buy, and it's entirely optional — the game is complete without it.</p>
-              <p>If a purchase doesn't appear, check your connection and reopen the app. If it still doesn't show up, email us at the address below.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="t t-mail" id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact"><span data-when="ja">お問い合わせ</span><span data-when="en">Get in touch</span></h2>
+    <p class="sub" data-when="ja">不具合のご報告・ご要望・購入に関するお問い合わせは、こちらのメールまでどうぞ。返信にはお時間をいただくことがあります。</p>
+    <p class="sub" data-when="en">Bug reports, requests, and purchase questions all go to the address below. Replies may take a little time.</p>
+    <a class="mailto" href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>
   </section>
 
-  <!-- ── ランキング ── -->
-  <section class="section section--band band-cyan" id="rank">
-    <div class="inner">
-      <span class="mono-label">04 · Leaderboards</span>
-      <div data-when="ja">
-        <h2>3つの軸で競えます</h2>
-        <p><strong>スコア</strong>・<strong>手数</strong>・<strong>鉄破壊数</strong>の3つです。参加は任意で、送るのは集計した数字とニックネームだけです。走った内容そのものや、端末を特定する情報は送りません。</p>
-        <p>詳しくは<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p>
-      </div>
-      <div data-when="en">
-        <h2>Three ways to compete</h2>
-        <p><strong>Score</strong>, <strong>moves</strong>, and <strong>iron destroyed</strong>. Taking part is your choice, and only the final numbers and your nickname are sent — never the details of your run.</p>
-        <p>See the <a href="./privacy.html">Privacy Policy</a> for the specifics.</p>
-      </div>
+  <section class="t t-faq" id="faq" aria-labelledby="h-faq">
+    <h2 id="h-faq"><span data-when="ja">よくある質問</span><span data-when="en">Frequently asked</span></h2>
+    <div class="faq" data-when="ja">
+      <details><summary>データはどこに保存されますか？</summary>
+        <p>スコアや「つづき」は端末内に保存されます。ランキングに参加したときだけ、集計した数字とニックネームが送信されます。詳細は<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p></details>
+      <details><summary>買ったコンティニューが反映されません。</summary>
+        <p>通信状況を確認してアプリを開き直してください。購入は端末側にも控えが残るため、次に起動したときに渡されます。それでも反映されない場合は下記メールまでご連絡ください。購入時の日時をお知らせいただけると調べやすいです。</p></details>
+      <details><summary>機種変更でデータは引き継げますか？</summary>
+        <p>スコアと「つづき」は端末内保存のため、引き継がれません。</p></details>
+      <details><summary>広告は出ますか？</summary>
+        <p>出ません。行動追跡や解析のSDKも入れていません。</p></details>
+      <details><summary>オフラインでも遊べますか？</summary>
+        <p>遊べます。通信が要るのはランキングの表示と投稿、コンティニューの購入のときだけです。</p></details>
+      <details><summary>数字はどこまで大きくなりますか？</summary>
+        <p>パネルの数字は 2 の1023乗まで正確に扱えます。表示は 4 文字に収まるあいだは K / M / G … の単位で、それより大きくなると 2^70 のような指数の形になります。</p></details>
     </div>
-  </section>
-
-  <!-- ── FAQ ── -->
-  <section class="section" id="faq">
-    <span class="mono-label">05 · FAQ</span>
-    <div data-when="ja">
-      <h2>よくある質問</h2>
-      <div class="faq">
-        <details>
-          <summary>データはどこに保存されますか？</summary>
-          <p>スコアや「つづき」は端末内に保存されます。ランキングに参加したときだけ、集計した数字とニックネームが送信されます。詳細は<a href="./privacy.html">プライバシーポリシー</a>をご覧ください。</p>
-        </details>
-        <details>
-          <summary>買ったコンティニューが反映されません。</summary>
-          <p>通信状況を確認してアプリを開き直してください。購入は端末側にも控えが残るため、次に起動したときに渡されます。それでも反映されない場合は下記メールまでご連絡ください。購入時の日時をお知らせいただけると調べやすいです。</p>
-        </details>
-        <details>
-          <summary>機種変更でデータは引き継げますか？</summary>
-          <p>スコアと「つづき」は端末内保存のため、引き継がれません。</p>
-        </details>
-        <details>
-          <summary>広告は出ますか？</summary>
-          <p>出ません。行動追跡や解析のSDKも入れていません。</p>
-        </details>
-        <details>
-          <summary>オフラインでも遊べますか？</summary>
-          <p>遊べます。通信が要るのはランキングの表示と投稿、コンティニューの購入のときだけです。</p>
-        </details>
-        <details>
-          <summary>数字はどこまで大きくなりますか？</summary>
-          <p>パネルの数字は 2 の1023乗まで正確に扱えます。表示は 4 文字に収まるあいだは K / M / G … の単位で、それより大きくなると 2^70 のような指数の形になります。</p>
-        </details>
-      </div>
-    </div>
-    <div data-when="en">
-      <h2>Frequently asked</h2>
-      <div class="faq">
-        <details>
-          <summary>Where is my data stored?</summary>
-          <p>Your scores and your saved run stay on your device. Only when you join a leaderboard are the final numbers and your nickname sent. See the <a href="./privacy.html">Privacy Policy</a>.</p>
-        </details>
-        <details>
-          <summary>My continues didn't appear.</summary>
-          <p>Check your connection and reopen the app — purchases are also recorded on your device, so an unreceived one is handed over on the next launch. If it still doesn't show, email us; the rough date and time of the purchase helps a lot.</p>
-        </details>
-        <details>
-          <summary>Can I move my data to a new phone?</summary>
-          <p>No — scores and your saved run are stored on the device only.</p>
-        </details>
-        <details>
-          <summary>Are there ads?</summary>
-          <p>None. There's no tracking or analytics SDK either.</p>
-        </details>
-        <details>
-          <summary>Can I play offline?</summary>
-          <p>Yes. A connection is only needed to view or post leaderboard scores and to buy continues.</p>
-        </details>
-        <details>
-          <summary>How large do the numbers get?</summary>
-          <p>Tile values stay exact all the way to 2^1023. They display with K / M / G… units while that fits in four characters, and switch to exponent form (like 2^70) beyond that.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── お問い合わせ ── -->
-  <section class="section section--band band-pear" id="contact">
-    <div class="inner">
-      <span class="mono-label">06 · Contact</span>
-      <div data-when="ja">
-        <h2>お問い合わせ</h2>
-        <p>不具合のご報告・ご要望・購入に関するお問い合わせは、こちらのメールまでどうぞ。返信にはお時間をいただくことがあります。</p>
-      </div>
-      <div data-when="en">
-        <h2>Get in touch</h2>
-        <p>Bug reports, requests, and purchase questions all go to the address below. Replies may take a little time.</p>
-      </div>
-      <div class="contact-row">
-        <a class="btn" href="mailto:nanana03info@gmail.com">
-          <span data-when="ja">メールで問い合わせる</span><span data-when="en">Email us</span>
-        </a>
-        <span class="mailto">nanana03info@gmail.com</span>
-      </div>
+    <div class="faq" data-when="en">
+      <details><summary>Where is my data stored?</summary>
+        <p>Your scores and your saved run stay on your device. Only when you join a leaderboard are the final numbers and your nickname sent. See the <a href="./privacy.html">Privacy Policy</a>.</p></details>
+      <details><summary>My continues didn't appear.</summary>
+        <p>Check your connection and reopen the app — purchases are also recorded on your device, so an unreceived one is handed over on the next launch. If it still doesn't show, email us; the rough date and time of the purchase helps a lot.</p></details>
+      <details><summary>Can I move my data to a new phone?</summary>
+        <p>No — scores and your saved run are stored on the device only.</p></details>
+      <details><summary>Are there ads?</summary>
+        <p>None. There's no tracking or analytics SDK either.</p></details>
+      <details><summary>Can I play offline?</summary>
+        <p>Yes. A connection is only needed to view or post leaderboard scores and to buy continues.</p></details>
+      <details><summary>How large do the numbers get?</summary>
+        <p>Tile values stay exact all the way to 2^1023. They display with K / M / G… units while that fits in four characters, and switch to exponent form (like 2^70) beyond that.</p></details>
     </div>
   </section>
 
 </main>
 
-<footer class="foot-stmt">
-  <p class="foot-stmt__line" data-when="ja">詰んだところが、はじまり。</p>
-  <p class="foot-stmt__line" data-when="en">Stuck is where it starts.</p>
-  <div class="foot-stmt__meta">
+<footer class="foot">
+  <ol class="ladder" aria-label="2 から 2048 までの数字タイル（アプリと同じ色） / Number tiles 2 to 2048 in the app's colours">
+    <li style="--bg: var(--tile-2); --fg: var(--tile-2-fg)">2</li>
+    <li style="--bg: var(--tile-4); --fg: var(--tile-4-fg)">4</li>
+    <li style="--bg: var(--tile-8); --fg: var(--tile-8-fg)">8</li>
+    <li style="--bg: var(--tile-16); --fg: var(--tile-16-fg)">16</li>
+    <li style="--bg: var(--tile-32); --fg: var(--tile-32-fg)">32</li>
+    <li style="--bg: var(--tile-64); --fg: var(--tile-64-fg)">64</li>
+    <li style="--bg: var(--tile-128); --fg: var(--tile-128-fg)">128</li>
+    <li style="--bg: var(--tile-256); --fg: var(--tile-256-fg)">256</li>
+    <li style="--bg: var(--tile-512); --fg: var(--tile-512-fg)">512</li>
+    <li style="--bg: var(--tile-1024); --fg: var(--tile-1024-fg)">1024</li>
+    <li style="--bg: var(--tile-2048); --fg: var(--tile-2048-fg)">2048</li>
+  </ol>
+  <p class="statement"><span data-when="ja">詰んだところが、はじまり。</span><span data-when="en">Stuck is where it starts.</span></p>
+  <p class="line">
     <span>Fuse 6×6 — Nanana</span>
-    <span><a href="./privacy.html">プライバシーポリシー / Privacy</a></span>
-    <span><a href="https://nanana03.github.io/onikore/">おにコレ</a></span>
+    <a href="./privacy.html">プライバシーポリシー / Privacy</a>
+    <a href="https://nanana03.github.io/onikore/">おにコレ</a>
     <span>© 2026 Nanana</span>
-  </div>
+  </p>
 </footer>
 
 <script>
 (function () {
   var root = document.documentElement;
 
-  // 言語切替。JS が動かない環境では data-lang が付いたままなので日本語が出る。
+  // 言語切替。JS が動かない環境では data-lang="ja" のままなので日本語が出る。
   document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var lang = btn.getAttribute('data-set-lang');
@@ -723,7 +525,7 @@ em, .hl {
     if (target) target.click();
   }
 
-  // キャラクターモーメント：合体の手ざわりを1回だけ体験させる小さな玩具。
+  // 合体の玩具：2→4→8→16→32→2。色は CSS の --tile-N（tileColor の出力）。
   var toy = document.getElementById('toy');
   if (toy) {
     var seq = ['2', '4', '8', '16', '32'];
@@ -733,11 +535,10 @@ em, .hl {
       var next = seq[(i + 1) % seq.length];
       toy.setAttribute('data-v', next);
       toy.textContent = next;
+      toy.style.setProperty('--bg', 'var(--tile-' + next + ')');
+      toy.style.setProperty('--fg', 'var(--tile-' + next + '-fg)');
       if (reduce) return;
-      var star = document.createElement('span');
-      star.className = 'star-burst';
-      toy.appendChild(star);
-      setTimeout(function () { star.remove(); }, 440);
+      toy.classList.remove('is-pop'); void toy.offsetWidth; toy.classList.add('is-pop');
     });
   }
 })();

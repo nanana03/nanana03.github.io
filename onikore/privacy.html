@@ -2,21 +2,59 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>おにコレ プライバシーポリシー / Onikore Privacy Policy</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0C1A29">
+<link rel="icon" href="./favicon.png" sizes="32x32">
+<!-- url-ok: https://fonts.googleapis.com  url-ok: https://fonts.gstatic.com（preconnect 用のオリジン） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="font-disp" data-text-from=".legal h1,.legal h2,.back .mark" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@700&amp;display=swap&amp;text=%20%26%28%29-.1234567ABCDILNOPRTacdeghiklnoprstuvy%E3%81%84%E3%81%8A%E3%81%9B%E3%81%A4%E3%81%A6%E3%81%AB%E3%82%8F%E3%82%A2%E3%82%A4%E3%82%AD%E3%82%AF%E3%82%B0%E3%82%B3%E3%82%B7%E3%83%83%E3%83%88%E3%83%90%E3%83%97%E3%83%9D%E3%83%A9%E3%83%AA%E3%83%AC%E3%83%B3%E3%83%BB%E3%83%BC%E4%BB%BB%E4%BD%8D%E5%85%A8%E5%86%85%E5%86%99%E5%8A%A0%E5%8F%82%E5%90%88%E5%91%8A%E5%95%8F%E5%9B%BD%E5%A0%B1%E5%BA%83%E6%83%85%E6%84%8F%E7%9C%9F%E7%BD%AE%E8%AA%B2%E9%87%91%EF%BC%88%EF%BC%89">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; line-height: 1.8; }
-  h1 { font-size: 1.5rem; border-bottom: 2px solid #E0A92E; padding-bottom: 8px; }
-  h2 { font-size: 1.15rem; margin-top: 2em; }
-  h3 { font-size: 1rem; margin-top: 1.6em; }
-  .updated { color: #888; font-size: .9rem; }
-  .en { margin-top: 4em; border-top: 1px dashed #aaa; padding-top: 2em; }
-  strong { background: rgba(224,169,46,.18); padding: 0 2px; }
+/* Hallmark · genre: editorial · design-system: onikore/design.md · designed-as-app · page: legal（本文は原本のまま）
+ * 本文は main の privacy.html の <body> の中身を一字一句そのまま <article class="legal"> に入れている
+ * （_site_redesign_2026-10/nanana03/build_privacy.py が生成・legal_diff.py で照合）。
+ */
+:root {
+  --color-paper: #0C1A29; --color-card: #13263B; --color-line: #22364C;
+  --color-ink: #E6EEF6; --color-sub: #A3B6C9; --color-accent: #5FA4D6; --color-focus: #FF9500;
+  --color-mark: rgba(95, 164, 214, 0.18);
+  --shield: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 455 435'%3E%3Cpath d='M227 425.4C252.1 425.4 275.3 415.8 293.2 399.8C362.1 330.8 413.1 244.9 439.5 150.5C442.2 142.2 444 131.7 444 120.9C444 76 413.3 38.3 370 27.1C323.9 15.8 277.7 10 227 10C176.3 10 130.1 15.8 84 27.1C40.7 38.3 10 76 10 120.9C10 131.7 11.8 142.2 14.5 150.5C40.9 244.9 91.9 330.8 160.8 399.8C178.7 415.8 201.9 425.4 227 425.4z' fill='%230140FF' stroke='%23F4F8FC' stroke-width='22' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --font-display: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --space-xs: 8px; --space-sm: 14px; --space-md: 22px; --space-lg: 36px; --space-xl: 60px;
+  --gutter: clamp(16px, 4.5vw, 48px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); line-height: 1.9; }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 4px; }
+a { color: var(--color-accent); }
+.back { display: flex; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; padding: var(--space-sm) var(--gutter); border-bottom: 1px solid var(--color-line); }
+.back a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--color-sub); text-decoration: none; white-space: nowrap; font-size: 0.9rem; }
+.back a:hover { color: var(--color-ink); }
+.back .mark { font-family: var(--font-display); font-weight: 700; color: var(--color-ink); font-size: 1.1rem; }
+.back .mark i { width: 24px; height: 23px; background: var(--shield) center / contain no-repeat; display: inline-block; }
+.legal { max-width: 720px; margin: 0 auto; padding: var(--space-lg) var(--gutter) var(--space-xl); }
+.legal h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem); line-height: 1.35; margin: 0; overflow-wrap: anywhere; }
+.legal h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.12rem; margin: 2.4em 0 0.5em; padding-top: 0.9em; border-top: 1px solid var(--color-line); }
+.legal h3 { font-size: 1rem; margin-top: 1.6em; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin: 0.4em 0; }
+.legal li::marker { color: var(--color-accent); }
+.legal .updated { color: var(--color-sub); font-size: 0.9rem; margin-top: var(--space-xs); }
+.legal strong { background: var(--color-mark); padding: 0 3px; border-radius: 3px; }
+.legal .en { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 3px solid var(--color-accent); }
 </style>
 </head>
 <body>
+<nav class="back" aria-label="おにコレ">
+  <a class="mark" href="./"><i aria-hidden="true"></i>おにコレ</a>
+  <a href="#en">English ↓</a>
+</nav>
+<article class="legal">
 
 <h1>おにコレ プライバシーポリシー</h1>
 <p class="updated">最終更新日: 2026年8月15日</p>
@@ -63,7 +101,7 @@
 <h2>7. お問い合わせ</h2>
 <p>nanana03info@gmail.com</p>
 
-<div class="en">
+<div class="en" id="en">
 <h1>Onikore Privacy Policy</h1>
 <p class="updated">Last updated: August 15, 2026</p>
 
@@ -110,5 +148,6 @@
 <p>nanana03info@gmail.com</p>
 </div>
 
+</article>
 </body>
 </html>

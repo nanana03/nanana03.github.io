@@ -2,21 +2,61 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fuse 6×6 プライバシーポリシー / Fuse 6×6 Privacy Policy</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#14131b">
+<link rel="icon" href="./favicon.png" sizes="32x32">
+<!-- url-ok: https://fonts.googleapis.com  url-ok: https://fonts.gstatic.com（preconnect 用のオリジン） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="font-disp" data-text-from=".legal h1,.back .mark" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&amp;display=swap&amp;text=%206EFPSUaceilorsuvy%C3%97%E3%82%A4%E3%82%B7%E3%83%90%E3%83%97%E3%83%9D%E3%83%A9%E3%83%AA%E3%83%BC">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; line-height: 1.8; }
-  h1 { font-size: 1.5rem; border-bottom: 2px solid #E0A92E; padding-bottom: 8px; }
-  h2 { font-size: 1.15rem; margin-top: 2em; }
-  h3 { font-size: 1rem; margin-top: 1.6em; }
-  .updated { color: #888; font-size: .9rem; }
-  .en { margin-top: 4em; border-top: 1px dashed #aaa; padding-top: 2em; }
-  strong { background: rgba(224,169,46,.18); padding: 0 2px; }
+/* Hallmark · genre: playful · design-system: fuse6x6/design.md · designed-as-app · page: legal（本文は原本のまま）
+ * 本文は main の privacy.html の <body> の中身を一字一句そのまま <article class="legal"> に入れている
+ * （_site_redesign_2026-10/nanana03/build_privacy.py が生成・legal_diff.py で照合）。
+ */
+:root {
+  --color-paper: #14131b; --color-board: #241f31; --color-cell: #2f2940; --color-cell-2: #3b3550;
+  --color-ink: #f5f2ff; --color-sub: #b9b0d3; --color-accent: #ffc23c; --color-focus: #ffc23c;
+  --color-mark: rgba(255, 194, 60, 0.16);
+  --font-display: "Dela Gothic One", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --space-xs: 8px; --space-sm: 12px; --space-md: 20px; --space-lg: 32px; --space-xl: 56px;
+  --radius: 14px; --gutter: clamp(16px, 4vw, 32px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); line-height: 1.85; }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 6px; }
+a { color: var(--color-accent); }
+.back { max-width: 760px; margin: 0 auto; padding: var(--space-md) var(--gutter) 0; display: flex; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; }
+.back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-sub); text-decoration: none; white-space: nowrap; font-size: 0.9rem; }
+.back a:hover { color: var(--color-ink); }
+.back .mark { font-family: var(--font-display); color: var(--color-ink); letter-spacing: 0.04em; }
+.legal { max-width: 760px; margin: var(--space-md) auto var(--space-xl); padding: var(--space-lg) var(--gutter);
+  background: var(--color-board); border-radius: calc(var(--radius) + 6px); }
+@media (min-width: 48rem) { .legal { padding: var(--space-xl); } }
+.legal h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.45rem, 1.1rem + 1.4vw, 2rem); line-height: 1.3; margin: 0;
+  padding-bottom: var(--space-sm); border-bottom: 3px solid var(--color-accent); overflow-wrap: anywhere; }
+.legal h2 { font-size: 1.12rem; margin: 2.2em 0 0.4em; padding: 6px 12px; background: var(--color-cell); border-radius: 8px; }
+.legal h3 { font-size: 1rem; margin-top: 1.6em; }
+.legal p, .legal li { color: var(--color-ink); }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin: 0.35em 0; }
+.legal li::marker { color: var(--color-accent); }
+.legal .updated { color: var(--color-sub); font-size: 0.9rem; }
+.legal strong { background: var(--color-mark); padding: 0 3px; border-radius: 3px; }
+.legal .en { margin-top: var(--space-xl); padding-top: var(--space-xl); border-top: 2px dashed var(--color-cell-2); }
 </style>
 </head>
 <body>
+<nav class="back" aria-label="Fuse 6×6">
+  <a class="mark" href="./">FUSE 6×6</a>
+  <a href="#en">English ↓</a>
+</nav>
+<article class="legal">
 
 <h1>Fuse 6×6 プライバシーポリシー</h1>
 <p class="updated">最終更新日: 2026年8月3日</p>
@@ -81,7 +121,7 @@
 <h2>8. お問い合わせ</h2>
 <p>nanana03info@gmail.com</p>
 
-<div class="en">
+<div class="en" id="en">
 <h1>Fuse 6×6 Privacy Policy</h1>
 <p class="updated">Last updated: August 3, 2026</p>
 
@@ -146,5 +186,6 @@
 <p>nanana03info@gmail.com</p>
 </div>
 
+</article>
 </body>
 </html>
