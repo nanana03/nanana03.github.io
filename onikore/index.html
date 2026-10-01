@@ -133,7 +133,7 @@ a:hover { color: var(--color-ink); }
 .note { color: var(--color-sub); font-size: var(--text-sm); }
 
 /* ── 番号表（ページの背骨） ── */
-.dia { padding-block: var(--space-xl) var(--space-2xl); border-top: 1px solid var(--color-line); }
+.dia { padding-block: var(--space-xl); border-top: 1px solid var(--color-line); }
 .dia h2 { font-size: var(--text-h2); max-width: 20em; }
 .dia h2 .num { color: var(--color-accent); }
 .dia .intro { margin-top: var(--space-sm); max-width: 40em; color: var(--color-sub); }
@@ -158,6 +158,14 @@ a:hover { color: var(--color-ink); }
   .sh { font-size: clamp(9px, 0.95vw, 13px); }
   .table .row-label { font-size: 11px; }
 }
+.table-wrap { position: relative; }
+.gap-note {
+  position: absolute; display: flex; align-items: center; justify-content: center; pointer-events: none;
+  font-size: clamp(11px, 0.4rem + 0.6vw, 14px); color: var(--color-sub); letter-spacing: 0.08em; white-space: nowrap;
+  border: 1px dashed var(--color-line); border-radius: 4px;
+}
+.gap-note .num { color: var(--color-ink); margin: 0 0.2em; }
+.gap.in-note::after { display: none; }
 .legend { margin-top: var(--space-md); display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-lg); font-size: var(--text-xs); color: var(--color-sub); }
 .legend span { display: inline-flex; align-items: center; gap: 8px; }
 .legend i { width: 18px; height: 17px; background: var(--shield) center / contain no-repeat; display: inline-block; }
@@ -310,8 +318,11 @@ a:hover { color: var(--color-ink); }
             <input id="find-no" type="number" inputmode="numeric" min="1" max="507" placeholder="299">
             <output id="find-msg" for="find-no"></output>
           </div>
+          <div class="table-wrap">
           <div class="table" id="numbers" role="group" aria-label="国道の番号表（1号〜507号）">
             <noscript><p class="sub" style="grid-column: 1 / -1">番号表の表示には JavaScript が必要です。</p></noscript>
+          </div>
+          <p class="gap-note" id="gap-note" hidden><span class="num">59</span>〜<span class="num">100</span>号　番号なし</p>
           </div>
           <p class="legend"><span><i aria-hidden="true"></i>番号のある国道（<span class="num">459</span>）</span><span><i class="g" aria-hidden="true"></i>番号のない所（<span class="num">48</span>）</span></p>
           <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。</p>
@@ -365,19 +376,19 @@ a:hover { color: var(--color-ink); }
       <h2 id="h-shots">画面</h2>
       <div class="shots">
         <figure>
-          <img src="./img/shot-01.jpg" alt="国道の一覧を走破率の高い順に並べた画面" loading="lazy" decoding="async" width="640" height="1387">
+          <img src="./img/shot-01.webp" alt="国道の一覧を走破率の高い順に並べた画面" loading="lazy" decoding="async" width="640" height="1387">
           <figcaption>走破率の高い順に並べた一覧</figcaption>
         </figure>
         <figure>
-          <img src="./img/shot-02.jpg" alt="国道299号の標高プロファイル。獲得標高と坂のグラフ" loading="lazy" decoding="async" width="640" height="1387">
+          <img src="./img/shot-02.webp" alt="国道299号の標高プロファイル。獲得標高と坂のグラフ" loading="lazy" decoding="async" width="640" height="1387">
           <figcaption>標高プロファイル（Pro）</figcaption>
         </figure>
         <figure>
-          <img src="./img/shot-03.jpg" alt="走破済みの区間を青く重ねた地図画面" loading="lazy" decoding="async" width="640" height="1387">
+          <img src="./img/shot-03.webp" alt="走破済みの区間を青く重ねた地図画面" loading="lazy" decoding="async" width="640" height="1387">
           <figcaption>走破済みを重ねた地図</figcaption>
         </figure>
         <figure>
-          <img src="./img/shot-04.jpg" alt="統計画面。実績と、バックアップの書き出し" loading="lazy" decoding="async" width="640" height="1387">
+          <img src="./img/shot-04.webp" alt="統計画面。実績と、バックアップの書き出し" loading="lazy" decoding="async" width="640" height="1387">
           <figcaption>統計と、書き出し / 読み込み</figcaption>
         </figure>
       </div>
@@ -497,6 +508,27 @@ a:hover { color: var(--color-ink); }
     }
   }
   table.appendChild(frag);
+
+  // 地図への書き込み：59〜100号の空き（いちばん大きい空白）に注記を重ねる。位置は実際のマスから測る
+  var note = document.getElementById('gap-note');
+  function placeNote() {
+    var first = null, last = null;
+    // 61〜100 の空き＝行61・81 の20マス（59・60 は行41の末尾なので含めない）
+    var cells = table.querySelectorAll('.sh, .gap'), k = 0;
+    for (var i = 0; i < cells.length; i++) {
+      var el = cells[i]; k++;
+      if (k === 61) first = el; if (k === 100) last = el;
+      if (k >= 61 && k <= 100) el.classList.add('in-note');
+    }
+    if (!first || !last) return;
+    var wrap = note.parentNode.getBoundingClientRect(), a = first.getBoundingClientRect(), b = last.getBoundingClientRect();
+    note.style.left = (a.left - wrap.left) + 'px'; note.style.top = (a.top - wrap.top) + 'px';
+    note.style.width = (b.right - a.left) + 'px'; note.style.height = (b.bottom - a.top) + 'px';
+    note.hidden = false;
+  }
+  placeNote();
+  window.addEventListener('resize', placeNote);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeNote);
 
   var btns = Array.prototype.slice.call(table.querySelectorAll('.sh'));
   var card = { no: document.getElementById('card-no'), name: document.getElementById('card-name'),

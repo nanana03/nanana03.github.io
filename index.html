@@ -47,6 +47,7 @@
   --text-h2: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
   --text-mark: clamp(3.1rem, 1.2rem + 9vw, 8.6rem);
   --text-mail: clamp(1.2rem, 0.7rem + 2.6vw, 2.4rem);
+  --text-count: clamp(2.6rem, 1.6rem + 3.2vw, 4.6rem);
 
   --icon: clamp(88px, 10.5vw, 156px);
   --board: 7px;
@@ -114,11 +115,21 @@ a:hover { text-decoration-thickness: 2px; }
   margin-top: var(--space-lg); max-width: 34em; font-size: var(--text-lg); line-height: 1.85;
 }
 .intro .aside { margin-top: var(--space-sm); max-width: 40em; color: var(--color-muted); font-size: var(--text-sm); }
-.intro .count {
-  margin-top: var(--space-lg); display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md);
-  font-size: var(--text-sm); color: var(--color-muted);
+/* 件数＝それぞれの棚への入口。数字は小さな棚板に乗せる（下の棚と同じ板） */
+.intro .count { margin-top: var(--space-xl); display: flex; gap: var(--space-lg); }
+.intro .count a {
+  display: flex; flex-direction: column; gap: var(--space-2xs); min-width: 7.5rem; padding-bottom: var(--space-xs);
+  border-bottom: var(--board) solid var(--color-board); color: var(--color-ink); text-decoration: none;
 }
-.intro .count b { font-family: var(--font-display); font-weight: 800; color: var(--color-ink); font-size: var(--text-lg); margin-right: 0.15em; }
+.intro .count b { font-family: var(--font-display); font-weight: 800; font-size: var(--text-count); line-height: 0.9; letter-spacing: -0.03em; transition: transform var(--dur-short) var(--ease-out); }
+.intro .count span { font-size: var(--text-sm); color: var(--color-muted); white-space: nowrap; }
+@media (hover: hover) and (pointer: fine) { .intro .count a:hover b { transform: translateY(-4px); } }
+@media (min-width: 64rem) {
+  .intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-2xl); align-items: end; }
+  .intro h1 { grid-column: 1 / -1; }
+  .intro .lede, .intro .aside { grid-column: 1; }
+  .intro .count { grid-column: 2; grid-row: 2 / span 2; margin-top: 0; align-self: end; }
+}
 
 /* ── 棚 ────────────────────────────────────────────────── */
 .shelf { padding-top: var(--space-xl); }
@@ -197,7 +208,8 @@ a:hover { text-decoration-thickness: 2px; }
 .letter .colophon { margin-top: var(--space-xs); color: var(--color-muted); font-size: var(--text-xs); max-width: 48em; }
 
 @media (prefers-reduced-motion: reduce) {
-  .obj img, .obj::after { transition: none; }
+  .obj img, .obj::after, .intro .count b { transition: none; }
+  .intro .count a:hover b { transform: none; }
   .item:hover .obj img { transform: none; }
 }
 </style>
@@ -215,7 +227,10 @@ a:hover { text-decoration-thickness: 2px; }
     <h1>Nanana Soft</h1>
     <p class="lede">個人でアプリとソフトウェアを作って公開しています。このページは、その全部を一枚に並べた目録です。</p>
     <p class="aside">各製品のサポート窓口とプライバシーポリシーは、それぞれのサイトに置いてあります。</p>
-    <p class="count"><span><b>4</b>iOS アプリ</span><span><b>3</b>Windows ソフト</span></p>
+    <nav class="count" aria-label="棚へ移動">
+      <a href="#ios"><b>4</b><span>iOS アプリ</span></a>
+      <a href="#windows"><b>3</b><span>Windows ソフト</span></a>
+    </nav>
   </header>
 
   <section class="shelf" id="ios" aria-labelledby="h-ios">
