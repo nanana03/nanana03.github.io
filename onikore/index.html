@@ -134,6 +134,9 @@ a:hover { color: var(--color-ink); }
 .qr img { width: 92px; height: 92px; display: block; padding: 6px; background: var(--color-white); border-radius: 4px; }
 @media (min-width: 45rem) and (pointer: fine) { .qr { display: flex; } }
 .note { color: var(--color-sub); font-size: var(--text-sm); }
+/* お知らせ（2026-10-14 追加）。見出しにしない＝見出し用フォントの文字の切り出し（font-disp の text=）に影響させない */
+.notice { max-width: 36em; padding: var(--space-xs) var(--space-sm); border-left: 3px solid var(--color-current); background: var(--color-card); color: var(--color-ink); font-size: var(--text-sm); }
+.notice b { color: var(--color-current); margin-right: 0.5em; }
 
 /* ── 番号表（ページの背骨） ── */
 .dia { padding-block: var(--space-xl); border-top: 1px solid var(--color-line); }
@@ -271,6 +274,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     <p class="route-line"><span>国道</span><span class="num">1</span><span class="dash" aria-hidden="true"></span><span class="num">507</span><span>号</span></p>
     <h1>日本の<wbr>一般国道は<wbr><span class="nb"><span class="num">459</span>本。</span><wbr>走った<wbr>分だけ、<wbr>地図が<wbr>塗られる。</h1>
     <p class="lede">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
+    <p class="notice"><b>お知らせ</b>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示します。記録は消えず、アプリを開けば表示に戻ります。<a href="#faq-ranking">詳しく</a></p>
     <div class="get">
       <!-- App Store バッジは Apple 提供の原本をそのまま置いている（作り直し・改変・回転・
            アニメーションは禁止＝developer.apple.com/app-store/marketing/guidelines/）。
@@ -413,6 +417,8 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
           <dd>未開通区間・フェリー航路などにより実際に分断されている路線です（該当路線の詳細画面に注記があります）。</dd></div>
         <div><dt>購入した Pro が復元できません。</dt>
           <dd>ペイウォール画面の「購入を復元」を、購入時と同じ Apple Account でお試しください。解決しない場合は下記までご連絡ください。</dd></div>
+        <div id="faq-ranking"><dt>ランキングに自分が表示されません。</dt>
+          <dd>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示しています（いま走っている人どうしで競えるようにするための変更です）。走った記録は消えていません。アプリを開けば、通信できる状態で自動的に表示に戻ります。詳しくは<a href="./privacy.html">プライバシーポリシー</a>の第2項をご覧ください。</dd></div>
         <div><dt>Android 版はありますか？</dt>
           <dd>準備中です。公開できしだい、このページに入手先を追加します。</dd></div>
       </dl>
@@ -428,6 +434,8 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <dd>Entirely on your device. Nothing is sent to the developer's servers. See our <a href="./privacy.html">Privacy Policy</a>.</dd>
         <dt>Can I transfer data to a new phone?</dt>
         <dd>Use “Export” in the Stats screen to create a backup file, then “Import” on the new device.</dd>
+        <dt>I don’t appear in the ranking.</dt>
+        <dd>From October 21, 2026, the national ranking shows only players who have used the app in the last three weeks. Your record is not deleted — open the app (with a network connection) and you will reappear automatically.</dd>
         <dt>Restore purchase issues?</dt>
         <dd>Tap “Restore Purchases” on the paywall with the same Apple Account used for purchase. Contact us if it persists.</dd>
       </dl>
