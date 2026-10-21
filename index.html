@@ -18,8 +18,9 @@
 /* Hallmark · genre: editorial · macrostructure: Portfolio Grid · design-system: design.md
  * theme: custom tuned（light / geometric-sans / chromatic-green）· tone: austere
  * nav: N2 floating chip · footer: Ft6 letter close
- * enrichment: 実物アイコン7点（出典↓）。生成画像・ストック写真・偽バッジなし
+ * enrichment: 実物アイコン8点（出典↓）。生成画像・ストック写真・偽バッジなし
  *   onikore / oshikurabe / fuse6x6 / mtbhub ＝ App Store 配信アイコン（itunes lookup の artworkUrl512・2026-10-01 取得）
+ *   beerhub ＝ 同じく artworkUrl512（2026-10-21 取得・sips で 240px → cwebp -q 82）
  *   zipshrink ＝ 社長室\開発部\ZipShrink\icon.png ／ stockvaluation ＝ 社長室\開発部\StockValuation\exe_build\app_icon.png
  *   pathlessmark ＝ Product\PathlessMark\assets\vector_src\01_explorer.png（Vector 用に撮った実画面）から印の付いたフォルダを1つ切り出し＝アイコンを持たないソフトのため
  * 前回（2026-08-19 Index-First / Newsprint / N6 / Ft4）から macrostructure・nav・footer・display・accent を変えた
@@ -243,7 +244,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     <p class="lede">個人でアプリとソフトウェアを作って公開しています。このページは、その全部を一枚に並べた目録です。</p>
     <p class="aside">各製品のサポート窓口とプライバシーポリシーは、それぞれのサイトに置いてあります。</p>
     <nav class="count" aria-label="棚へ移動">
-      <a href="#ios"><b>5</b><span>スマホアプリ</span></a>
+      <a href="#ios"><b>6</b><span>スマホアプリ</span></a>
       <a href="#windows"><b>3</b><span>Windows ソフト</span></a>
     </nav>
   </header>
@@ -256,7 +257,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>おにコレ</h3>
           <p>走った国道を記録して集めるコレクションアプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6787720099">App Store</a><a href="https://nanana03.github.io/onikore/">サポート</a></p>
+          <p class="go"><a href="https://apps.apple.com/jp/app/id6787720099">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play</a><a href="https://nanana03.github.io/onikore/">サポート</a></p>
         </div>
       </li>
       <li class="item">
@@ -289,6 +290,14 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
           <h3>BilliHub</h3>
           <p>撞いた日を残して、仲間と分け合うビリヤードのアプリ。</p>
           <p class="go"><a href="https://apps.apple.com/jp/app/id6809142556">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.billihub">Google Play</a><a href="https://billihub.nananasoft.com/">公式サイト</a></p>
+        </div>
+      </li>
+      <li class="item">
+        <div class="stand"><div class="obj"><img src="./img/icon-beerhub.webp" alt="Beer Hub のアイコン" width="240" height="240"></div></div>
+        <div class="label">
+          <h3>Beer Hub</h3>
+          <p>日本のブルワリーを訪ねて、行った先を集めていくアプリ。</p>
+          <p class="go"><a href="https://apps.apple.com/jp/app/id6817176337">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.beerhub">Google Play</a><a href="https://nanana03.github.io/beerhub-site/">公式サイト</a></p>
         </div>
       </li>
     </ul>

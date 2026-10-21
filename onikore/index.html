@@ -130,6 +130,8 @@ a:hover { color: var(--color-ink); }
 .get { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); }
 .badge { display: inline-block; line-height: 0; margin: 12px 12px 12px 0; border-radius: 8px; }
 .badge img { height: 48px; width: auto; display: block; }
+.badge--play { margin-top: 5px; margin-bottom: 5px; }
+.badge--play img { height: 62.5px; }
 .qr { display: none; align-items: center; gap: var(--space-xs); color: var(--color-sub); font-size: var(--text-xs); line-height: 1.5; }
 .qr img { width: 92px; height: 92px; display: block; padding: 6px; background: var(--color-white); border-radius: 4px; }
 @media (min-width: 45rem) and (pointer: fine) { .qr { display: flex; } }
@@ -274,7 +276,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     <p class="route-line"><span>国道</span><span class="num">1</span><span class="dash" aria-hidden="true"></span><span class="num">507</span><span>号</span></p>
     <h1>日本の<wbr>一般国道は<wbr><span class="nb"><span class="num">459</span>本。</span><wbr>走った<wbr>分だけ、<wbr>地図が<wbr>塗られる。</h1>
     <p class="lede">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
-    <p class="notice"><b>お知らせ</b>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示します。記録は消えず、アプリを開けば表示に戻ります。<a href="#faq-ranking">詳しく</a></p>
+    <p class="notice"><b>お知らせ</b>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示しています。記録は消えず、アプリを開けば表示に戻ります。<a href="#faq-ranking">詳しく</a></p>
     <div class="get">
       <!-- App Store バッジは Apple 提供の原本をそのまま置いている（作り直し・改変・回転・
            アニメーションは禁止＝developer.apple.com/app-store/marketing/guidelines/）。
@@ -285,15 +287,18 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       <a class="badge" href="https://apps.apple.com/app/id6787720099">
         <img src="./img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="131" height="48">
       </a>
-      <!-- android-link: Play の審査が通ったら、Google 提供の公式バッジを
-           play.google.com/intl/ja/badges/ から取って、この位置（App Store の後ろ）に足す。
-           2026-09-17 時点で https://play.google.com/store/apps/details?id=com.nanabit.kokudo は HTTP 404。
-           2026-10-01 も 404（Play が否承認＝1.0.13 で再提出の予定・onikore M74）。 -->
+      <!-- Google Play の公式バッジ＝play.google.com/intl/ja/badges/static/images/badges/ja_badge_web_generic.png
+           （2026-10-21 取得・646×250 を 323×125 に縮小）。原本は上下に透明の余白があり、
+           不透明部分は 646×192（y=29〜220）。高さ 62.5px で表示すると見えるバッジの高さが
+           App Store バッジと同じ 48px になる。Play の公開は 2026-10-21 に詳細ページ（HTTP 200・1.0.20）で確認。 -->
+      <a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">
+        <img src="./img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="161" height="62">
+      </a>
       <div class="qr">
         <img src="./img/qr-appstore.svg" alt="App Store のページを開く QR コード" width="92" height="92">
         <span>カメラで読み取ると<br>App Store が開きます</span>
       </div>
-      <p class="note">iPhone・無料（アプリ内課金あり）／Android 版は準備中</p>
+      <p class="note">iPhone・Android・無料（アプリ内課金あり）</p>
     </div>
   </header>
 
@@ -420,7 +425,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div id="faq-ranking"><dt>ランキングに自分が表示されません。</dt>
           <dd>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示しています（いま走っている人どうしで競えるようにするための変更です）。走った記録は消えていません。アプリを開けば、通信できる状態で自動的に表示に戻ります。詳しくは<a href="./privacy.html">プライバシーポリシー</a>の第2項をご覧ください。</dd></div>
         <div><dt>Android 版はありますか？</dt>
-          <dd>準備中です。公開できしだい、このページに入手先を追加します。</dd></div>
+          <dd>あります。<a href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play</a> から入手できます。</dd></div>
       </dl>
     </div>
   </section>
@@ -428,7 +433,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   <section class="en" id="en" lang="en" aria-labelledby="h-en">
     <div class="wrap">
       <h2 id="h-en">Onikore — Japan Route Collection</h2>
-      <p>A drive-logging app for “collecting” all 459 of Japan's national routes. It records your drives via GPS and shows how far you have driven each route — with per-route completion rates, a prefecture map, and elevation profiles. Free on iPhone, with an optional one-time Pro unlock (¥490). An Android version is in preparation.</p>
+      <p>A drive-logging app for “collecting” all 459 of Japan's national routes. It records your drives via GPS and shows how far you have driven each route — with per-route completion rates, a prefecture map, and elevation profiles. Free on iPhone and Android, with an optional one-time Pro unlock (¥490).</p>
       <dl>
         <dt>Where is my driving data stored?</dt>
         <dd>Entirely on your device. Nothing is sent to the developer's servers. See our <a href="./privacy.html">Privacy Policy</a>.</dd>
@@ -452,6 +457,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>
       <a href="./privacy.html">プライバシーポリシー</a>
       <a href="https://apps.apple.com/app/id6787720099">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play</a>
     </p>
     <p class="fine">Nanana Soft — お問い合わせはメールでお願いします。路線データ：道路統計年報2025 表26。国道標識の形：Wikimedia Commons「Japanese National Route Sign 0001.svg」（パブリックドメイン）。画面の画像と録画はアプリの実際の画面です。</p>
   </div>
