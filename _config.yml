@@ -4,3 +4,4 @@ exclude:
   - design.md
   - fuse6x6/design.md
   - onikore/design.md
+  - picofiler/design.md

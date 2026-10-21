@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PicoFiler — 軽くて速い画像ビューア・整理ツール（Windows・無料）</title>
+<meta name="description" content="PicoFiler は Windows 用の無料の画像ビューア・整理ツール。フォルダツリー・一覧・サムネイルを一つの画面に並べ、ZIP や RAR の書庫も展開せずに開けます。見開き表示、PC 全体からの検索にも対応。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f3f4f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1d20" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="PicoFiler — 軽くて速い画像ビューア・整理ツール">
+<meta property="og:description" content="Windows 用の無料の画像ビューア。書庫もそのまま開け、見開き表示と PC 全体の検索に対応。">
+<meta property="og:image" content="https://nanana03.github.io/picofiler/img/main.webp">
+<link rel="icon" href="./favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./img/icon-180.png">
+<!-- url-ok: https://fonts.googleapis.com  url-ok: https://fonts.gstatic.com
+     preconnect 用のオリジン（素の GET は 404）。実際に読む css2?family=… は 200。 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="font-disp" data-text-from="h1,h2,h3,.wordmark,.dl-btn,.tree a,.step b" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700&amp;display=swap&amp;text=%20-.013ACFIPRWZcdeilnoprstuwx%E3%80%81%E3%80%82%E3%80%8C%E3%80%8D%E3%81%82%E3%81%84%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8F%E3%81%91%E3%81%95%E3%81%97%E3%81%98%E3%81%99%E3%81%9A%E3%81%9B%E3%81%9D%E3%81%9F%E3%81%A3%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%B6%E3%81%B9%E3%81%BE%E3%81%BF%E3%82%80%E3%82%81%E3%82%82%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%92%E3%82%A4%E3%82%A6%E3%82%AD%E3%82%B5%E3%82%B9%E3%83%80%E3%83%84%E3%83%88%E3%83%89%E3%83%93%E3%83%9E%E3%83%AA%E3%83%AB%E3%83%AD%E3%83%B3%E3%83%BC%E4%B8%80%E4%B8%A6%E4%BB%98%E4%BD%93%E4%BF%9D%E5%83%8F%E5%85%A5%E5%85%A8%E5%87%BA%E5%88%86%E5%89%8D%E5%8F%B3%E5%90%8D%E5%95%8F%E5%A0%B4%E5%B1%95%E5%B1%B1%E5%BA%AB%E5%BC%95%E5%BF%9C%E6%89%8B%E6%8E%A2%E6%8F%B4%E6%95%B4%E6%96%99%E6%9B%B8%E6%9B%BF%E6%B0%97%E6%BC%AB%E7%84%A1%E7%89%87%E7%90%86%E7%94%BB%E7%9B%AE%E7%9E%AC%E7%A2%BA%E7%A8%AE%E7%AE%A1%E7%B4%A2%E7%B5%9E%E7%B6%B4%E8%80%85%E8%87%AA%E8%A6%8B%E8%AA%8D%E8%AA%AD%E8%AD%B7%E8%B3%AA%E8%BB%BD%E8%BE%BC%E9%81%B8%E9%96%8B%E9%A1%9E%EF%BC%88%EF%BC%89">
+<link rel="preload" as="image" href="./img/main.webp" fetchpriority="high">
+<style>
+/* Hallmark · genre: editorial（utilitarian）· macrostructure: Workbench · design-system: picofiler/design.md · designed-as-app
+ * theme: studied-DNA（source: アプリ本体 picofiler/theme.py の mist／graphite・picofiler/icons/app.png）
+ * axes: light（dark は graphite）/ geometric-sans / cool（accent #0a64c2）＋ アイコンの若草・黄・橙は面だけ
+ * nav: N3 side-rail（＝フォルダツリー）· footer: Ft2 inline single line · enrichment: 実物のスクショ 3 枚のみ
+ * 前回（Fuse 6×6＝Bento / dark / display-heavy / N5 / Ft2）から macrostructure・nav・paper・display を変えた
+ * 色はアプリの値をそのまま使う（OKLCH に直さない＝製品の色そのもの・Fuse と同じ例外）
+ * pre-emit critique: P5 H4 E4 S5 R5 V5
+ */
+:root {
+  --color-paper:   #f3f4f6;   /* mist.window */
+  --color-surface: #ffffff;   /* mist.surface */
+  --color-line:    #e3e5e8;   /* mist.line */
+  --color-ink:     #1b1d21;   /* mist.text */
+  --color-muted:   #5d626b;   /* mist.muted #6b7079 を本文用に少し濃く（白地で 5.9:1） */
+  --color-accent:  #0a64c2;   /* mist.accent */
+  --color-accent-ink: #ffffff;
+  --color-select:  #dcebfb;   /* mist.select */
+  --color-select-ink: #0b2f57;
+  --color-hover:   #eef1f5;   /* mist.hover */
+  --color-sage:    #8ba792;   /* アイコンの手前のフォルダ */
+  --color-sage-ink:#2f4636;   /* 若草の上の字（7:1 以上） */
+  --color-folder:  #f4bf3a;   /* アイコンの奥のフォルダ */
+  --color-bird:    #ee8a3c;   /* アイコンの小鳥 */
+  --color-focus:   #0a64c2;
+
+  --font-display: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --text-sm: 0.875rem; --text-base: 1rem; --text-lg: 1.125rem; --text-xl: 1.375rem;
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --text-display: clamp(2rem, 1.3rem + 3vw, 3.4rem);
+
+  --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px;
+  --space-xl: 32px; --space-2xl: 48px; --space-3xl: 72px; --space-4xl: 104px;
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+  --rule: 1px solid var(--color-line);
+  --rail-w: 15rem;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 140ms;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:   #1c1d20;   /* graphite.window */
+    --color-surface: #222327;   /* graphite.surface */
+    --color-line:    #34363c;
+    --color-ink:     #e8e9ec;
+    --color-muted:   #a7abb4;
+    --color-accent:  #5aa9ff;
+    --color-accent-ink: #0b1320;
+    --color-select:  #2c4a6e;
+    --color-select-ink: #ffffff;
+    --color-hover:   #2a2c31;
+    --color-sage-ink:#dbe8de;
+    --color-focus:   #5aa9ff;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--space-lg); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--color-paper); color: var(--color-ink);
+  font-family: var(--font-body); font-size: var(--text-base); line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { word-break: auto-phrase; font-family: var(--font-display); font-style: normal; font-weight: 700; margin: 0; line-height: 1.35; overflow-wrap: anywhere; min-width: 0; }
+p { margin: 0; }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-sm); }
+img { display: block; max-width: 100%; height: auto; }
+code { font-family: var(--font-mono); font-size: 0.92em; background: var(--color-hover); padding: 1px 6px; border-radius: var(--radius-sm); }
+
+/* ---- 窓：左にフォルダツリー（目次）、右に中身 ---- */
+.window { display: grid; grid-template-columns: var(--rail-w) minmax(0, 1fr); min-height: 100vh; max-width: 1240px; margin: 0 auto; }
+.rail { position: sticky; top: 0; align-self: start; height: 100vh; padding: var(--space-xl) var(--space-md) var(--space-lg) var(--space-lg); border-right: var(--rule); display: flex; flex-direction: column; gap: var(--space-lg); }
+.wordmark { display: flex; align-items: center; gap: var(--space-sm); font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); color: var(--color-ink); text-decoration: none; white-space: nowrap; }
+.wordmark img { width: 36px; height: 36px; }
+.tree-label { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-xs); }
+.tree { list-style: none; margin: 0; padding: 0 0 0 var(--space-sm); border-left: 1px dotted var(--color-muted); }
+.tree li { position: relative; }
+.tree li::before { content: ""; position: absolute; left: calc(-1 * var(--space-sm)); top: 1.05em; width: var(--space-xs); border-top: 1px dotted var(--color-muted); }
+.tree a { display: flex; align-items: center; gap: var(--space-xs); padding: 3px var(--space-xs); border-radius: var(--radius-sm); color: var(--color-ink); text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm); white-space: nowrap; transition: background-color var(--dur-fast) var(--ease-out); }
+.tree a::before { content: ""; flex: none; width: 14px; height: 11px; border-radius: 2px; background: var(--color-folder); box-shadow: inset 0 3px 0 0 color-mix(in srgb, var(--color-folder) 70%, var(--color-bird)); }
+.tree a:hover { background: var(--color-hover); }
+.tree a[aria-current="true"] { background: var(--color-select); color: var(--color-select-ink); }
+.rail .dl-mini { margin-top: auto; font-size: var(--text-sm); }
+
+.main { padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); display: flex; flex-direction: column; gap: var(--space-4xl); min-width: 0; }
+
+/* ---- はじめに ---- */
+.intro { display: grid; gap: var(--space-lg); }
+.intro .badge { display: flex; align-items: center; gap: var(--space-md); }
+.intro .badge img { width: 72px; height: 72px; }
+.intro .badge span { font-size: var(--text-sm); color: var(--color-muted); }
+.intro h1 { font-size: var(--text-display); letter-spacing: 0.01em; max-width: 16em; }
+.intro .lede { font-size: var(--text-lg); color: var(--color-muted); max-width: 38em; }
+.get { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); }
+.dl-btn { display: inline-flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-md); background: var(--color-accent); color: var(--color-accent-ink); font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); text-decoration: none; white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out); }
+.dl-btn:hover { transform: translateY(-1px); }
+.dl-btn:active { transform: translateY(1px); }
+.dl-btn svg { width: 20px; height: 20px; flex: none; }
+.get .meta { font-size: var(--text-sm); color: var(--color-muted); }
+.shot { margin: 0; border: var(--rule); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); }
+.shot figcaption { padding: var(--space-sm) var(--space-md); font-size: var(--text-sm); color: var(--color-muted); border-top: var(--rule); }
+
+/* ---- できること：節ごとに「フォルダのタブ」を見出しに ---- */
+.feature { display: grid; gap: var(--space-lg); }
+.tab { justify-self: start; display: inline-flex; padding: var(--space-2xs) var(--space-md) var(--space-2xs) var(--space-sm); border-radius: var(--radius-md) var(--radius-md) 0 0; background: var(--color-sage); color: var(--color-sage-ink); font-size: var(--text-sm); }
+@media (prefers-color-scheme: dark) { .tab { background: color-mix(in srgb, var(--color-sage) 45%, var(--color-surface)); } }
+.feature h2 { font-size: var(--text-2xl); }
+.feature .body { display: grid; gap: var(--space-md); max-width: 40em; }
+.feature ul { margin: 0; padding-left: 1.2em; }
+.feature li + li { margin-top: var(--space-2xs); }
+.pair { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-xl); align-items: start; }
+
+.grid-4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.card { background: var(--color-surface); border: var(--rule); border-radius: var(--radius-lg); padding: var(--space-lg); display: grid; gap: var(--space-xs); align-content: start; }
+.card h3 { font-size: var(--text-lg); }
+.card p { color: var(--color-muted); font-size: 0.95rem; }
+
+.formats { display: flex; flex-wrap: wrap; gap: var(--space-xs); list-style: none; padding: 0; margin: 0; }
+.formats li { padding: 2px var(--space-sm); border: var(--rule); border-radius: 999px; background: var(--color-surface); font-size: var(--text-sm); }
+
+/* ---- ダウンロード ---- */
+.download { background: var(--color-surface); border: var(--rule); border-radius: var(--radius-lg); padding: var(--space-2xl); display: grid; gap: var(--space-xl); }
+.download h2 { font-size: var(--text-2xl); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-md); counter-reset: step; }
+.step { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: var(--space-md); align-items: baseline; }
+.step::before { counter-increment: step; content: counter(step); font-family: var(--font-display); font-weight: 700; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%; background: var(--color-select); color: var(--color-select-ink); }
+.step b { font-family: var(--font-display); }
+.step p { color: var(--color-muted); }
+.spec { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-xs) var(--space-lg); margin: 0; font-size: 0.95rem; }
+.spec dt { color: var(--color-muted); }
+.spec dd { margin: 0; }
+.later { font-size: var(--text-sm); color: var(--color-muted); }
+
+/* ---- よくある質問・寄付 ---- */
+.faq { display: grid; gap: var(--space-lg); max-width: 44em; }
+.faq h2, .donate h2 { font-size: var(--text-2xl); }
+.faq details { border-bottom: var(--rule); padding-bottom: var(--space-md); }
+.faq summary { cursor: pointer; font-weight: 700; list-style-position: outside; }
+.faq summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.faq details p { margin-top: var(--space-xs); color: var(--color-muted); }
+.donate { display: grid; gap: var(--space-md); max-width: 44em; padding-left: var(--space-lg); border-left: 4px solid var(--color-bird); }
+
+.foot { border-top: var(--rule); padding-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg); }
+.foot a { white-space: nowrap; }
+
+/* ---- 狭い画面：ツリーは上に（横に並べて折り返す） ---- */
+@media (max-width: 900px) {
+  .pair { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .window { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: static; height: auto; border-right: 0; border-bottom: var(--rule); padding: var(--space-md); gap: var(--space-sm); }
+  .tree { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-xs); padding: 0; border-left: 0; }
+  .tree li::before { display: none; }
+  .tree-label, .rail .dl-mini { display: none; }
+  .main { padding: var(--space-2xl) var(--space-md) var(--space-xl); gap: var(--space-3xl); }
+  .grid-4 { grid-template-columns: minmax(0, 1fr); }
+  .download { padding: var(--space-lg); }
+  .spec { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .spec dd { margin-bottom: var(--space-xs); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tree a, .dl-btn { transition: none; }
+  .dl-btn:hover, .dl-btn:active { transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="window">
+  <aside class="rail" aria-label="このページの目次">
+    <a class="wordmark" href="#top"><img src="./img/icon.webp" alt="" width="36" height="36">PicoFiler</a>
+    <nav aria-labelledby="tree-label">
+      <p class="tree-label" id="tree-label">このページ</p>
+      <ul class="tree">
+        <li><a href="#top">はじめに</a></li>
+        <li><a href="#archive">書庫をそのまま</a></li>
+        <li><a href="#spread">見開きで読む</a></li>
+        <li><a href="#search">PC全体を探す</a></li>
+        <li><a href="#organize">整理する</a></li>
+        <li><a href="#download">ダウンロード</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+      </ul>
+    </nav>
+    <p class="dl-mini"><a href="https://nanana03.github.io/">Nanana Soft のトップへ</a></p>
+  </aside>
+
+  <main class="main">
+    <section class="intro" id="top" aria-labelledby="h-top">
+      <div class="badge"><img src="./img/icon.webp" alt="PicoFiler のアイコン（フォルダにとまる小鳥）" width="72" height="72"><span>Windows 用・無料</span></div>
+      <h1 id="h-top">画像の山を、<wbr>軽く見て、<wbr>すっと片付ける。</h1>
+      <p class="lede">PicoFiler は、たくさんの写真や漫画を見ながら整理するための画像ビューアです。フォルダツリー・ファイルの一覧・サムネイルを一つの画面に並べ、気になった画像はそのまま開いて、移動や複写までその場で済ませられます。</p>
+      <div class="get">
+        <a class="dl-btn" href="https://github.com/nanana03/picofiler-release/releases/download/v1.0.0/PicoFiler-1.0.0-setup.exe"><svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M9 2h2v9.6l3.3-3.3 1.4 1.4L10 15.4 4.3 9.7l1.4-1.4L9 11.6V2zM3 16h14v2H3z"/></svg>無料でダウンロード</a>
+        <p class="meta">1.0.0 · Windows 10 / 11（64bit）· 約 30MB</p>
+      </div>
+      <figure class="shot">
+        <img src="./img/main.webp" alt="PicoFiler のメイン画面。左にフォルダツリー、右上にファイルの一覧、右下に旅行の写真のサムネイルが並んでいる" width="1600" height="875" fetchpriority="high">
+        <figcaption>メイン画面。左にフォルダツリー、右上に一覧、右下にサムネイル。</figcaption>
+      </figure>
+    </section>
+
+    <section class="feature" id="archive" aria-labelledby="h-archive">
+      <span class="tab">書庫</span>
+      <h2 id="h-archive">ZIP も RAR も、展開せずにそのまま開く</h2>
+      <div class="body">
+        <p>ZIP・7z・RAR・LZH の書庫を、フォルダと同じように開けます。左のツリーにも書庫が並ぶので、中の画像を探すのにいちいち展開する必要はありません。</p>
+        <ul class="formats" aria-label="表示できる画像の形式">
+          <li>JPEG</li><li>PNG</li><li>GIF</li><li>BMP</li><li>WebP</li><li>TIFF</li><li>AVIF</li><li>JPEG 2000</li><li>PSD</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="feature" id="spread" aria-labelledby="h-spread">
+      <span class="tab">ビューア</span>
+      <div class="pair">
+        <div class="body">
+          <h2 id="h-spread">漫画は見開きで、右綴じのまま</h2>
+          <p>見開き表示は、日本の漫画と同じ右綴じです。表紙は 1 枚で、2 枚目から 2 枚ずつ組みます。もとから横長のページは 1 枚で出します。</p>
+          <p>ページの組がずれていたら「1 ページずらす」で組み直せます。全画面、スライドショー、マウスのカーソルを中心にした拡大縮小にも対応しています。</p>
+        </div>
+        <figure class="shot">
+          <img src="./img/spread.webp" alt="ビューアの見開き表示。絵本の 2 ページが左右に並んでいる" width="1600" height="1014" loading="lazy">
+          <figcaption>見開き表示。上の帯のボタンで切り替え。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="feature" id="search" aria-labelledby="h-search">
+      <span class="tab">検索</span>
+      <div class="pair">
+        <div class="body">
+          <h2 id="h-search">PC 全体から、名前で一瞬で探す</h2>
+          <p>上の検索欄に名前を入れると、PC の中のフォルダ・画像・書庫を探します。見つかった行を選ぶと、右下にその場所の中身が並びます。</p>
+          <p>インストールのときに「索引サービス」を入れると、NTFS のディスクのファイル名の一覧を作って変更をすぐに反映するので、検索がほぼ待たずに終わります。一覧はこの PC の中だけに保存し、外部へは一切送りません。</p>
+        </div>
+        <figure class="shot">
+          <img src="./img/search.webp" alt="PC 全体の検索。「どうぶつ」で探し、見つかったフォルダの中の動物の写真が下に並んでいる" width="1600" height="875" loading="lazy">
+          <figcaption>「どうぶつ」で探したところ。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="feature" id="organize" aria-labelledby="h-organize">
+      <span class="tab">整理</span>
+      <h2 id="h-organize">見ながら、その場で片付ける</h2>
+      <div class="grid-4">
+        <div class="card"><h3>ツリーを並べる</h3><p>フォルダツリーを 2 つ以上出して、ドラッグでファイルを移動・複写できます。</p></div>
+        <div class="card"><h3>並べ替えと絞り込み</h3><p>ツリーを名前・更新日時・作成日時で並べ替え、名前で絞り込めます。</p></div>
+        <div class="card"><h3>キーとマウスを自分の手に</h3><p>メイン画面のキーと、ビューアのキー・マウスの割り当てを、設定で変えられます。</p></div>
+        <div class="card"><h3>見た目は 3 種類</h3><p>明るいミスト・あたたかいペーパー・暗いグラファイトから選べます。</p></div>
+      </div>
+    </section>
+
+    <section class="download" id="download" aria-labelledby="h-download">
+      <h2 id="h-download">ダウンロードとインストール</h2>
+      <div class="get">
+        <a class="dl-btn" href="https://github.com/nanana03/picofiler-release/releases/download/v1.0.0/PicoFiler-1.0.0-setup.exe"><svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M9 2h2v9.6l3.3-3.3 1.4 1.4L10 15.4 4.3 9.7l1.4-1.4L9 11.6V2zM3 16h14v2H3z"/></svg>PicoFiler-1.0.0-setup.exe</a>
+        <p class="meta"><a href="https://github.com/nanana03/picofiler-release/releases">リリースの一覧（GitHub）</a></p>
+      </div>
+      <ol class="steps">
+        <li class="step"><div><b>ダウンロードした setup.exe を開く</b></div></li>
+        <li class="step"><div><b>「Windows によって PC が保護されました」と出たら</b><p>コード署名をしていないため表示されます。［詳細情報］→［実行］で進んでください。</p></div></li>
+        <li class="step"><div><b>管理者の確認で「はい」</b><p>索引サービスを登録するために、管理者の権限を使います。</p></div></li>
+        <li class="step"><div><b>「索引サービスを入れる」を選ぶ（おすすめ）</b><p>入れなくても検索はできます。その場合はフォルダを順にたどるので、時間がかかります。</p></div></li>
+      </ol>
+      <dl class="spec">
+        <dt>対応 OS</dt><dd>Windows 10 / 11（64bit）</dd>
+        <dt>版</dt><dd>1.0.0</dd>
+        <dt>料金</dt><dd>無料（個人・法人とも）</dd>
+        <dt>アンインストール</dt><dd>Windows の「設定」→「アプリ」から。索引サービスの登録と、保存したファイル名の一覧も一緒に消えます。</dd>
+      </dl>
+      <p class="later">Vector でも公開の手続き中です。</p>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="h-faq">
+      <h2 id="h-faq">よくある質問</h2>
+      <details>
+        <summary>索引サービスは、何かを外部へ送りますか？</summary>
+        <p>送りません。ファイル名の一覧はこの PC の中（ProgramData）にだけ保存し、読めるのはインストールした Windows のユーザーだけです。</p>
+      </details>
+      <details>
+        <summary>索引サービスを入れずに使えますか？</summary>
+        <p>使えます。PC 全体の検索は、フォルダを順にたどって探します。見る・整理する機能は、どちらでも同じです。</p>
+      </details>
+      <details>
+        <summary>どの書庫が開けますか？</summary>
+        <p>ZIP・7z・RAR・LZH です。分割された RAR は 1 巻目から開いてください。</p>
+      </details>
+    </section>
+
+    <section class="donate" aria-labelledby="h-donate">
+      <h2 id="h-donate">無料です。気に入ったら、応援を</h2>
+      <p>PicoFiler は無料で、広告もありません。気に入っていただけたら、寄付で応援していただけるとうれしいです。ソフトの「ヘルプ → 寄付で応援する」からも開けます。</p>
+      <p><a href="https://github.com/sponsors/peekrvr">GitHub Sponsors で応援する</a></p>
+    </section>
+
+    <footer class="foot">
+      <span>© 2026 Nanana Soft</span>
+      <a href="https://nanana03.github.io/">トップ</a>
+      <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>
+      <a href="https://github.com/nanana03/picofiler-release/blob/main/LICENSE.txt">使用許諾</a>
+      <a href="https://github.com/nanana03/picofiler-release/blob/main/THIRD_PARTY_NOTICES.txt">部品のライセンス</a>
+    </footer>
+  </main>
+</div>
+<script>
+/* 目次の「今いる節」をアプリの選択色で示す（動きはこれ 1 つ） */
+(() => {
+  const links = [...document.querySelectorAll('.tree a')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const set = id => links.forEach(a => {
+    if (a === map.get(id)) a.setAttribute('aria-current', 'true');
+    else a.removeAttribute('aria-current');
+  });
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => {
+    const v = es.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (v) set(v.target.id);
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  map.forEach((_, id) => { const s = document.getElementById(id); if (s) io.observe(s); });
+  set('top');
+})();
+</script>
+</body>
+</html>
