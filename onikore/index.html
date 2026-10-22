@@ -189,6 +189,15 @@ a:hover { color: var(--color-ink); }
 .kmap .sea path { stroke: var(--color-accent); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0.6; }
 .kmap .hit path { fill: none; stroke: transparent; stroke-width: 14; vector-effect: non-scaling-stroke; pointer-events: stroke; cursor: pointer; }
 .kmap .hl path { stroke: var(--color-current); stroke-width: 3.5; }
+.kmap .hl path.c { stroke: var(--color-paper); stroke-width: 7; }   /* 縁取り＝標高の色の中でも選んだ線が埋もれない */
+/* 標高の色分け（2026-10-23）。段＝data/kokudo-elev.json の bands（m）。低い＝青緑 → 黄 → 橙 → 桃 → 高い＝白に近い */
+.kmap .el path { fill: none; stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.kmap.elev .rt { display: none; }
+.kmap:not(.elev) .el, .kmap:not(.elev) .kmap-leg { display: none; }
+.kmap-leg { position: absolute; left: var(--space-xs); bottom: var(--space-xs); padding: var(--space-2xs) var(--space-xs);
+  background: rgba(12, 26, 41, 0.85); border-radius: var(--radius); font-size: var(--text-xs); color: var(--color-sub); pointer-events: none; }
+.kmap-leg .bar { display: block; width: 180px; height: 8px; margin-block: 4px 2px; border-radius: 4px; }
+.kmap-leg .ends { display: flex; justify-content: space-between; }
 .kmap .hl path.s { stroke-width: 2; stroke-dasharray: 5 5; }
 .kmap-ctl { position: absolute; top: var(--space-xs); right: var(--space-xs); display: flex; flex-direction: column; gap: var(--space-2xs); }
 .kmap-ctl button {
@@ -354,7 +363,9 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
               <button type="button" id="km-out" aria-label="縮小">−</button>
               <button type="button" class="w" id="km-sel" aria-label="選んだ国道に寄る">寄る</button>
               <button type="button" class="w" id="km-all" aria-label="日本全体を表示">全国</button>
+              <button type="button" class="w" id="km-el" aria-pressed="true" aria-label="線の色を標高で塗り分ける／単色にする">単色</button>
             </div>
+            <div class="kmap-leg" id="km-leg" aria-hidden="true">標高<span class="bar" id="km-bar"></span><span class="ends"><span>0m</span><span>1,600m〜</span></span></div>
             <p class="kmap-msg" id="km-msg">地図を読み込んでいます…</p>
           </div>
         <aside class="card" id="card" aria-live="polite">
@@ -382,7 +393,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
             <noscript><p class="sub">この図の表示には JavaScript が必要です。</p></noscript>
           </div>
           <div class="ridge-anno"><p class="anno" id="a-long"></p><p class="anno" id="a-short" style="text-align:right"></p></div>
-          <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。<br>地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）。点線は海の上の区間です。</p>
+          <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。<br>地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）・標高 Terrain Tiles — SRTM/GMTED2010 terrain data courtesy of the U.S. Geological Survey。点線は海の上の区間です。</p>
       </div>
     </div>
   </section>
@@ -509,7 +520,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       <a href="https://apps.apple.com/app/id6787720099">App Store</a>
       <a href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play</a>
     </p>
-    <p class="fine">Nanana Soft — お問い合わせはメールでお願いします。路線データ：道路統計年報2025 表26。地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）。国道標識の形：Wikimedia Commons「Japanese National Route Sign 0001.svg」（パブリックドメイン）。画面の画像と録画はアプリの実際の画面です。</p>
+    <p class="fine">Nanana Soft — お問い合わせはメールでお願いします。路線データ：道路統計年報2025 表26。地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）・標高 Terrain Tiles（SRTM/GMTED2010 courtesy of the U.S. Geological Survey）。国道標識の形：Wikimedia Commons「Japanese National Route Sign 0001.svg」（パブリックドメイン）。画面の画像と録画はアプリの実際の画面です。</p>
   </div>
 </footer>
 
@@ -618,8 +629,28 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   // 表示範囲は viewBox で持ち、枠の縦横比に合わせる（preserveAspectRatio="none"＝画面の1pxと地図の比が縦横で同じ）。
   var KM = document.getElementById('kmap'), kmMsg = document.getElementById('km-msg');
   var M = null, ksvg = null, hlG = null, vb = null, kmLoading = false, kmWant = null;
+  // 標高の色分け＝data/kokudo-elev.json（段ごとに1本の path・約200KB gzip）。地図と並べて読む。読めなければ単色のまま
+  var EL = null, elG = null;
+  // 低い段は区間の約4割（0〜50m）＝暗い陸の色に沈まない明るさから始める（2026-10-23 東京の拡大で確認）
+  var EL_COLORS = ['#4A9CC4', '#3FB3A6', '#4CC184', '#86CB64', '#B9D25A', '#E2D35E', '#EDB65A', '#E9925F', '#E3717E', '#F4D9E8'];
+  KM.classList.add('elev');
+  document.getElementById('km-bar').style.background = 'linear-gradient(90deg,' + EL_COLORS.join(',') + ')';
+  function drawEl() {
+    EL.p.forEach(function (d, i) { if (d) el('path', { d: d, stroke: EL_COLORS[Math.min(i, EL_COLORS.length - 1)] }, elG); });
+  }
+  var elBtn = document.getElementById('km-el');
+  elBtn.addEventListener('click', function () {
+    var on = !KM.classList.contains('elev');
+    KM.classList.toggle('elev', on);
+    elBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    elBtn.textContent = on ? '単色' : '標高';
+  });
   function mapLoad() {
     if (kmLoading) return; kmLoading = true;
+    fetch('./data/kokudo-elev.json')
+      .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
+      .then(function (j) { EL = j; if (elG) drawEl(); })
+      .catch(function () { KM.classList.remove('elev'); elBtn.hidden = true; });
     fetch('./data/kokudo-map.json')
       .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
       .then(build)
@@ -644,6 +675,9 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       el('path', { d: j.r[n], 'data-no': n }, hit);
       if (j.sea[n]) el('path', { d: j.sea[n] }, sea);
     });
+    elG = el('g', { 'class': 'el' });
+    ksvg.insertBefore(elG, sea);
+    if (EL) drawEl();
     KM.insertBefore(ksvg, KM.firstChild);
     kmMsg.textContent = '';
     fitAll();
@@ -681,6 +715,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   function mapSel(n) {
     if (!M) return;
     while (hlG.firstChild) hlG.removeChild(hlG.firstChild);
+    if (M.r[n]) el('path', { d: M.r[n], 'class': 'c' }, hlG);
     if (M.sea[n]) el('path', { d: M.sea[n], 'class': 's' }, hlG);
     if (M.r[n]) el('path', { d: M.r[n] }, hlG);
   }
