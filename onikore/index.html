@@ -192,12 +192,12 @@ a:hover { color: var(--color-ink); }
 .kmap .hl path { stroke: var(--color-accent); }
 /* 選んだ国道＝色はそのまま（標高の色・単色なら水色）で少し太く、選んでいない線の太さとの間をゆっくり行き来する
    （2026-10-23 ユーザー「オレンジの実線になるのではなく、標高差のグラデーション色のまま…ゆっくり点滅するような」） */
-.kmap .hl path.p { stroke-width: 3; animation: km-pulse 2.4s ease-in-out infinite alternate; }
+.kmap .hl path.p { stroke-width: 3.2; animation: km-pulse 1.6s ease-in-out infinite alternate; }
+.kmap .hl path.g { stroke-width: 12; stroke-opacity: 0; animation: km-glow 1.6s ease-in-out infinite alternate; }   /* 同じ色の光の帯＝明滅 */
 .kmap .hl path.c { stroke: var(--color-paper); stroke-width: 6; }   /* 縁取り＝細くなった瞬間も周りの線と分かる */
-@keyframes km-pulse { from { stroke-width: 3; } to { stroke-width: 1.4; } }
-/* 動きを減らす設定でも止めない＝小さく・遅くする（Windows のアニメーション表示オフでもこの判定になる＝当社の Windows が実際にそう） */
-@keyframes km-pulse-soft { from { stroke-width: 3; } to { stroke-width: 2.2; } }
-@media (prefers-reduced-motion: reduce) { .kmap .hl path.p { animation: km-pulse-soft 4s ease-in-out infinite alternate; } }
+@keyframes km-pulse { from { stroke-width: 3.2; } to { stroke-width: 1.6; } }
+@keyframes km-glow { from { stroke-opacity: 0.55; } to { stroke-opacity: 0; } }
+/* 動きを減らす設定でも弱めない（2026-10-23 ユーザー「線が少し太くなるだけですね」＝当社の Windows はこの設定と判定され、弱めた動きでは伝わらなかった） */
 /* 標高の色分け（2026-10-23）。段＝data/kokudo-elev.json の bands（m）。低い＝青緑 → 黄 → 橙 → 桃 → 高い＝白に近い */
 .kmap .el path { fill: none; stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
 .kmap.elev .rt { display: none; }
@@ -729,12 +729,15 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   function mapSel(n) {
     if (!M) return;
     while (hlG.firstChild) hlG.removeChild(hlG.firstChild);
-    if (M.r[n]) el('path', { d: M.r[n], 'class': 'c' }, hlG);
     if (M.sea[n]) el('path', { d: M.sea[n], 'class': 's p' }, hlG);
     // 標高の色分けのとき＝その路線の段ごとの線を同じ色で重ねる。単色のとき（または標高が読めないとき）＝水色の線
     var elv = KM.classList.contains('elev') && EL && EL.r[n];
-    if (elv) elv.forEach(function (d, i) { if (d) el('path', { d: d, 'class': 'p', style: 'stroke:' + EL_COLORS[Math.min(i, EL_COLORS.length - 1)] }, hlG); });   // 属性だと CSS の .hl path の色に負ける
-    else if (M.r[n]) el('path', { d: M.r[n], 'class': 'p' }, hlG);
+    // 光の帯（g）→ 線（p）の順に重ねる。色は style で付ける（属性だと CSS の .hl path の色に負ける）
+    ['g', 'c', 'p'].forEach(function (k) {
+      if (k === 'c') { if (M.r[n]) el('path', { d: M.r[n], 'class': 'c' }, hlG); return; }
+      if (elv) elv.forEach(function (d, i) { if (d) el('path', { d: d, 'class': k, style: 'stroke:' + EL_COLORS[Math.min(i, EL_COLORS.length - 1)] }, hlG); });
+      else if (M.r[n]) el('path', { d: M.r[n], 'class': k }, hlG);
+    });
   }
   function mapFly(n) {
     if (!M) { kmWant = n; mapLoad(); return; }
