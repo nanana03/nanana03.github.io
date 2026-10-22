@@ -180,6 +180,33 @@ a:hover { color: var(--color-ink); }
   }
 }
 .pick { margin-top: var(--space-lg); }
+/* 国道ごとのコメント欄（2026-10-23 ユーザー「掲示板は1で」＝すぐ表示・通報3件で自動的に隠す）。保存先＝おにコレの Supabase（supabase/route_comments_20261023.sql） */
+.board { margin-top: var(--space-md); background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius); padding: var(--space-md); }
+.board h3 { font-size: var(--text-lg); }
+.bd-list { list-style: none; margin: var(--space-sm) 0 0; padding: 0; display: grid; gap: var(--space-xs); }
+.bd-list li { border-top: 1px solid var(--color-line); padding-top: var(--space-xs); }
+.bd-head { display: flex; gap: var(--space-xs); align-items: baseline; flex-wrap: wrap; font-size: var(--text-xs); color: var(--color-sub); }
+.bd-head b { color: var(--color-ink); font-weight: 700; }
+.bd-head button { margin-left: auto; background: none; border: 0; color: var(--color-sub); font: inherit; text-decoration: underline; cursor: pointer; min-height: 32px; padding: 0 var(--space-2xs); }
+.bd-head button + button { margin-left: 0; }
+.bd-text { margin-top: var(--space-2xs); white-space: pre-wrap; overflow-wrap: anywhere; }
+.bd-empty, .bd-note { margin-top: var(--space-sm); font-size: var(--text-xs); color: var(--color-sub); }
+.bd-note a { color: var(--color-accent); }
+.bd-more { margin-top: var(--space-sm); background: none; border: 1px solid var(--color-line); color: var(--color-ink); border-radius: var(--radius); min-height: 40px; padding: 0 var(--space-sm); cursor: pointer; }
+.bd-form { margin-top: var(--space-md); display: grid; gap: var(--space-xs); }
+.bd-form label { display: grid; gap: var(--space-2xs); font-size: var(--text-xs); color: var(--color-sub); }
+.bd-form input, .bd-form textarea {
+  font: inherit; font-size: var(--text-base); color: var(--color-ink); background: var(--color-paper);
+  border: 1px solid var(--color-line); border-radius: var(--radius); padding: var(--space-xs);
+}
+.bd-form input { max-width: 16em; min-height: 44px; }
+.bd-form textarea { resize: vertical; min-height: 5.5em; }
+.bd-form input:focus-visible, .bd-form textarea:focus-visible, .bd-more:focus-visible, .bd-form button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 1px; }
+.bd-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); }
+.bd-count { font-size: var(--text-xs); color: var(--color-sub); }
+.bd-form button[type="submit"] { min-height: 44px; padding: 0 var(--space-md); border-radius: var(--radius); border: 0; background: var(--color-accent); color: var(--color-paper); font-weight: 700; cursor: pointer; }
+.bd-form button[disabled] { opacity: 0.5; cursor: default; }
+.bd-msg { font-size: var(--text-sm); color: var(--color-sub); min-height: 1.4em; }
 .pick .ridge { height: 160px; }
 @media (max-width: 40rem) { .pick .ridge { height: 130px; } }
 .kmap.drag { cursor: grabbing; }
@@ -392,6 +419,19 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
           </div>
         </aside>
       </div>
+      <section class="board" id="board" aria-labelledby="bd-title">
+        <h3 id="bd-title">国道<span id="bd-no">58</span>号へのコメント</h3>
+        <ol class="bd-list" id="bd-list" aria-live="polite"></ol>
+        <p class="bd-empty" id="bd-empty" hidden>まだコメントはありません。走った感想や見どころを、最初に書いてみませんか。</p>
+        <button type="button" class="bd-more" id="bd-more" hidden>もっと見る</button>
+        <form class="bd-form" id="bd-form" novalidate>
+          <label class="bd-name">名前<input id="bd-name" maxlength="20" placeholder="名無しさん" autocomplete="nickname"></label>
+          <label class="bd-body">コメント<textarea id="bd-body" maxlength="200" rows="3" required placeholder="走った感想・見どころなど（200字まで）"></textarea></label>
+          <div class="bd-row"><span class="bd-count" id="bd-count">0 / 200</span><button type="submit" id="bd-send">書き込む</button></div>
+          <output class="bd-msg" id="bd-msg" for="bd-body"></output>
+        </form>
+        <p class="bd-note">だれでも書き込めて、すぐに公開されます。登録はいりません。URL は書けません・1分に1件まで。個人を特定できることや悪口は書かないでください。通報が3件たまると自動的に隠れます。削除のご依頼は <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a> へ（<a href="./privacy.html">プライバシーポリシー</a> 7項）。</p>
+      </section>
       <div class="pick">
           <div class="find">
             <label for="find-no">番号で探す</label>
@@ -606,6 +646,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     ridge.setAttribute('aria-valuenow', idx[n] + 1); ridge.setAttribute('aria-valuetext', '国道' + n + '号・長い順に' + (idx[n] + 1) + '番目');
     render(n);
     mapSel(n);
+    boardRoute(n);
     return true;
   }
   function at(e) {
@@ -824,6 +865,122 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     }, { threshold: 0.25 });
     tio.observe(ridge);   // 節の見出しではなく稜線そのものが4分の1見えたとき（第4周：節の上端が初回画面に入って読まれていた）
   } else { loadText(); }
+
+
+  // ── 国道ごとのコメント欄（2026-10-23 ユーザー「掲示板は1で」）──
+  // 保存先＝おにコレの Supabase（kari-kokudo/supabase/route_comments_20261023.sql）。表は読むだけ・書くのは RPC だけ。
+  // 部品＝@supabase/supabase-js 2.110.0（アプリと同じ版）を、欄が見えたときに読む。匿名サインインは書く・通報するときだけ。
+  var SB_URL = 'https://eekrdronwnjhatdknyra.supabase.co';
+  var SB_KEY = 'sb_publishable_ecrqLhqTzTH0vcvMW0tS6Q_UujFmDIi';   // アプリ（src/supabaseClient.js）と同じ公開用の鍵。守りは DB 側の権限
+  var SB_SRC = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.0/dist/umd/supabase.js';
+  var SB_SRI = 'sha384-3wY11tldQ5+yWqAvmTN4XtQvnjoTva0cV15O/O/O5NTtp0ivVopSzLOzsVXWZse9';
+  var BD = { box: document.getElementById('board'), no: document.getElementById('bd-no'), list: document.getElementById('bd-list'),
+    empty: document.getElementById('bd-empty'), more: document.getElementById('bd-more'), form: document.getElementById('bd-form'),
+    name: document.getElementById('bd-name'), body: document.getElementById('bd-body'), count: document.getElementById('bd-count'),
+    send: document.getElementById('bd-send'), msg: document.getElementById('bd-msg') };
+  var sb = null, sbLoading = null, bdRoute = null, bdOldest = null, bdSeq = 0, PAGE = 20;
+  function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || 'null'); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+  var mine = store('onikore.comments.mine') || [], reported = store('onikore.comments.reported') || [];
+  try { BD.name.value = localStorage.getItem('onikore.comments.name') || ''; } catch (e) {}
+  function sbLoad() {
+    if (sbLoading) return sbLoading;
+    sbLoading = new Promise(function (ok, ng) {
+      var sc = document.createElement('script');
+      sc.src = SB_SRC; sc.integrity = SB_SRI; sc.crossOrigin = 'anonymous';
+      sc.onload = function () { sb = window.supabase.createClient(SB_URL, SB_KEY); ok(sb); };
+      sc.onerror = function () { sbLoading = null; ng(new Error('load')); };
+      document.head.appendChild(sc);
+    });
+    return sbLoading;
+  }
+  function when(t) {
+    var d = new Date(t), z = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + z(d.getHours()) + ':' + z(d.getMinutes());
+  }
+  function item(c) {
+    var li = document.createElement('li'), head = document.createElement('div'), b = document.createElement('b'), t = document.createElement('time'), p = document.createElement('p');
+    head.className = 'bd-head'; b.textContent = c.nickname; t.dateTime = c.created_at; t.textContent = when(c.created_at);
+    head.appendChild(b); head.appendChild(t);
+    if (mine.indexOf(c.id) >= 0) {
+      var del = document.createElement('button'); del.type = 'button'; del.textContent = '消す';
+      del.addEventListener('click', function () { if (confirm('このコメントを消しますか？')) act('delete_my_route_comment', c.id, '消しました。'); });
+      head.appendChild(del);
+    } else if (reported.indexOf(c.id) < 0) {
+      var rep = document.createElement('button'); rep.type = 'button'; rep.textContent = '通報';
+      rep.addEventListener('click', function () {
+        if (!confirm('このコメントを通報しますか？（通報が3件たまると自動的に隠れます）')) return;
+        reported.push(c.id); store('onikore.comments.reported', reported); act('report_route_comment', c.id, '通報しました。ありがとうございます。');
+      });
+      head.appendChild(rep);
+    }
+    p.className = 'bd-text'; p.textContent = c.body;
+    li.appendChild(head); li.appendChild(p);
+    return li;
+  }
+  function boardLoad(append) {
+    if (!sb || bdRoute == null) return;
+    var seq = ++bdSeq, q = sb.from('route_comments').select('id,route_no,nickname,body,created_at').eq('route_no', bdRoute).order('id', { ascending: false }).limit(PAGE);
+    if (append && bdOldest) q = q.lt('id', bdOldest);
+    q.then(function (r) {
+      if (seq !== bdSeq) return;   // 読んでいる間に別の国道を選んだ
+      if (r.error) { BD.msg.textContent = 'コメントを読み込めませんでした。'; return; }
+      if (!append) BD.list.textContent = '';
+      r.data.forEach(function (c) { BD.list.appendChild(item(c)); });
+      if (r.data.length) bdOldest = r.data[r.data.length - 1].id;
+      BD.empty.hidden = BD.list.children.length > 0;
+      BD.more.hidden = r.data.length < PAGE;
+    });
+  }
+  function boardRoute(n) {
+    if (!BD || !BY[n]) return;   // 最初の select(L[0]) はこの節より前に走る＝まだ BD が無い（欄が見えたときに cur で読み直す）
+    bdRoute = n; bdOldest = null; BD.no.textContent = n; BD.list.textContent = ''; BD.empty.hidden = true; BD.more.hidden = true;
+    boardLoad(false);
+  }
+  function signedIn() {
+    return sb.auth.getSession().then(function (r) {
+      if (r.data && r.data.session) return true;
+      return sb.auth.signInAnonymously().then(function (a) { if (a.error) throw a.error; return true; });
+    });
+  }
+  var ERR = { too_fast: '続けて書き込むには1分ほどあけてください。', daily_limit: '1日に書き込めるのは20件までです。',
+    url_not_allowed: 'URL は書き込めません。', empty: 'コメントを入力してください。' };
+  function errText(e) {
+    var m = (e && e.message) || '';
+    for (var k in ERR) if (m.indexOf(k) >= 0) return ERR[k];
+    return '書き込めませんでした。時間をおいてもう一度お試しください。';
+  }
+  function act(fn, id, done) {
+    sbLoad().then(signedIn).then(function () { return sb.rpc(fn, { p_id: id }); })
+      .then(function (r) { if (r.error) throw r.error; BD.msg.textContent = done; boardRoute(bdRoute); })
+      .catch(function (e) { BD.msg.textContent = errText(e); });
+  }
+  BD.body.addEventListener('input', function () { BD.count.textContent = BD.body.value.length + ' / 200'; });
+  BD.body.addEventListener('focus', function () { sbLoad(); });
+  BD.more.addEventListener('click', function () { boardLoad(true); });
+  BD.form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var body = BD.body.value.trim(), name = BD.name.value.trim();
+    if (!body) { BD.msg.textContent = ERR.empty; return; }
+    if (/https?:\/\/|www\./i.test(body)) { BD.msg.textContent = ERR.url_not_allowed; return; }
+    BD.send.disabled = true; BD.msg.textContent = '書き込んでいます…';
+    sbLoad().then(signedIn)
+      .then(function () { return sb.rpc('post_route_comment', { p_route: bdRoute, p_nickname: name, p_body: body }); })
+      .then(function (r) {
+        if (r.error) throw r.error;
+        mine.push(r.data); store('onikore.comments.mine', mine);
+        try { localStorage.setItem('onikore.comments.name', name); } catch (x) {}
+        BD.body.value = ''; BD.count.textContent = '0 / 200'; BD.msg.textContent = '書き込みました。';
+        boardRoute(bdRoute);
+      })
+      .catch(function (x) { BD.msg.textContent = errText(x); })
+      .then(function () { BD.send.disabled = false; });
+  });
+  if ('IntersectionObserver' in window) {
+    var bio = new IntersectionObserver(function (es) {
+      if (es.some(function (en) { return en.isIntersecting; })) { bio.disconnect(); sbLoad().then(function () { boardRoute(cur); }).catch(function () { BD.msg.textContent = 'コメント欄を読み込めませんでした。'; }); }
+    }, { rootMargin: '200px 0px' });
+    bio.observe(BD.box);
+  } else { sbLoad().then(function () { boardRoute(cur); }); }
 
   // 録画：画面に入ったときだけ読み込んで再生。動きを減らす設定ではコントロールのまま止めておく
   var v = document.getElementById('zoom-video');
