@@ -36,7 +36,7 @@ PicoFiler だけを縛る系。会社トップ（ルートの `design.md`）・F
 
 ## CTA voice
 - 主：アプリの accent の角丸ボタン「無料でダウンロード」＝GitHub のリリースの setup.exe へ直接。
-- 副：文字のリンク（リリースの一覧）。寄付の節＝Amazon ギフトカード（E メール・受取人 nanana03info@gmail.com）＋ Ko-fi（準備中）。アプリの「寄付で応援する」は `#donate` を開く（2026-10-22・peekrvr の名前を出さない）。
+- 副：文字のリンク（リリースの一覧）。寄付の節＝Amazon ギフトカード（E メール・受取人 nanana03info@gmail.com）＋ Ko-fi（https://ko-fi.com/nananasoft・1 回の寄付は手数料 0%・2026-10-22 に Stripe とつないだ）。アプリの「寄付で応援する」は `#donate` を開く（2026-10-22・peekrvr の名前を出さない）。
 
 ## 守ること
 - 版・リンクは**公開資産レジストリが正本**。版を上げたらボタンの URL（`v1.0.0`）・「1.0.0」の表記・トップの棚を一緒に直す。
