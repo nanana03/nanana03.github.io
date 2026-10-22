@@ -166,6 +166,21 @@ a:hover { color: var(--color-ink); }
   overflow: hidden; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
 }
 @media (max-width: 40rem) { .kmap { height: 56vh; } }   /* 地図の上は指でページを流せない＝上下に流せる余白を残す */
+/* 地図が節の主役（2026-10-23 ユーザー「地図をもっと大きく主役感を」）：見出しの直下に幅いっぱい・広い画面では紹介カードを地図の左上に重ねる */
+.kstage { position: relative; margin-top: var(--space-lg); }
+.kstage .kmap { margin-top: 0; height: clamp(520px, 82vh, 860px); }
+.kstage .card { margin-top: var(--space-sm); }
+@media (max-width: 40rem) { .kstage .kmap { height: 62vh; } }
+@media (min-width: 64rem) {
+  .kstage .card {
+    position: absolute; top: var(--space-sm); left: var(--space-sm); margin: 0; width: 300px;
+    max-height: calc(100% - 2 * var(--space-sm)); overflow: auto;
+    background: rgba(19, 38, 59, 0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+}
+.pick { margin-top: var(--space-lg); }
+.pick .ridge { height: 160px; }
+@media (max-width: 40rem) { .pick .ridge { height: 130px; } }
 .kmap.drag { cursor: grabbing; }
 .kmap > svg { width: 100%; height: 100%; display: block; }
 .kmap .land path { fill: var(--color-card); stroke: var(--color-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -331,18 +346,8 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   <section class="dia" id="table" aria-labelledby="h-table">
     <div class="wrap">
       <h2 id="h-table"><span class="nb"><span class="num">1</span>号から</span><wbr><span class="nb"><span class="num">507</span>号まで。</span><wbr>番号があるのは<wbr><span class="nb"><span class="num">459</span>本。</span></h2>
-      <p class="intro">459本を、総延長の長い順に左から並べました。棒の高さが長さです。触れると、その国道の紹介が出て、下の地図で光ります。地図の線を押しても選べます。紹介の文はアプリの路線画面と同じものです。</p>
-      <div class="dia-body">
-        <div>
-          <div class="find">
-            <label for="find-no">番号で探す</label>
-            <input id="find-no" type="number" inputmode="numeric" min="1" max="507" placeholder="299">
-            <output id="find-msg" for="find-no"></output>
-          </div>
-          <div class="ridge" id="ridge" tabindex="0" role="slider" aria-label="総延長の長い順に並べた国道" aria-valuemin="1" aria-valuemax="459">
-            <noscript><p class="sub">この図の表示には JavaScript が必要です。</p></noscript>
-          </div>
-          <div class="ridge-anno"><p class="anno" id="a-long"></p><p class="anno" id="a-short" style="text-align:right"></p></div>
+      <p class="intro">459本の国道を、地図に描きました。線を押すと、その国道が光って紹介が出ます。ホイールやピンチで拡大・縮小できます。地図の下の棒は総延長の長い順で、触れて選ぶこともできます。紹介の文はアプリの路線画面と同じものです。</p>
+      <div class="kstage">
           <div class="kmap" id="kmap" role="group" aria-label="国道の地図。選んだ国道がオレンジで光ります">
             <div class="kmap-ctl">
               <button type="button" id="km-in" aria-label="拡大">+</button>
@@ -352,8 +357,6 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
             </div>
             <p class="kmap-msg" id="km-msg">地図を読み込んでいます…</p>
           </div>
-          <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。<br>地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）。点線は海の上の区間です。</p>
-        </div>
         <aside class="card" id="card" aria-live="polite">
           <svg id="card-shield" viewBox="0 0 455 435" role="img" aria-label="国道58号の標識">
             <path fill="#0140FF" stroke="#F4F8FC" stroke-width="16" stroke-linejoin="round" d="M 226.99991,425.39429 C 252.11645,425.39429 275.26756,415.76966 293.19578,399.78937 C 362.13553,330.75326 413.14928,244.91516 439.46426,150.46104 C 442.20297,142.16307 443.99982,131.7287 443.99982,120.87729 C 443.99982,76.02669 413.30428,38.28204 369.9794,27.07436 C 323.9411,15.75291 277.71818,9.99998 226.99992,9.99998 C 176.28166,9.99998 130.05873,15.75291 84.02044,27.07436 C 40.69555,38.28204 10.00001,76.02669 10.00001,120.87729 C 10.00001,131.7287 11.79686,142.16307 14.53557,150.46104 C 40.85055,244.91516 91.86431,330.75326 160.80406,399.78937 C 178.73227,415.76966 201.88339,425.39429 226.99991,425.39429 z"/>
@@ -368,6 +371,18 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
             <p class="rnote" id="card-note"></p>
           </div>
         </aside>
+      </div>
+      <div class="pick">
+          <div class="find">
+            <label for="find-no">番号で探す</label>
+            <input id="find-no" type="number" inputmode="numeric" min="1" max="507" placeholder="299">
+            <output id="find-msg" for="find-no"></output>
+          </div>
+          <div class="ridge" id="ridge" tabindex="0" role="slider" aria-label="総延長の長い順に並べた国道" aria-valuemin="1" aria-valuemax="459">
+            <noscript><p class="sub">この図の表示には JavaScript が必要です。</p></noscript>
+          </div>
+          <div class="ridge-anno"><p class="anno" id="a-long"></p><p class="anno" id="a-short" style="text-align:right"></p></div>
+          <p class="source">路線データ：道路統計年報2025 表26（アプリに入っているものと同じ）。走破の記録はここには出ません。<br>地図：国道の線 © OpenStreetMap contributors（ODbL）・県境 国土数値情報（国土交通省・CC BY 4.0）。点線は海の上の区間です。</p>
       </div>
     </div>
   </section>
@@ -643,12 +658,26 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     vb = { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
     ksvg.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.w + ' ' + vb.h);
   }
-  function fitBox(x0, y0, x1, y1, pad) {
-    var r = KM.clientHeight / Math.max(1, KM.clientWidth);
-    var w = Math.max(x1 - x0, (y1 - y0) / r) * (1 + pad);
-    setVB((x0 + x1) / 2, (y0 + y1) / 2, Math.max(w, M.w / 25));
+  // 広い画面では紹介カードが地図の左上に重なる＝カードの右側の見えている所に収める
+  var cardEl = document.getElementById('card');
+  function inset() { return getComputedStyle(cardEl).position === 'absolute' ? cardEl.offsetWidth + 28 : 0; }
+  // insL＝左に空ける px（カード）、右は常にボタンの分（64px）を空ける
+  function fitBox(x0, y0, x1, y1, pad, insL) {
+    var cw = Math.max(1, KM.clientWidth), ch = Math.max(1, KM.clientHeight), insR = 64, aw = Math.max(1, cw - insL - insR);
+    var upp = Math.max((x1 - x0) / aw, (y1 - y0) / ch) * (1 + pad);   // 画面1pxあたりの地図の単位
+    upp = Math.max(upp, M.w / 25 / cw);
+    setVB((x0 + x1) / 2 - (insL - insR) * upp / 2, (y0 + y1) / 2, upp * cw);
   }
-  function fitAll() { fitBox(0, 0, M.w, M.h, 0.04); }
+  // 全国＝全路線の外枠に収める。日本は斜めに伸びていて北西（日本海）が空く＝カードはそこに重ねたままにする（左は空けない）
+  var allBB = null;
+  function fitAll() {
+    if (!allBB) {
+      allBB = [Infinity, Infinity, -Infinity, -Infinity];
+      Object.keys(M.bb).forEach(function (n) { var b = M.bb[n];
+        allBB = [Math.min(allBB[0], b[0]), Math.min(allBB[1], b[1]), Math.max(allBB[2], b[2]), Math.max(allBB[3], b[3])]; });
+    }
+    fitBox(allBB[0], allBB[1], allBB[2], allBB[3], 0.06, 0);
+  }
   function mapSel(n) {
     if (!M) return;
     while (hlG.firstChild) hlG.removeChild(hlG.firstChild);
@@ -658,7 +687,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   function mapFly(n) {
     if (!M) { kmWant = n; mapLoad(); return; }
     var b = M.bb[n]; if (!b) return;
-    fitBox(b[0], b[1], b[2], b[3], 0.25);
+    fitBox(b[0], b[1], b[2], b[3], 0.25, inset());
   }
   // 画面上の点（clientX/Y）を中心に k 倍に寄る
   function zoomAt(k, clientX, clientY) {
@@ -722,7 +751,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   window.addEventListener('resize', function () { if (M && vb) setVB(vb.x + vb.w / 2, vb.y + vb.h / 2, vb.w); });
   if ('IntersectionObserver' in window) {
     var mio = new IntersectionObserver(function (es) {
-      if (es.some(function (en) { return en.isIntersecting; })) { mio.disconnect(); mapLoad(); }
+      if (es.some(function (en) { return en.isIntersecting; })) { mio.disconnect(); mapLoad(); loadText(); }   // 地図が先頭に来た＝紹介文もここで読む
     }, { rootMargin: '300px 0px' });
     mio.observe(KM);
   } else { mapLoad(); }
