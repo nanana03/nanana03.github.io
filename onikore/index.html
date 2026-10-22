@@ -193,10 +193,11 @@ a:hover { color: var(--color-ink); }
 /* 選んだ国道＝色はそのまま（標高の色・単色なら水色）で少し太く、選んでいない線の太さとの間をゆっくり行き来する
    （2026-10-23 ユーザー「オレンジの実線になるのではなく、標高差のグラデーション色のまま…ゆっくり点滅するような」） */
 .kmap .hl path.p { stroke-width: 3.2; animation: km-pulse 1.6s ease-in-out infinite alternate; }
-.kmap .hl path.g { stroke-width: 12; stroke-opacity: 0; animation: km-glow 1.6s ease-in-out infinite alternate; }   /* 同じ色の光の帯＝明滅 */
+.kmap .hl path.g { stroke-width: 14; stroke-opacity: 0.7; }   /* 同じ色の光の帯。縁は #km-blur でぼかす（2026-10-23 ユーザー「太い線のアウトラインをぼかして」） */
+.kmap .hl .glow { animation: km-glow 1.6s ease-in-out infinite alternate; }   /* 明滅は入れ物の透明度で
 .kmap .hl path.c { stroke: var(--color-paper); stroke-width: 6; }   /* 縁取り＝細くなった瞬間も周りの線と分かる */
 @keyframes km-pulse { from { stroke-width: 3.2; } to { stroke-width: 1.6; } }
-@keyframes km-glow { from { stroke-opacity: 0.55; } to { stroke-opacity: 0; } }
+@keyframes km-glow { from { opacity: 1; } to { opacity: 0; } }
 /* 動きを減らす設定でも弱めない（2026-10-23 ユーザー「線が少し太くなるだけですね」＝当社の Windows はこの設定と判定され、弱めた動きでは伝わらなかった） */
 /* 標高の色分け（2026-10-23）。段＝data/kokudo-elev.json の bands（m）。低い＝青緑 → 黄 → 橙 → 桃 → 高い＝白に近い */
 .kmap .el path { fill: none; stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
@@ -636,7 +637,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   // データ＝data/kokudo-map.json（kari-kokudo/_preview/build_site_map.js が作る・約180KB gzip）。節が見えたら読む。
   // 表示範囲は viewBox で持ち、枠の縦横比に合わせる（preserveAspectRatio="none"＝画面の1pxと地図の比が縦横で同じ）。
   var KM = document.getElementById('kmap'), kmMsg = document.getElementById('km-msg');
-  var M = null, ksvg = null, hlG = null, vb = null, kmLoading = false, kmWant = null;
+  var M = null, ksvg = null, hlG = null, vb = null, kmLoading = false, kmWant = null, blurEl = null;
   // 標高の色分け＝data/kokudo-elev.json（段ごとに1本の path・約200KB gzip）。地図と並べて読む。読めなければ単色のまま
   var EL = null, elG = null;
   // 低い段は区間の約4割（0〜50m）＝暗い陸の色に沈まない明るさから始める（2026-10-23 東京の拡大で確認）
@@ -679,6 +680,10 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   function build(j) {
     M = j;
     ksvg = el('svg', { 'aria-hidden': 'true', preserveAspectRatio: 'none' });
+    // 光の帯のぼかし。stdDeviation は地図の単位＝表示範囲が変わるたびに画面の約 4px に合わせ直す（setVB）
+    var defs = el('defs', {}, ksvg);
+    var flt = el('filter', { id: 'km-blur', filterUnits: 'userSpaceOnUse', x: -20000, y: -20000, width: 60000, height: 60000 }, defs);
+    blurEl = el('feGaussianBlur', { stdDeviation: 4 }, flt);
     var land = el('g', { 'class': 'land' }, ksvg);
     j.pref.forEach(function (d) { el('path', { d: d }, land); });
     var rt = el('g', { 'class': 'rt' }, ksvg), sea = el('g', { 'class': 'sea' }, ksvg);
@@ -705,6 +710,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     var h = w * r;
     vb = { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
     ksvg.setAttribute('viewBox', vb.x + ' ' + vb.y + ' ' + vb.w + ' ' + vb.h);
+    if (blurEl) blurEl.setAttribute('stdDeviation', 4 * vb.w / Math.max(1, KM.clientWidth));
   }
   // 広い画面では紹介カードが地図の左上に重なる＝カードの右側の見えている所に収める
   var cardEl = document.getElementById('card');
@@ -733,10 +739,12 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     // 標高の色分けのとき＝その路線の段ごとの線を同じ色で重ねる。単色のとき（または標高が読めないとき）＝水色の線
     var elv = KM.classList.contains('elev') && EL && EL.r[n];
     // 光の帯（g）→ 線（p）の順に重ねる。色は style で付ける（属性だと CSS の .hl path の色に負ける）
+    var glow = el('g', { 'class': 'glow', filter: 'url(#km-blur)' }, hlG);
     ['g', 'c', 'p'].forEach(function (k) {
       if (k === 'c') { if (M.r[n]) el('path', { d: M.r[n], 'class': 'c' }, hlG); return; }
-      if (elv) elv.forEach(function (d, i) { if (d) el('path', { d: d, 'class': k, style: 'stroke:' + EL_COLORS[Math.min(i, EL_COLORS.length - 1)] }, hlG); });
-      else if (M.r[n]) el('path', { d: M.r[n], 'class': k }, hlG);
+      var to = k === 'g' ? glow : hlG;
+      if (elv) elv.forEach(function (d, i) { if (d) el('path', { d: d, 'class': k, style: 'stroke:' + EL_COLORS[Math.min(i, EL_COLORS.length - 1)] }, to); });
+      else if (M.r[n]) el('path', { d: M.r[n], 'class': k }, to);
     });
   }
   function mapFly(n) {
