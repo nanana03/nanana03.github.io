@@ -183,6 +183,10 @@ a:hover { color: var(--color-ink); }
 /* 国道ごとのコメント欄（2026-10-23 ユーザー「掲示板は1で」＝すぐ表示・通報3件で自動的に隠す）。保存先＝おにコレの Supabase（supabase/route_comments_20261023.sql） */
 .board { margin-top: var(--space-md); background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius); padding: var(--space-md); }
 .board h3 { font-size: var(--text-lg); }
+/* どこも選んでいないとき（2026-10-23 ユーザー「どこも選択していないときは、おにコレに対するコメントを」）＝カードは標識を出さずアプリの紹介・掲示板は route_no 0 */
+.card.none { grid-template-columns: minmax(0, 1fr); }
+.card.none svg, .card.none .unsel { display: none; }
+.card .unsel { margin-top: var(--space-xs); background: none; border: 0; padding: 0; color: var(--color-sub); font: inherit; font-size: var(--text-xs); text-decoration: underline; cursor: pointer; min-height: 44px; }
 .bd-list { list-style: none; margin: var(--space-sm) 0 0; padding: 0; display: grid; gap: var(--space-xs); }
 .bd-list li { border-top: 1px solid var(--color-line); padding-top: var(--space-xs); }
 .bd-head { display: flex; gap: var(--space-xs); align-items: baseline; flex-wrap: wrap; font-size: var(--text-xs); color: var(--color-sub); }
@@ -416,11 +420,12 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
             <p class="alias" id="card-alias"></p>
             <p id="card-text" aria-busy="true"></p>
             <p class="rnote" id="card-note"></p>
+            <button type="button" class="unsel" id="card-unsel">選ぶのをやめる</button>
           </div>
         </aside>
       </div>
       <section class="board" id="board" aria-labelledby="bd-title">
-        <h3 id="bd-title">国道<span id="bd-no">58</span>号へのコメント</h3>
+        <h3 id="bd-title">おにコレへのコメント</h3>
         <ol class="bd-list" id="bd-list" aria-live="polite"></ol>
         <p class="bd-empty" id="bd-empty" hidden>まだコメントはありません。走った感想や見どころを、最初に書いてみませんか。</p>
         <button type="button" class="bd-more" id="bd-more" hidden>もっと見る</button>
@@ -607,8 +612,16 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   var card = { no: document.getElementById('card-no'), name: document.getElementById('card-name'),
     alias: document.getElementById('card-alias'), text: document.getElementById('card-text'),
     note: document.getElementById('card-note'), svg: document.getElementById('card-shield') };
+  card.box = document.getElementById('card');
   function render(n) {
-    var r = BY[n]; if (!r) return;
+    var r = BY[n];
+    card.box.classList.toggle('none', !r);
+    if (!r) {   // どこも選んでいない＝アプリの紹介
+      card.name.textContent = 'おにコレ'; card.alias.textContent = ''; card.note.textContent = '';
+      card.text.removeAttribute('aria-busy');
+      card.text.textContent = '日本の国道459本を、走って集めるアプリです。地図の線か、下の棒を押すと、その国道の紹介が出ます。';
+      return;
+    }
     var d = String(n).length, fs = d >= 3 ? 120 : d === 2 ? 165 : 190;
     card.no.textContent = n; card.no.setAttribute('font-size', fs); card.no.setAttribute('y', 198 + fs * 0.355);
     card.svg.setAttribute('aria-label', '国道' + n + '号の標識');
@@ -639,11 +652,17 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   document.getElementById('a-long').innerHTML = '← 最長 国道<span class="num">' + L[0] + '</span>号 <span class="num">' + L[1].toFixed(1) + '</span>km（うち海上 約<span class="num">' + L[2].toFixed(0) + '</span>km）';
   document.getElementById('a-short').innerHTML = '最短 国道<span class="num">' + S[0] + '</span>号 <span class="num">' + S[1].toFixed(1) + '</span>km →';
 
+  // n＝0 は「どこも選んでいない」（カードはアプリの紹介・掲示板はおにコレへのコメント）
   function select(n) {
-    if (!BY[n]) return false;
+    if (n !== 0 && !BY[n]) return false;
     if (rects[cur]) rects[cur].classList.remove('sel');
-    cur = n; rects[n].classList.add('sel');
-    ridge.setAttribute('aria-valuenow', idx[n] + 1); ridge.setAttribute('aria-valuetext', '国道' + n + '号・長い順に' + (idx[n] + 1) + '番目');
+    cur = n;
+    if (n) {
+      rects[n].classList.add('sel');
+      ridge.setAttribute('aria-valuenow', idx[n] + 1); ridge.setAttribute('aria-valuetext', '国道' + n + '号・長い順に' + (idx[n] + 1) + '番目');
+    } else {
+      ridge.removeAttribute('aria-valuenow'); ridge.setAttribute('aria-valuetext', '選んでいません');
+    }
     render(n);
     mapSel(n);
     boardRoute(n);
@@ -659,9 +678,10 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   ridge.addEventListener('keydown', function (e) {
     var st = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!st) return;
     e.preventDefault(); loadText();
-    select(sorted[Math.max(0, Math.min(N - 1, idx[cur] + st))][0]);
+    select(sorted[cur ? Math.max(0, Math.min(N - 1, idx[cur] + st)) : 0][0]);
   });
-  select(L[0]);
+  select(0);
+  document.getElementById('card-unsel').addEventListener('click', function () { select(0); });
 
   var input = document.getElementById('find-no'), msg = document.getElementById('find-msg');
   input.addEventListener('focus', loadText);
@@ -776,6 +796,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   function mapSel(n) {
     if (!M) return;
     while (hlG.firstChild) hlG.removeChild(hlG.firstChild);
+    if (!n) return;
     if (M.sea[n]) el('path', { d: M.sea[n], 'class': 's p' }, hlG);
     // 標高の色分けのとき＝その路線の段ごとの線を同じ色で重ねる。単色のとき（または標高が読めないとき）＝水色の線
     var elv = KM.classList.contains('elev') && EL && EL.r[n];
@@ -848,8 +869,10 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       var t = document.elementFromPoint(e.clientX, e.clientY);
       var n = t && t.getAttribute && t.getAttribute('data-no');
       if (n) { loadText(); select(+n); }
+      else if (!t || !t.closest('#card')) select(0);   // 線の無いところを押した＝選ぶのをやめる（カードの上は除く）
     }
   }
+  KM.addEventListener('keydown', function (e) { if (e.key === 'Escape' && cur) select(0); });
   KM.addEventListener('pointerup', up);
   KM.addEventListener('pointercancel', up);
   window.addEventListener('resize', function () { if (M && vb) setVB(vb.x + vb.w / 2, vb.y + vb.h / 2, vb.w); });
@@ -874,7 +897,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
   var SB_KEY = 'sb_publishable_ecrqLhqTzTH0vcvMW0tS6Q_UujFmDIi';   // アプリ（src/supabaseClient.js）と同じ公開用の鍵。守りは DB 側の権限
   var SB_SRC = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.0/dist/umd/supabase.js';
   var SB_SRI = 'sha384-3wY11tldQ5+yWqAvmTN4XtQvnjoTva0cV15O/O/O5NTtp0ivVopSzLOzsVXWZse9';
-  var BD = { box: document.getElementById('board'), no: document.getElementById('bd-no'), list: document.getElementById('bd-list'),
+  var BD = { box: document.getElementById('board'), title: document.getElementById('bd-title'), list: document.getElementById('bd-list'),
     empty: document.getElementById('bd-empty'), more: document.getElementById('bd-more'), form: document.getElementById('bd-form'),
     name: document.getElementById('bd-name'), body: document.getElementById('bd-body'), count: document.getElementById('bd-count'),
     send: document.getElementById('bd-send'), msg: document.getElementById('bd-msg') };
@@ -931,9 +954,14 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
       BD.more.hidden = r.data.length < PAGE;
     });
   }
+  // route_no 0＝おにコレそのものへのコメント（どこも選んでいないとき）
   function boardRoute(n) {
-    if (!BD || !BY[n]) return;   // 最初の select(L[0]) はこの節より前に走る＝まだ BD が無い（欄が見えたときに cur で読み直す）
-    bdRoute = n; bdOldest = null; BD.no.textContent = n; BD.list.textContent = ''; BD.empty.hidden = true; BD.more.hidden = true;
+    if (!BD || (n !== 0 && !BY[n])) return;   // 最初の select(0) はこの節より前に走る＝まだ BD が無い（欄が見えたときに cur で読み直す）
+    bdRoute = n; bdOldest = null; BD.list.textContent = ''; BD.empty.hidden = true; BD.more.hidden = true;
+    BD.title.textContent = n ? '国道' + n + '号へのコメント' : 'おにコレへのコメント';
+    BD.empty.textContent = n ? 'まだコメントはありません。走った感想や見どころを、最初に書いてみませんか。'
+                             : 'まだコメントはありません。アプリの感想やご要望を、最初に書いてみませんか。';
+    BD.body.placeholder = n ? '走った感想・見どころなど（200字まで）' : 'アプリの感想・ご要望など（200字まで）';
     boardLoad(false);
   }
   function signedIn() {
