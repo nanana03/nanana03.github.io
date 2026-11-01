@@ -174,10 +174,18 @@ a:hover { text-decoration-thickness: 2px; }
 .label { padding-top: var(--space-2xs); min-width: 0; }
 .label h3 { font-weight: 700; font-size: var(--text-name); line-height: 1.3; letter-spacing: -0.005em; }
 .label p { margin-top: var(--space-xs); color: var(--color-muted); font-size: var(--text-sm); line-height: 1.75; max-width: 30em; }
-.label .go { margin-top: var(--space-sm); display: flex; flex-wrap: wrap; gap: 0 var(--space-md); }
+.label .go { margin-top: var(--space-sm); display: flex; flex-wrap: wrap; gap: 0 var(--space-xs); align-items: center; }
 .label .go a {
   display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; font-size: var(--text-sm);
 }
+/* 入手先：ストアは公式バッジ（見える高さ 32px にそろえる）、ほかは同じ高さの縁取りの札。押せる高さは 44px のまま */
+.label .go a.b, .label .go a.chip { text-decoration: none; border-radius: 7px; }
+.go .b img { display: block; height: 32px; width: auto; }
+.go .b-play img { height: 41.7px; margin: -4.85px; }  /* Google の PNG は四方に透明の余白（おにコレ：62.5px で Apple の 48px と同じ見え）＝その分を詰める */
+.go .chip .face { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 11px 0 9px; border: 1px solid var(--color-ink); border-radius: 7px;
+  color: var(--color-ink); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.01em; transition: background-color var(--dur-short) var(--ease-out); }
+.go .chip picture, .go .chip img { display: block; width: 16px; height: 16px; }
+.go .chip:hover .face { background: var(--color-paper-2); }
 
 /* 1回だけの入場：品物が棚に置かれる（上から 10px 降りて接地、影が広がる）。以後は動かない */
 @keyframes place { from { transform: translateY(-10px); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -258,7 +266,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>おにコレ</h3>
           <p>走った国道を記録して集めるコレクションアプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6787720099">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo">Google Play</a><a href="https://nanana03.github.io/onikore/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6787720099"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="b b-play" href="https://play.google.com/store/apps/details?id=com.nanabit.kokudo"><img src="./onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="108" height="42"></a><a class="chip" href="https://nanana03.github.io/onikore/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -266,7 +274,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>推しくらべ</h3>
           <p>対面で楽しむ「推しの答え合わせ」アプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6792729967">App Store</a><a href="https://oshikurabe.nananasoft.com/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6792729967"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="chip" href="https://oshikurabe.nananasoft.com/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -274,7 +282,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>Fuse 6×6</h3>
           <p>6×6 の盤で数字を合体させていくパズル。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6797504007">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.fuse6x6">Google Play</a><a href="https://nanana03.github.io/fuse6x6/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6797504007"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="b b-play" href="https://play.google.com/store/apps/details?id=com.nanabit.fuse6x6"><img src="./onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="108" height="42"></a><a class="chip" href="https://nanana03.github.io/fuse6x6/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -282,7 +290,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>MTB Hub</h3>
           <p>マウンテンバイクに乗った日を残して、仲間と分けて、そのあとのメシまで決めるアプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6800691309">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.mtbhub">Google Play</a><a href="https://nanana03.github.io/mtbhub-site/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6800691309"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="b b-play" href="https://play.google.com/store/apps/details?id=com.nanabit.mtbhub"><img src="./onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="108" height="42"></a><a class="chip" href="https://nanana03.github.io/mtbhub-site/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -290,7 +298,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>BilliHub</h3>
           <p>撞いた日を残して、仲間と分け合うビリヤードのアプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6809142556">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.billihub">Google Play</a><a href="https://billihub.nananasoft.com/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6809142556"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="b b-play" href="https://play.google.com/store/apps/details?id=com.nanabit.billihub"><img src="./onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="108" height="42"></a><a class="chip" href="https://billihub.nananasoft.com/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -298,7 +306,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>Beer Hub</h3>
           <p>日本のブルワリーを訪ねて、行った先を集めていくアプリ。</p>
-          <p class="go"><a href="https://apps.apple.com/jp/app/id6817176337">App Store</a><a href="https://play.google.com/store/apps/details?id=com.nanabit.beerhub">Google Play</a><a href="https://nanana03.github.io/beerhub-site/">公式サイト</a></p>
+          <p class="go"><a class="b" href="https://apps.apple.com/jp/app/id6817176337"><img src="./onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="87" height="32"></a><a class="b b-play" href="https://play.google.com/store/apps/details?id=com.nanabit.beerhub"><img src="./onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="108" height="42"></a><a class="chip" href="https://nanana03.github.io/beerhub-site/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a></p>
         </div>
       </li>
     </ul>
@@ -312,7 +320,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>ZipShrink</h3>
           <p>ZIP・RAR・7z の中の画像を、解凍せずに一括で小さくするツール。巻ごとの分割もできます。</p>
-          <p class="go"><a href="https://www.vector.co.jp/soft/winnt/art/se529141.html">Vector</a></p>
+          <p class="go"><a class="chip" href="https://www.vector.co.jp/soft/winnt/art/se529141.html"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2v8M4.6 7l3.4 3.4L11.4 7"/><path d="M2.6 11.2v2.2h10.8v-2.2"/></g></svg>Vector</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -320,7 +328,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>上場株式の<wbr>相続税評価額 計算ツール</h3>
           <p>上場株式の相続税評価額を、財産評価基本通達どおりに4つの価額から自動で選び、国税庁様式の評価明細書 PDF と根拠の証跡まで出すソフト。</p>
-          <p class="go"><a href="https://www.vector.co.jp/soft/winnt/business/se529138.html">Vector</a></p>
+          <p class="go"><a class="chip" href="https://www.vector.co.jp/soft/winnt/business/se529138.html"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2v8M4.6 7l3.4 3.4L11.4 7"/><path d="M2.6 11.2v2.2h10.8v-2.2"/></g></svg>Vector</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -328,7 +336,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>PathlessMark</h3>
           <p>サブフォルダを持たないフォルダに小さな印を付け、行き止まりを開かずに見分けられるツール。フリーソフト（MIT ライセンス）。</p>
-          <p class="go"><a href="https://www.vector.co.jp/soft/winnt/util/se529382.html">Vector</a><a href="https://github.com/nanana03/pathlessmark">GitHub</a></p>
+          <p class="go"><a class="chip" href="https://www.vector.co.jp/soft/winnt/util/se529382.html"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.2v8M4.6 7l3.4 3.4L11.4 7"/><path d="M2.6 11.2v2.2h10.8v-2.2"/></g></svg>Vector</span></a><a class="chip" href="https://github.com/nanana03/pathlessmark"><span class="face"><picture><source srcset="./img/github-invertocat-white.svg" media="(prefers-color-scheme: dark)"><img src="./img/github-invertocat-black.svg" alt="" width="16" height="16"></picture>GitHub</span></a></p>
         </div>
       </li>
       <li class="item">
@@ -336,7 +344,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
         <div class="label">
           <h3>PicoFiler</h3>
           <p>たくさんの写真や漫画を、フォルダツリーとサムネイルで見ながら整理する画像ビューア。書庫もそのまま開け、PC 全体から一瞬で探せます。フリーソフト。</p>
-          <p class="go"><a href="./picofiler/">公式サイト</a><a href="https://github.com/nanana03/picofiler-release/releases/latest">GitHub</a></p>
+          <p class="go"><a class="chip" href="./picofiler/"><span class="face"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.4"/><ellipse cx="8" cy="8" rx="2.7" ry="6.4"/><path d="M1.8 6h12.4M1.8 10h12.4"/></g></svg>公式サイト</span></a><a class="chip" href="https://github.com/nanana03/picofiler-release/releases/latest"><span class="face"><picture><source srcset="./img/github-invertocat-white.svg" media="(prefers-color-scheme: dark)"><img src="./img/github-invertocat-black.svg" alt="" width="16" height="16"></picture>GitHub</span></a></p>
         </div>
       </li>
     </ul>
