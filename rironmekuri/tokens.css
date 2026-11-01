@@ -1,0 +1,52 @@
+/* 理論めくり（rironmekuri/）の決まり。色はアプリ src/theme.ts の値そのもの（製品の色なので OKLCH に直さない＝fuse6x6 と同じ例外）。
+ * 軸＝light / classical-serif（明朝） / warm（朱）。詳しくは design.md */
+:root {
+  --color-paper: #F5F2EA;      /* C.paper   画面の地 */
+  --color-surface: #FFFFFF;    /* C.surface カード */
+  --color-sunk: #ECE7DC;       /* C.sunk    へこんだ所 */
+  --color-line: #E3DDD0;       /* C.line    区切り線 */
+  --color-ink: #1D2023;        /* C.ink     本文 */
+  --color-sub: #5C6168;        /* C.ink2    補足 */
+  --color-faint: #979BA1;      /* C.ink3    薄い補足（飾りの線だけ・文字には使わない） */
+  --color-shu: #C2412D;        /* C.shu     強調＝主な操作 */
+  --color-shu-deep: #9C3222;   /* C.shuDeep 押した朱 */
+  --color-shu-soft: #F7E3DC;   /* C.shuSoft 朱の淡い地 */
+  --color-red-text: #E0301E;   /* 教材の赤い字の見本（見本 PDF の #ef4029 を紙の上で読める濃さへ） */
+  --color-sheet: rgba(214, 38, 38, 0.42); /* 読む画面の赤シート（M02 の値） */
+  --color-sheet-edge: #B8322A; /* 赤シートの上端のつまみ */
+  --color-score-0: #D9483B;    /* 採点 0%（score.ts の意味の色・赤→黄→緑） */
+  --color-score-50: #E9B931;
+  --color-score-100: #4FA86A;
+  --color-mk-y: rgba(255, 210, 0, 0.40);   /* MARKER_COLORS */
+  --color-mk-p: rgba(255, 120, 170, 0.33);
+  --color-mk-b: rgba(80, 170, 255, 0.30);
+  --color-mk-g: rgba(90, 205, 120, 0.33);
+  --color-mk-o: rgba(255, 150, 40, 0.36);
+  --color-mk-k: rgba(236, 70, 120, 0.45);  /* 暗記マーカー */
+  --color-green-sheet: rgba(40, 140, 90, 0.55); /* 緑シート（暗記マーカーを消す） */
+  --color-shadow: rgba(59, 47, 30, 0.08);  /* shadow.shadowColor #3B2F1E・0.08 */
+  --color-focus: #C2412D;
+
+  --font-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  --text-2xl: clamp(1.7rem, 1.2rem + 2.2vw, 2.6rem);
+  --text-display: clamp(2.3rem, 1rem + 6.2vw, 5.6rem);
+
+  --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px; --space-3xl: 80px; --space-4xl: 120px;
+  --page-gutter: clamp(16px, 4vw, 40px);
+  --measure: 34em;
+
+  --radius-chip: 8px; --radius-ctl: 12px; --radius-card: 18px;
+  --rule-hair: 1px; --rule-thick: 3px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms; --dur-mid: 220ms;
+}

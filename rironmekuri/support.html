@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>理論めくり サポート / Mekuri Support</title>
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F5F2EA">
+<style>
+/* 理論めくりのデザインの決まり「紙と朱」（アプリの src/theme.ts と同じ色）。法務ページなので飾りは足さない */
+:root {
+  --color-paper: #F5F2EA; --color-surface: #FFFFFF; --color-ink: #1D2023; --color-sub: #5C6168;
+  --color-line: #E3DDD0; --color-shu: #C2412D; --color-shu-soft: #F7E3DC;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); line-height: 1.85; }
+:focus-visible { outline: 3px solid var(--color-shu); outline-offset: 3px; border-radius: 6px; }
+a { color: var(--color-shu); }
+.back { max-width: 760px; margin: 0 auto; padding: 20px var(--gutter) 0; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-sub); text-decoration: none; font-size: 0.9rem; }
+.back .mark { color: var(--color-ink); font-weight: 800; letter-spacing: 0.06em; }
+.legal { max-width: 760px; margin: 20px auto 56px; padding: 32px var(--gutter); background: var(--color-surface);
+  border-radius: 20px; border: 1px solid var(--color-line); }
+@media (min-width: 48rem) { .legal { padding: 56px; } }
+.legal h1 { font-size: clamp(1.4rem, 1.1rem + 1.3vw, 1.9rem); line-height: 1.35; margin: 0; padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-shu); overflow-wrap: anywhere; }
+.legal h2 { font-size: 1.08rem; margin: 2.2em 0 0.4em; padding: 6px 12px; background: var(--color-paper); border-left: 4px solid var(--color-shu); border-radius: 4px; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin: 0.35em 0; }
+.legal li::marker { color: var(--color-shu); }
+.legal .updated { color: var(--color-sub); font-size: 0.9rem; }
+.legal strong { background: var(--color-shu-soft); padding: 0 3px; border-radius: 3px; }
+.legal .lang + .lang { margin-top: 56px; padding-top: 56px; border-top: 2px dashed var(--color-line); }
+.langs { max-width: 760px; margin: 12px auto 0; padding: 0 var(--gutter); display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; }
+.langs a { display: inline-flex; align-items: center; min-height: 36px; color: var(--color-sub); text-decoration: none; }
+.langs a:hover { color: var(--color-shu); }
+.legal h3 { font-size: 1rem; margin: 1.6em 0 0.3em; }
+</style>
+</head>
+<body>
+<nav class="back" aria-label="理論めくり / Mekuri">
+  <a class="mark" href="./">理論めくり / Mekuri</a>
+  <a href="../">Nanana Soft</a>
+</nav>
+<nav class="langs" aria-label="Language / 言語">
+  <a href="#ja" lang="ja" hreflang="ja">日本語</a>
+  <a href="#en" lang="en" hreflang="en">English</a>
+  <a href="#zh-Hans" lang="zh-Hans" hreflang="zh-Hans">简体中文</a>
+  <a href="#zh-Hant" lang="zh-Hant" hreflang="zh-Hant">繁體中文</a>
+  <a href="#ko" lang="ko" hreflang="ko">한국어</a>
+  <a href="#es" lang="es" hreflang="es">Español</a>
+  <a href="#pt-BR" lang="pt-BR" hreflang="pt-BR">Português (Brasil)</a>
+  <a href="#de" lang="de" hreflang="de">Deutsch</a>
+  <a href="#fr" lang="fr" hreflang="fr">Français</a>
+  <a href="#ru" lang="ru" hreflang="ru">Русский</a>
+</nav>
+<article class="legal">
+
+<section class="lang" id="ja" lang="ja">
+<h1>理論めくり サポート</h1>
+
+<p>理論めくりは、お手持ちの理論テキストの PDF を取り込み、赤い文字を赤シートで隠して覚えるアプリです（iPhone・iPad）。海外のストアでは「Mekuri: Hide &amp; Recall PDFs」の名前で配信しています。</p>
+
+<h2>よくある質問</h2>
+<h3>1. PDF を取り込むには？</h3>
+<p>「本棚」の「取り込む」を押し、「ファイル」から PDF を選んでください。</p>
+<h3>2. 赤い文字が隠れません</h3>
+<p>隠れるのは赤い文字（薄い赤を含む）だけです。青や緑の文字は隠れません。スキャンした PDF でも、文字が赤ければ隠れます。</p>
+<h3>3. 理論の一覧が空です</h3>
+<p>しおり（目次）のある PDF は、自動で一覧を作ります。しおりが無い PDF は、読む画面の理論一覧の「このページ（…）に足す」で登録できます。</p>
+<h3>4. 購入を復元するには？</h3>
+<p>「今日」の右上の歯車 →「Pro について」→「購入を復元する」を押してください。同じ Apple ID で購入していれば Pro に戻ります。</p>
+<h3>5. 解約するには？</h3>
+<p>iPhone・iPad の「設定」＞ 自分の名前 ＞「サブスクリプション」から解約できます。アプリを削除しただけでは解約されません。</p>
+<h3>6. 新しい端末に記録を移せますか？</h3>
+<p>取り込んだ PDF と記録は端末の中だけに保存されます。iPhone・iPad のバックアップから新しい端末を復元すると、一緒に移ります。</p>
+
+<h2>お問い合わせ</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>リンク</h2>
+<ul>
+  <li><a href="privacy.html#ja">プライバシーポリシー</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">利用規約（Apple 標準 EULA）</a></li>
+</ul>
+</section>
+
+<section class="lang" id="en" lang="en">
+<h1>Mekuri Support</h1>
+
+<p>Mekuri lets you import your own study PDFs and memorize them by hiding the red text under a red sheet (iPhone and iPad). In Japan it is available as 理論めくり.</p>
+
+<h2>FAQ</h2>
+<h3>1. How do I import a PDF?</h3>
+<p>Tap “Import” in Library and choose a PDF from the Files app.</p>
+<h3>2. The red text is not hidden</h3>
+<p>Only red text (including light red) is hidden. Blue or green text is not. Scanned PDFs work too, as long as the text is red.</p>
+<h3>3. The topic list is empty</h3>
+<p>For PDFs with bookmarks, Mekuri builds the list automatically. For PDFs without bookmarks, add topics with “Add on page …” in Topics in the reader.</p>
+<h3>4. How do I restore my purchase?</h3>
+<p>Tap the gear at the top right of Today → “About Pro” → “Restore purchases”. If you bought with the same Apple ID, Pro comes back.</p>
+<h3>5. How do I cancel?</h3>
+<p>Go to Settings &gt; [your name] &gt; Subscriptions on your iPhone or iPad. Deleting the app does not cancel the subscription.</p>
+<h3>6. Can I move my records to a new device?</h3>
+<p>Your PDFs and records are stored only on your device. They move with it when you set up the new device from an iPhone or iPad backup.</p>
+
+<h2>Contact</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="privacy.html#en">Privacy Policy</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use (Apple Standard EULA)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="zh-Hans" lang="zh-Hans">
+<h1>Mekuri 支持</h1>
+
+<p>Mekuri 可以导入你自己的学习 PDF，用红色遮挡膜盖住红色文字来记忆（iPhone 和 iPad）。在日本以“理論めくり”的名称提供。</p>
+
+<h2>常见问题</h2>
+<h3>1. 如何导入 PDF？</h3>
+<p>在“书架”中点按“导入”，然后从“文件”App 中选择 PDF。</p>
+<h3>2. 红色文字没有被遮住</h3>
+<p>只有红色文字（包括浅红色）会被遮住，蓝色或绿色的文字不会。扫描的 PDF 只要文字是红色，也能遮住。</p>
+<h3>3. 主题列表是空的</h3>
+<p>带书签（目录）的 PDF 会自动生成列表。没有书签的 PDF，可以在阅读界面的“主题列表”中用“添加到第 … 页”来登记。</p>
+<h3>4. 如何恢复购买？</h3>
+<p>点按“今天”右上角的齿轮 →“关于 Pro”→“恢复购买”。如果用同一个 Apple ID 购买过，就会恢复为 Pro。</p>
+<h3>5. 如何取消订阅？</h3>
+<p>在 iPhone 或 iPad 的“设置”&gt;［你的姓名］&gt;“订阅”中取消。仅删除 App 不会取消订阅。</p>
+<h3>6. 可以把记录转移到新设备吗？</h3>
+<p>导入的 PDF 和记录只保存在设备上。用 iPhone 或 iPad 的备份恢复新设备时，会一起转移。</p>
+
+<h2>联系我们</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>链接</h2>
+<ul>
+  <li><a href="privacy.html#zh-Hans">隐私政策</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">使用条款（Apple 标准 EULA）</a></li>
+</ul>
+</section>
+
+<section class="lang" id="zh-Hant" lang="zh-Hant">
+<h1>Mekuri 支援</h1>
+
+<p>Mekuri 可以匯入你自己的學習 PDF，用紅色遮擋膜蓋住紅色文字來記憶（iPhone 和 iPad）。在日本以「理論めくり」的名稱提供。</p>
+
+<h2>常見問題</h2>
+<h3>1. 如何匯入 PDF？</h3>
+<p>在「書架」點一下「匯入」，然後從「檔案」App 選擇 PDF。</p>
+<h3>2. 紅色文字沒有被遮住</h3>
+<p>只有紅色文字（包含淺紅色）會被遮住，藍色或綠色的文字不會。掃描的 PDF 只要文字是紅色，也能遮住。</p>
+<h3>3. 主題列表是空的</h3>
+<p>有書籤（目錄）的 PDF 會自動建立列表。沒有書籤的 PDF，可以在閱讀畫面的「主題列表」中用「新增到第 … 頁」來登錄。</p>
+<h3>4. 如何回復購買？</h3>
+<p>點一下「今天」右上角的齒輪 →「關於 Pro」→「回復購買」。如果用同一個 Apple ID 購買過，就會回復為 Pro。</p>
+<h3>5. 如何取消訂閱？</h3>
+<p>在 iPhone 或 iPad 的「設定」&gt;［你的名稱］&gt;「訂閱項目」中取消。只刪除 App 不會取消訂閱。</p>
+<h3>6. 可以把紀錄移到新裝置嗎？</h3>
+<p>匯入的 PDF 和紀錄只儲存在裝置上。用 iPhone 或 iPad 的備份回復新裝置時，會一起移過去。</p>
+
+<h2>聯絡我們</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>連結</h2>
+<ul>
+  <li><a href="privacy.html#zh-Hant">隱私權政策</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">使用條款（Apple 標準 EULA）</a></li>
+</ul>
+</section>
+
+<section class="lang" id="ko" lang="ko">
+<h1>Mekuri 지원</h1>
+
+<p>Mekuri는 가지고 있는 학습용 PDF를 가져와 빨간 글자를 빨간 시트로 가리며 외우는 앱입니다(iPhone·iPad). 일본에서는 「理論めくり」라는 이름으로 제공됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<h3>1. PDF를 가져오려면?</h3>
+<p>'책장'에서 '가져오기'를 누르고 '파일' 앱에서 PDF를 선택하세요.</p>
+<h3>2. 빨간 글자가 가려지지 않아요</h3>
+<p>가려지는 것은 빨간 글자(연한 빨강 포함)뿐입니다. 파란색이나 초록색 글자는 가려지지 않습니다. 스캔한 PDF도 글자가 빨간색이면 가려집니다.</p>
+<h3>3. 주제 목록이 비어 있어요</h3>
+<p>책갈피(목차)가 있는 PDF는 목록을 자동으로 만듭니다. 책갈피가 없는 PDF는 읽기 화면의 '주제 목록'에서 '…쪽에 추가'로 등록할 수 있습니다.</p>
+<h3>4. 구입을 복원하려면?</h3>
+<p>'오늘' 오른쪽 위의 톱니바퀴 → 'Pro 안내' → '구입 복원'을 누르세요. 같은 Apple ID로 구입했다면 Pro로 돌아옵니다.</p>
+<h3>5. 해지하려면?</h3>
+<p>iPhone·iPad의 '설정' &gt; [사용자 이름] &gt; '구독'에서 해지할 수 있습니다. 앱을 삭제하는 것만으로는 해지되지 않습니다.</p>
+<h3>6. 새 기기로 기록을 옮길 수 있나요?</h3>
+<p>가져온 PDF와 기록은 기기 안에만 저장됩니다. iPhone·iPad 백업으로 새 기기를 복원하면 함께 옮겨집니다.</p>
+
+<h2>문의</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>링크</h2>
+<ul>
+  <li><a href="privacy.html#ko">개인정보 처리방침</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">이용 약관(Apple 표준 EULA)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="es" lang="es">
+<h1>Soporte de Mekuri</h1>
+
+<p>Mekuri te permite importar tus propios PDF de estudio y memorizarlos ocultando el texto rojo bajo una lámina roja (iPhone y iPad). En Japón se distribuye como 理論めくり.</p>
+
+<h2>Preguntas frecuentes</h2>
+<h3>1. ¿Cómo importo un PDF?</h3>
+<p>Toca «Importar» en Biblioteca y elige un PDF en la app Archivos.</p>
+<h3>2. El texto rojo no se oculta</h3>
+<p>Solo se oculta el texto rojo (incluido el rojo claro). El texto azul o verde no. Los PDF escaneados también sirven, siempre que el texto sea rojo.</p>
+<h3>3. La lista de temas está vacía</h3>
+<p>En los PDF con marcadores, Mekuri crea la lista automáticamente. En los PDF sin marcadores, añade temas con «Añadir en la pág. …» en Temas, dentro del lector.</p>
+<h3>4. ¿Cómo restauro mi compra?</h3>
+<p>Toca el engranaje arriba a la derecha de Hoy → «Acerca de Pro» → «Restaurar compras». Si compraste con el mismo Apple ID, vuelves a tener Pro.</p>
+<h3>5. ¿Cómo cancelo?</h3>
+<p>Ve a Ajustes &gt; [tu nombre] &gt; Suscripciones en tu iPhone o iPad. Eliminar la app no cancela la suscripción.</p>
+<h3>6. ¿Puedo pasar mis registros a otro dispositivo?</h3>
+<p>Los PDF y registros se guardan solo en tu dispositivo. Se transfieren si configuras el nuevo dispositivo a partir de una copia de seguridad del iPhone o iPad.</p>
+
+<h2>Contacto</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Enlaces</h2>
+<ul>
+  <li><a href="privacy.html#es">Política de privacidad</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Condiciones de uso (EULA estándar de Apple)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="pt-BR" lang="pt-BR">
+<h1>Suporte do Mekuri</h1>
+
+<p>O Mekuri permite importar seus próprios PDFs de estudo e memorizá-los escondendo o texto vermelho sob uma folha vermelha (iPhone e iPad). No Japão, ele é distribuído como 理論めくり.</p>
+
+<h2>Perguntas frequentes</h2>
+<h3>1. Como importo um PDF?</h3>
+<p>Toque em “Importar” na Biblioteca e escolha um PDF no app Arquivos.</p>
+<h3>2. O texto vermelho não fica escondido</h3>
+<p>Só o texto vermelho (incluindo vermelho claro) é escondido. Texto azul ou verde não. PDFs digitalizados também funcionam, desde que o texto seja vermelho.</p>
+<h3>3. A lista de tópicos está vazia</h3>
+<p>Em PDFs com marcadores, o Mekuri cria a lista automaticamente. Em PDFs sem marcadores, adicione tópicos com “Adicionar na pág. …” em Tópicos, no leitor.</p>
+<h3>4. Como restauro minha compra?</h3>
+<p>Toque na engrenagem no canto superior direito de Hoje → “Sobre o Pro” → “Restaurar compras”. Se você comprou com o mesmo Apple ID, o Pro volta.</p>
+<h3>5. Como cancelo?</h3>
+<p>Vá em Ajustes &gt; [seu nome] &gt; Assinaturas no iPhone ou iPad. Apagar o app não cancela a assinatura.</p>
+<h3>6. Posso levar meus registros para outro aparelho?</h3>
+<p>Seus PDFs e registros ficam somente no aparelho. Eles vão junto quando você configura o novo aparelho a partir de um backup do iPhone ou iPad.</p>
+
+<h2>Contato</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="privacy.html#pt-BR">Política de Privacidade</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Termos de Uso (EULA padrão da Apple)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="de" lang="de">
+<h1>Mekuri-Support</h1>
+
+<p>Mit Mekuri importierst du deine eigenen Lern-PDFs und lernst sie auswendig, indem du den roten Text unter einer Rotfolie verdeckst (iPhone und iPad). In Japan heißt die App 理論めくり.</p>
+
+<h2>Häufige Fragen</h2>
+<h3>1. Wie importiere ich ein PDF?</h3>
+<p>Tippe in der Bibliothek auf „Importieren“ und wähle ein PDF in der App „Dateien“.</p>
+<h3>2. Der rote Text wird nicht verdeckt</h3>
+<p>Verdeckt wird nur roter Text (auch hellroter). Blauer oder grüner Text nicht. Gescannte PDFs funktionieren ebenfalls, solange der Text rot ist.</p>
+<h3>3. Die Themenliste ist leer</h3>
+<p>Bei PDFs mit Lesezeichen erstellt Mekuri die Liste automatisch. Bei PDFs ohne Lesezeichen fügst du Themen im Leser unter „Themen“ mit „Auf S. … hinzufügen“ hinzu.</p>
+<h3>4. Wie stelle ich meinen Kauf wieder her?</h3>
+<p>Tippe oben rechts in „Heute“ auf das Zahnrad → „Über Pro“ → „Käufe wiederherstellen“. Wenn du mit derselben Apple-ID gekauft hast, ist Pro wieder aktiv.</p>
+<h3>5. Wie kündige ich?</h3>
+<p>Unter Einstellungen &gt; [dein Name] &gt; Abonnements auf deinem iPhone oder iPad. Das Löschen der App kündigt das Abonnement nicht.</p>
+<h3>6. Kann ich meine Daten auf ein neues Gerät übertragen?</h3>
+<p>Deine PDFs und Lerndaten werden nur auf dem Gerät gespeichert. Sie werden mit übertragen, wenn du das neue Gerät aus einem iPhone- oder iPad-Backup einrichtest.</p>
+
+<h2>Kontakt</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="privacy.html#de">Datenschutzerklärung</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Nutzungsbedingungen (Standard-EULA von Apple)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="fr" lang="fr">
+<h1>Assistance Mekuri</h1>
+
+<p>Mekuri vous permet d’importer vos propres PDF d’étude et de les mémoriser en cachant le texte rouge sous une feuille rouge (iPhone et iPad). Au Japon, l’app est distribuée sous le nom 理論めくり.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>1. Comment importer un PDF ?</h3>
+<p>Touchez « Importer » dans Bibliothèque, puis choisissez un PDF dans l’app Fichiers.</p>
+<h3>2. Le texte rouge n’est pas caché</h3>
+<p>Seul le texte rouge (y compris le rouge clair) est caché. Le texte bleu ou vert ne l’est pas. Les PDF numérisés fonctionnent aussi, tant que le texte est rouge.</p>
+<h3>3. La liste des thèmes est vide</h3>
+<p>Pour les PDF avec signets, Mekuri crée la liste automatiquement. Pour les PDF sans signets, ajoutez des thèmes avec « Ajouter p. … » dans Thèmes, depuis le lecteur.</p>
+<h3>4. Comment restaurer mon achat ?</h3>
+<p>Touchez la roue dentée en haut à droite d’Aujourd’hui → « À propos de Pro » → « Restaurer les achats ». Si vous avez acheté avec le même identifiant Apple, Pro revient.</p>
+<h3>5. Comment résilier ?</h3>
+<p>Allez dans Réglages &gt; [votre nom] &gt; Abonnements sur votre iPhone ou iPad. Supprimer l’app ne résilie pas l’abonnement.</p>
+<h3>6. Puis-je transférer mes données sur un nouvel appareil ?</h3>
+<p>Vos PDF et vos données sont enregistrés uniquement sur l’appareil. Ils sont transférés si vous configurez le nouvel appareil à partir d’une sauvegarde de l’iPhone ou de l’iPad.</p>
+
+<h2>Contact</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Liens</h2>
+<ul>
+  <li><a href="privacy.html#fr">Politique de confidentialité</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Conditions d’utilisation (CLUF standard d’Apple)</a></li>
+</ul>
+</section>
+
+<section class="lang" id="ru" lang="ru">
+<h1>Поддержка Mekuri</h1>
+
+<p>Mekuri позволяет импортировать собственные учебные PDF и запоминать их, закрывая красный текст красной плёнкой (iPhone и iPad). В Японии приложение называется 理論めくり.</p>
+
+<h2>Частые вопросы</h2>
+<h3>1. Как импортировать PDF?</h3>
+<p>Нажмите «Импорт» в разделе «Библиотека» и выберите PDF в приложении «Файлы».</p>
+<h3>2. Красный текст не скрывается</h3>
+<p>Скрывается только красный текст (в том числе светло-красный). Синий или зелёный текст не скрывается. Отсканированные PDF тоже подходят, если текст красный.</p>
+<h3>3. Список тем пуст</h3>
+<p>Для PDF с закладками Mekuri создаёт список автоматически. Для PDF без закладок добавьте темы кнопкой «Добавить на стр. …» в списке «Темы» в режиме чтения.</p>
+<h3>4. Как восстановить покупку?</h3>
+<p>Нажмите шестерёнку в правом верхнем углу раздела «Сегодня» → «О Pro» → «Восстановить покупки». Если покупка сделана с того же Apple ID, Pro вернётся.</p>
+<h3>5. Как отменить подписку?</h3>
+<p>Откройте «Настройки» &gt; [ваше имя] &gt; «Подписки» на iPhone или iPad. Удаление приложения не отменяет подписку.</p>
+<h3>6. Можно ли перенести записи на новое устройство?</h3>
+<p>PDF и записи хранятся только на устройстве. Они переносятся, если настроить новое устройство из резервной копии iPhone или iPad.</p>
+
+<h2>Контакты</h2>
+<p>Nanana Soft　<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+
+<h2>Ссылки</h2>
+<ul>
+  <li><a href="privacy.html#ru">Политика конфиденциальности</a></li>
+  <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Условия использования (стандартное лицензионное соглашение Apple)</a></li>
+</ul>
+</section>
+
+</article>
+</body>
+</html>
