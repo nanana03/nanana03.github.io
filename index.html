@@ -207,6 +207,14 @@ a:hover { text-decoration-thickness: 2px; }
   .stand::after { width: calc(100% + var(--space-lg)); }
   .item:last-child .stand::after { width: 100%; }
   .label { padding-top: var(--space-md); }
+  /* 同じ段の製品どうしで、名前・説明・入手先の行の高さをそろえる（説明が 1 行と 2 行で入手先のアイコンが 25px ずれた＝2026-11-01 実測）。
+     1 製品＝台・名前・説明・入手先の 4 行を親の格子に預ける（subgrid） */
+  @supports (grid-template-rows: subgrid) {
+    .item { display: grid; grid-template-rows: subgrid; grid-row: span 4; grid-template-columns: minmax(0, 1fr); column-gap: 0; }  /* 狭い幅の 2 列（アイコン｜棚札）を外す */
+    .label { display: contents; }
+    .label h3 { padding-top: var(--space-md); }
+    .label p, .label .go { align-self: start; }
+  }
 }
 @media (min-width: 46rem) and (max-width: 63.99rem) {
   .items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
