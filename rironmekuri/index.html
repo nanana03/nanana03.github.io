@@ -78,6 +78,7 @@ li::marker { color: var(--color-shu); }
 .lead { color: var(--color-sub); max-width: 30em; font-size: var(--text-lg); }
 .avail { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-sub); }
 .avail b { color: var(--color-ink); }
+.avail .store { display: inline-block; vertical-align: middle; line-height: 0; }
 
 .demo-fig { margin: 0; min-width: 0; }
 /* 紙の束：後ろに本物の次のページを少し傾けて重ねる（「めくる」） */
@@ -212,7 +213,7 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
   <div class="hero-text">
     <h1 id="h-top" class="mincho">赤い字を、<br><span class="hl">隠して</span><br class="wide">覚える。</h1>
     <p class="lead">お手持ちの理論テキストの PDF を取り込むと、赤い文字をそのまま赤シートで隠せます。紙のテキストと赤シートで覚えてきたやり方を、iPhone と iPad で続けられます。</p>
-    <p class="avail"><b>iPhone・iPad</b>　App Store で配信の準備中です。</p>
+    <p class="avail"><b>iPhone・iPad</b>　<a class="store" href="https://apps.apple.com/jp/app/id6829268504"><img src="../onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="120" height="40"></a></p>
   </div>
   <figure class="demo-fig">
     <div class="stack">
@@ -358,7 +359,7 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
         <li>Your PDFs and records stay on your device. No account, no ads</li>
         <li>Free for one book. Mekuri Pro (monthly or yearly subscription) removes the limits</li>
       </ul>
-      <p class="demo-note">Coming soon to the App Store. Study materials are not included.</p>
+      <p class="demo-note"><a href="https://apps.apple.com/app/id6829268504">Available on the App Store</a>. Study materials are not included.</p>
       <details><summary>How do I import a PDF?</summary><p>Tap “Import” in Library and choose a PDF from the Files app.</p></details>
       <details><summary>The red text is not hidden</summary><p>Only red text (including light red) is hidden. Blue or green text is not. Scanned PDFs work too, as long as the text is red.</p></details>
       <details><summary>The topic list is empty</summary><p>For PDFs with bookmarks, Mekuri builds the list automatically. For PDFs without bookmarks, add topics with “Add on page …” in Topics in the reader.</p></details>
