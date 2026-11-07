@@ -62,7 +62,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="ja" lang="ja">
 <h1>理論めくり プライバシーポリシー</h1>
-<p class="updated">最終更新日: 2026年11月1日</p>
+<p class="updated">最終更新日: 2026年11月7日</p>
 
 <p>「理論めくり」（以下「本アプリ」）は、取り込んだ教材と学習の記録を、あなたの端末の中だけで扱うように作られています。</p>
 
@@ -71,12 +71,12 @@ a { color: var(--color-shu); }
   <li>本アプリは<strong>広告を表示しません</strong>。行動追跡・解析のための SDK も搭載していません。</li>
   <li><strong>位置情報・写真・連絡先・カレンダー・マイク・カメラには一切アクセスしません。</strong></li>
   <li>氏名・メールアドレス・電話番号などの個人を特定する情報を求めることはありません。アカウントの登録もありません。</li>
-  <li>広告識別子（IDFA）は取得しません。アプリ間のトラッキングも行いません。</li>
+  <li>広告識別子（iPhone・iPad の IDFA、Android の広告 ID）は取得しません。アプリ間のトラッキングも行いません。</li>
 </ul>
 
 <h2>2. 取り込んだ PDF について</h2>
 <ul>
-  <li>本アプリが読むのは、<strong>あなたが「ファイル」から選んだ PDF だけ</strong>です。選んだ PDF は本アプリの保存領域へ写して使います。</li>
+  <li>本アプリが読むのは、<strong>あなたが選んだ PDF だけ</strong>です（iPhone・iPad では「ファイル」から、Android では端末のファイルの選択画面から選びます）。選んだ PDF は本アプリの保存領域へ写して使います。</li>
   <li>取り込んだ PDF とその中身（文字・赤い文字の位置・しおりなど）は、<strong>端末の外へ送信しません</strong>。開発者が見ることもできません。</li>
   <li>教材には受講者のお名前などが印字されていることがあります。本アプリはそれらを読み取って保存・送信することはありません。</li>
 </ul>
@@ -87,18 +87,19 @@ a { color: var(--color-shu); }
   <li>取り込んだ PDF</li>
   <li>理論の番号・題名の登録、理論ごとの重要度（A・B・C）</li>
   <li>覚え具合（自己採点）の記録、集中タイマーの記録</li>
-  <li>マーカーとペン（Apple Pencil）の書き込み</li>
+  <li>マーカーとペン（Apple Pencil・スタイラスペン・指）の書き込み</li>
   <li>試験日・タイマー・表示などの設定</li>
 </ul>
 <p>これらは、iPhone・iPad のバックアップ（iCloud バックアップなど）に含まれることがあります。これは Apple の仕組みによるもので、開発者がバックアップの中身を見ることはできません。アプリを削除すると、端末からは消えます。</p>
+<p>Android では、<strong>取り込んだ PDF はバックアップに含めません</strong>。記録・書き込み・設定だけが、端末でバックアップが有効なときに Google のバックアップ（Google ドライブ）に含まれることがあります。これは Google の仕組みによるもので、開発者がバックアップの中身を見ることはできません。新しい端末に戻したときは、同じ PDF を取り込み直すと記録とつながります。</p>
 
 <h2>4. 定額課金（Pro）について</h2>
 <ul>
   <li>本アプリは「理論めくり Pro」を月額・年額の自動更新の定額課金として提供します。</li>
-  <li>課金処理はすべて<strong>Apple の App Store</strong>を通じて行われます。<strong>開発者があなたの氏名・住所・クレジットカード情報を取得することはありません。</strong></li>
-  <li>Pro かどうかは、端末の中で App Store に問い合わせて判定します。購入の情報を開発者のサーバーへ送ることはありません（開発者はサーバーを持っていません）。</li>
+  <li>課金処理はすべて<strong>Apple の App Store</strong>（iPhone・iPad）または<strong>Google Play</strong>（Android）を通じて行われます。<strong>開発者があなたの氏名・住所・クレジットカード情報を取得することはありません。</strong></li>
+  <li>Pro かどうかは、端末の中で App Store または Google Play に問い合わせて判定します。購入の情報を開発者のサーバーへ送ることはありません（開発者はサーバーを持っていません）。</li>
   <li>購入管理のための第三者サービス（購入管理 SDK 等）は使用していません。</li>
-  <li>解約は、iPhone・iPad の「設定」＞ 自分の名前 ＞「サブスクリプション」からできます。</li>
+  <li>解約は、iPhone・iPad では「設定」＞ 自分の名前 ＞「サブスクリプション」から、Android では Google Play の「定期購入」で理論めくり Pro を選んで「定期購入を解約」からできます。</li>
 </ul>
 
 <h2>5. 子どものプライバシー</h2>
@@ -119,7 +120,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="en" lang="en">
 <h1>Mekuri Privacy Policy</h1>
-<p class="updated">Last updated: November 1, 2026</p>
+<p class="updated">Last updated: November 7, 2026</p>
 
 <p>Mekuri ("the App") is designed to handle the study materials you import and your study records only on your own device.</p>
 
@@ -128,12 +129,12 @@ a { color: var(--color-shu); }
   <li>The App displays <strong>no ads</strong> and contains no behavioral tracking or analytics SDKs.</li>
   <li><strong>It never accesses your location, photos, contacts, calendar, microphone, or camera.</strong></li>
   <li>It never asks for your name, email address, phone number, or any other personally identifying information. There is no account registration.</li>
-  <li>It does not collect the advertising identifier (IDFA) and does not track you across apps.</li>
+  <li>It does not collect the advertising identifier (IDFA on iPhone and iPad, the Advertising ID on Android) and does not track you across apps.</li>
 </ul>
 
 <h2>2. PDFs You Import</h2>
 <ul>
-  <li>The App reads <strong>only the PDFs you choose from the Files app</strong>, and copies them into its own storage.</li>
+  <li>The App reads <strong>only the PDFs you choose</strong> (from the Files app on iPhone and iPad, or from your device’s file picker on Android), and copies them into its own storage.</li>
   <li>Imported PDFs and their contents (text, positions of red text, bookmarks, etc.) are <strong>never transmitted off your device</strong>, and the developer cannot see them.</li>
   <li>Study materials may have a student's name printed on them. The App does not read, store, or transmit such information.</li>
 </ul>
@@ -144,18 +145,19 @@ a { color: var(--color-shu); }
   <li>Imported PDFs</li>
   <li>Registered topic numbers and titles, and the priority (A, B, C) of each topic</li>
   <li>Mastery (self-assessment) records and focus-timer records</li>
-  <li>Highlighter and pen (Apple Pencil) markings</li>
+  <li>Highlighter and pen markings (Apple Pencil, stylus, or finger)</li>
   <li>Settings such as the exam date, timer, and display options</li>
 </ul>
 <p>This data may be included in your iPhone or iPad backups (such as iCloud Backup). This is part of Apple's system, and the developer cannot see the contents of those backups. Deleting the App removes the data from your device.</p>
+<p>On Android, <strong>imported PDFs are excluded from backups</strong>. Only your records, markings, and settings may be included in Google’s backup (Google Drive) when backup is turned on for your device. This is part of Google’s system, and the developer cannot see the contents of those backups. After restoring to a new device, import the same PDF again to reconnect it with your records.</p>
 
 <h2>4. Subscription (Pro)</h2>
 <ul>
   <li>The App offers "Mekuri Pro" as an auto-renewable subscription, billed monthly or yearly.</li>
-  <li>All payment processing is handled by <strong>Apple's App Store</strong>. <strong>The developer never receives your name, address, or payment details.</strong></li>
-  <li>Whether you have Pro is checked on your device with the App Store. No purchase information is sent to the developer (the developer operates no servers).</li>
+  <li>All payment processing is handled by <strong>Apple’s App Store</strong> (iPhone and iPad) or <strong>Google Play</strong> (Android). <strong>The developer never receives your name, address, or payment details.</strong></li>
+  <li>Whether you have Pro is checked on your device with the App Store or Google Play. No purchase information is sent to the developer (the developer operates no servers).</li>
   <li>No third-party purchase-management service or SDK is used.</li>
-  <li>You can cancel in Settings &gt; [your name] &gt; Subscriptions on your iPhone or iPad.</li>
+  <li>You can cancel in Settings &gt; [your name] &gt; Subscriptions on your iPhone or iPad, or on Android in Google Play under Subscriptions by choosing Mekuri Pro and tapping Cancel subscription.</li>
 </ul>
 
 <h2>5. Children's Privacy</h2>
@@ -176,7 +178,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="zh-Hans" lang="zh-Hans">
 <h1>Mekuri 隐私政策</h1>
-<p class="updated">最后更新：2026年11月1日</p>
+<p class="updated">最后更新：2026年11月7日</p>
 
 <p>Mekuri（以下简称“本应用”）只在你自己的设备上处理你导入的学习资料和学习记录。</p>
 
@@ -185,12 +187,12 @@ a { color: var(--color-shu); }
   <li>本应用<strong>不显示广告</strong>，也不包含任何行为追踪或分析 SDK。</li>
   <li><strong>本应用绝不访问你的位置、照片、通讯录、日历、麦克风或相机。</strong></li>
   <li>本应用不会要求你提供姓名、电子邮件地址、电话号码等可识别个人身份的信息，也无需注册账号。</li>
-  <li>本应用不收集广告标识符（IDFA），也不进行跨应用追踪。</li>
+  <li>本应用不收集广告标识符（iPhone、iPad 上的 IDFA，Android 上的广告 ID），也不进行跨应用追踪。</li>
 </ul>
 
 <h2>2. 关于你导入的 PDF</h2>
 <ul>
-  <li>本应用<strong>只读取你从“文件”App 中选择的 PDF</strong>，并将其复制到本应用的存储空间中使用。</li>
+  <li>本应用<strong>只读取你选择的 PDF</strong>（在 iPhone、iPad 上从“文件”App 选择，在 Android 上从设备的文件选择界面选择），并将其复制到本应用的存储空间中使用。</li>
   <li>导入的 PDF 及其内容（文字、红色文字的位置、书签等）<strong>绝不会被发送到设备之外</strong>，开发者也无法查看。</li>
   <li>学习资料上可能印有学员姓名等信息。本应用不会读取、保存或发送这些信息。</li>
 </ul>
@@ -201,18 +203,19 @@ a { color: var(--color-shu); }
   <li>导入的 PDF</li>
   <li>登记的主题编号和标题，以及各主题的重要度（A、B、C）</li>
   <li>掌握度（自我评分）记录和专注计时器记录</li>
-  <li>荧光笔和笔（Apple Pencil）的书写内容</li>
+  <li>荧光笔和笔（Apple Pencil、触控笔或手指）的书写内容</li>
   <li>考试日期、计时器、显示等设置</li>
 </ul>
 <p>这些数据可能会包含在 iPhone 或 iPad 的备份（如 iCloud 云备份）中。这是 Apple 的机制，开发者无法查看备份的内容。删除本应用后，这些数据会从设备上消失。</p>
+<p>在 Android 上，<strong>导入的 PDF 不会包含在备份中</strong>。只有记录、书写内容和设置可能会在设备开启备份时包含在 Google 的备份（Google 云端硬盘）中。这是 Google 的机制，开发者无法查看备份的内容。恢复到新设备后，重新导入同一个 PDF 即可与记录重新关联。</p>
 
 <h2>4. 关于订阅（Pro）</h2>
 <ul>
   <li>本应用以按月或按年自动续期订阅的形式提供“Mekuri Pro”。</li>
-  <li>所有付款均通过 <strong>Apple 的 App Store</strong> 处理。<strong>开发者不会获取你的姓名、地址或付款信息。</strong></li>
-  <li>是否为 Pro 由设备向 App Store 查询后判断。购买信息不会发送给开发者（开发者没有服务器）。</li>
+  <li>所有付款均通过 <strong>Apple 的 App Store</strong>（iPhone、iPad）或 <strong>Google Play</strong>（Android）处理。<strong>开发者不会获取你的姓名、地址或付款信息。</strong></li>
+  <li>是否为 Pro 由设备向 App Store 或 Google Play 查询后判断。购买信息不会发送给开发者（开发者没有服务器）。</li>
   <li>不使用任何第三方购买管理服务或 SDK。</li>
-  <li>你可以在 iPhone 或 iPad 的“设置”&gt;［你的姓名］&gt;“订阅”中取消订阅。</li>
+  <li>你可以在 iPhone 或 iPad 的“设置”&gt;［你的姓名］&gt;“订阅”中取消订阅；在 Android 上，可在 Google Play 的“订阅”中选择“理论めくり Pro”，然后点按“取消订阅”。</li>
 </ul>
 
 <h2>5. 儿童隐私</h2>
@@ -233,7 +236,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="zh-Hant" lang="zh-Hant">
 <h1>Mekuri 隱私權政策</h1>
-<p class="updated">最後更新：2026年11月1日</p>
+<p class="updated">最後更新：2026年11月7日</p>
 
 <p>Mekuri（以下簡稱「本 App」）只在你自己的裝置上處理你匯入的學習資料和學習紀錄。</p>
 
@@ -242,12 +245,12 @@ a { color: var(--color-shu); }
   <li>本 App <strong>不顯示廣告</strong>，也不含任何行為追蹤或分析 SDK。</li>
   <li><strong>本 App 絕不存取你的位置、照片、聯絡人、行事曆、麥克風或相機。</strong></li>
   <li>本 App 不會要求你提供姓名、電子郵件地址、電話號碼等可識別個人身分的資訊，也不需要註冊帳號。</li>
-  <li>本 App 不蒐集廣告識別碼（IDFA），也不進行跨 App 追蹤。</li>
+  <li>本 App 不蒐集廣告識別碼（iPhone、iPad 上的 IDFA，Android 上的廣告 ID），也不進行跨 App 追蹤。</li>
 </ul>
 
 <h2>2. 關於你匯入的 PDF</h2>
 <ul>
-  <li>本 App <strong>只讀取你從「檔案」App 選擇的 PDF</strong>，並將其複製到本 App 的儲存空間使用。</li>
+  <li>本 App <strong>只讀取你選擇的 PDF</strong>（在 iPhone、iPad 上從「檔案」App 選擇，在 Android 上從裝置的檔案選擇畫面選擇），並將其複製到本 App 的儲存空間使用。</li>
   <li>匯入的 PDF 及其內容（文字、紅色文字的位置、書籤等）<strong>絕不會傳送到裝置之外</strong>，開發者也無法查看。</li>
   <li>學習資料上可能印有學員姓名等資訊。本 App 不會讀取、儲存或傳送這些資訊。</li>
 </ul>
@@ -258,18 +261,19 @@ a { color: var(--color-shu); }
   <li>匯入的 PDF</li>
   <li>登錄的主題編號和標題，以及各主題的重要度（A、B、C）</li>
   <li>掌握度（自我評分）紀錄和專注計時器紀錄</li>
-  <li>螢光筆和筆（Apple Pencil）的書寫內容</li>
+  <li>螢光筆和筆（Apple Pencil、觸控筆或手指）的書寫內容</li>
   <li>考試日期、計時器、顯示等設定</li>
 </ul>
 <p>這些資料可能會包含在 iPhone 或 iPad 的備份（如 iCloud 備份）中。這是 Apple 的機制，開發者無法查看備份的內容。刪除本 App 後，這些資料會從裝置上消失。</p>
+<p>在 Android 上，<strong>匯入的 PDF 不會包含在備份中</strong>。只有記錄、書寫內容和設定可能會在裝置開啟備份時包含在 Google 的備份（Google 雲端硬碟）中。這是 Google 的機制，開發者無法查看備份的內容。還原到新裝置後，重新匯入同一個 PDF 即可與記錄重新連結。</p>
 
 <h2>4. 關於訂閱（Pro）</h2>
 <ul>
   <li>本 App 以按月或按年自動續訂的訂閱方式提供「Mekuri Pro」。</li>
-  <li>所有付款皆透過 <strong>Apple 的 App Store</strong> 處理。<strong>開發者不會取得你的姓名、地址或付款資訊。</strong></li>
-  <li>是否為 Pro 由裝置向 App Store 查詢後判斷。購買資訊不會傳送給開發者（開發者沒有伺服器）。</li>
+  <li>所有付款皆透過 <strong>Apple 的 App Store</strong>（iPhone、iPad）或 <strong>Google Play</strong>（Android）處理。<strong>開發者不會取得你的姓名、地址或付款資訊。</strong></li>
+  <li>是否為 Pro 由裝置向 App Store 或 Google Play 查詢後判斷。購買資訊不會傳送給開發者（開發者沒有伺服器）。</li>
   <li>不使用任何第三方購買管理服務或 SDK。</li>
-  <li>你可以在 iPhone 或 iPad 的「設定」&gt;［你的名稱］&gt;「訂閱項目」中取消訂閱。</li>
+  <li>你可以在 iPhone 或 iPad 的「設定」&gt;［你的名稱］&gt;「訂閱項目」中取消訂閱；在 Android 上，可在 Google Play 的「訂閱」中選擇「理論めくり Pro」，再點按「取消訂閱」。</li>
 </ul>
 
 <h2>5. 兒童隱私</h2>
@@ -290,7 +294,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="ko" lang="ko">
 <h1>Mekuri 개인정보 처리방침</h1>
-<p class="updated">최종 수정일: 2026년 11월 1일</p>
+<p class="updated">최종 수정일: 2026년 11월 7일</p>
 
 <p>Mekuri(이하 '본 앱')는 가져온 학습 자료와 학습 기록을 사용자의 기기 안에서만 다루도록 만들어졌습니다.</p>
 
@@ -299,12 +303,12 @@ a { color: var(--color-shu); }
   <li>본 앱은 <strong>광고를 표시하지 않으며</strong>, 행동 추적이나 분석용 SDK도 포함하지 않습니다.</li>
   <li><strong>위치, 사진, 연락처, 캘린더, 마이크, 카메라에 일절 접근하지 않습니다.</strong></li>
   <li>이름, 이메일 주소, 전화번호 등 개인을 식별할 수 있는 정보를 요구하지 않습니다. 계정 등록도 없습니다.</li>
-  <li>광고 식별자(IDFA)를 수집하지 않으며, 앱 간 추적도 하지 않습니다.</li>
+  <li>광고 식별자(iPhone·iPad의 IDFA, Android의 광고 ID)를 수집하지 않으며, 앱 간 추적도 하지 않습니다.</li>
 </ul>
 
 <h2>2. 가져온 PDF에 대해</h2>
 <ul>
-  <li>본 앱은 <strong>사용자가 '파일' 앱에서 선택한 PDF만</strong> 읽으며, 이를 본 앱의 저장 공간에 복사하여 사용합니다.</li>
+  <li>본 앱은 <strong>사용자가 선택한 PDF만</strong> 읽습니다(iPhone·iPad에서는 '파일' 앱에서, Android에서는 기기의 파일 선택 화면에서 선택합니다). 선택한 PDF는 본 앱의 저장 공간에 복사하여 사용합니다.</li>
   <li>가져온 PDF와 그 내용(글자, 빨간 글자의 위치, 책갈피 등)은 <strong>기기 밖으로 전송되지 않으며</strong>, 개발자도 볼 수 없습니다.</li>
   <li>학습 자료에는 수강생의 이름 등이 인쇄되어 있을 수 있습니다. 본 앱은 이러한 정보를 읽거나 저장하거나 전송하지 않습니다.</li>
 </ul>
@@ -315,18 +319,19 @@ a { color: var(--color-shu); }
   <li>가져온 PDF</li>
   <li>등록한 주제의 번호와 제목, 주제별 중요도(A·B·C)</li>
   <li>숙련도(자기 채점) 기록과 집중 타이머 기록</li>
-  <li>형광펜과 펜(Apple Pencil)으로 쓴 내용</li>
+  <li>형광펜과 펜(Apple Pencil·스타일러스·손가락)으로 쓴 내용</li>
   <li>시험일, 타이머, 표시 등의 설정</li>
 </ul>
 <p>이 데이터는 iPhone·iPad 백업(iCloud 백업 등)에 포함될 수 있습니다. 이는 Apple의 구조에 따른 것이며, 개발자는 백업 내용을 볼 수 없습니다. 앱을 삭제하면 기기에서 사라집니다.</p>
+<p>Android에서는 <strong>가져온 PDF를 백업에 포함하지 않습니다</strong>. 기록·쓴 내용·설정만 기기에서 백업이 켜져 있을 때 Google 백업(Google 드라이브)에 포함될 수 있습니다. 이는 Google의 구조에 따른 것이며, 개발자는 백업 내용을 볼 수 없습니다. 새 기기로 복원한 뒤에는 같은 PDF를 다시 가져오면 기록과 연결됩니다.</p>
 
 <h2>4. 구독(Pro)에 대해</h2>
 <ul>
   <li>본 앱은 'Mekuri Pro'를 월간·연간 자동 갱신 구독으로 제공합니다.</li>
-  <li>결제 처리는 모두 <strong>Apple의 App Store</strong>를 통해 이루어집니다. <strong>개발자는 사용자의 이름, 주소, 결제 정보를 받지 않습니다.</strong></li>
-  <li>Pro 여부는 기기에서 App Store에 조회하여 판단합니다. 구매 정보를 개발자에게 보내지 않습니다(개발자는 서버를 운영하지 않습니다).</li>
+  <li>결제 처리는 모두 <strong>Apple의 App Store</strong>(iPhone·iPad) 또는 <strong>Google Play</strong>(Android)를 통해 이루어집니다. <strong>개발자는 사용자의 이름, 주소, 결제 정보를 받지 않습니다.</strong></li>
+  <li>Pro 여부는 기기에서 App Store 또는 Google Play에 조회하여 판단합니다. 구매 정보를 개발자에게 보내지 않습니다(개발자는 서버를 운영하지 않습니다).</li>
   <li>구매 관리를 위한 제3자 서비스나 SDK를 사용하지 않습니다.</li>
-  <li>iPhone·iPad의 '설정' &gt; [사용자 이름] &gt; '구독'에서 해지할 수 있습니다.</li>
+  <li>iPhone·iPad에서는 '설정' &gt; [사용자 이름] &gt; '구독'에서, Android에서는 Google Play의 '정기 결제'에서 Mekuri Pro를 선택한 뒤 '정기 결제 취소'를 눌러 해지할 수 있습니다.</li>
 </ul>
 
 <h2>5. 아동의 개인정보</h2>
@@ -347,7 +352,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="es" lang="es">
 <h1>Política de privacidad de Mekuri</h1>
-<p class="updated">Última actualización: 1 de noviembre de 2026</p>
+<p class="updated">Última actualización: 7 de noviembre de 2026</p>
 
 <p>Mekuri (en adelante, «la App») está diseñada para tratar los materiales de estudio que importas y tus registros de estudio únicamente en tu propio dispositivo.</p>
 
@@ -356,12 +361,12 @@ a { color: var(--color-shu); }
   <li>La App <strong>no muestra anuncios</strong> ni incluye SDK de seguimiento del comportamiento o de analítica.</li>
   <li><strong>Nunca accede a tu ubicación, fotos, contactos, calendario, micrófono ni cámara.</strong></li>
   <li>Nunca te pide tu nombre, correo electrónico, número de teléfono ni ningún otro dato que te identifique. No hay registro de cuenta.</li>
-  <li>No recopila el identificador de publicidad (IDFA) ni te rastrea entre apps.</li>
+  <li>No recopila el identificador de publicidad (IDFA en iPhone y iPad, el ID de publicidad en Android) ni te rastrea entre apps.</li>
 </ul>
 
 <h2>2. Los PDF que importas</h2>
 <ul>
-  <li>La App lee <strong>solo los PDF que eliges en la app Archivos</strong> y los copia en su propio almacenamiento.</li>
+  <li>La App lee <strong>solo los PDF que eliges</strong> (en la app Archivos en iPhone y iPad, o en el selector de archivos del dispositivo en Android) y los copia en su propio almacenamiento.</li>
   <li>Los PDF importados y su contenido (texto, posición del texto rojo, marcadores, etc.) <strong>nunca salen de tu dispositivo</strong>, y el desarrollador no puede verlos.</li>
   <li>Los materiales de estudio pueden llevar impreso el nombre del alumno. La App no lee, guarda ni envía esa información.</li>
 </ul>
@@ -372,18 +377,19 @@ a { color: var(--color-shu); }
   <li>Los PDF importados</li>
   <li>Los números y títulos de los temas registrados, y la prioridad (A, B, C) de cada tema</li>
   <li>Los registros de dominio (autoevaluación) y del temporizador de enfoque</li>
-  <li>Lo escrito con el marcador y el lápiz (Apple Pencil)</li>
+  <li>Lo escrito con el marcador y el lápiz (Apple Pencil, lápiz óptico o el dedo)</li>
   <li>Ajustes como la fecha del examen, el temporizador y la visualización</li>
 </ul>
 <p>Estos datos pueden incluirse en las copias de seguridad del iPhone o iPad (como la copia de seguridad de iCloud). Esto forma parte del sistema de Apple, y el desarrollador no puede ver el contenido de esas copias. Al eliminar la App, los datos se borran del dispositivo.</p>
+<p>En Android, <strong>los PDF importados no se incluyen en las copias de seguridad</strong>. Solo tus registros, lo escrito y los ajustes pueden incluirse en la copia de seguridad de Google (Google Drive) cuando está activada en tu dispositivo. Esto forma parte del sistema de Google, y el desarrollador no puede ver el contenido de esas copias. Tras restaurar en un dispositivo nuevo, vuelve a importar el mismo PDF para conectarlo con tus registros.</p>
 
 <h2>4. Suscripción (Pro)</h2>
 <ul>
   <li>La App ofrece «Mekuri Pro» como suscripción de renovación automática, mensual o anual.</li>
-  <li>Todos los pagos se procesan a través del <strong>App Store de Apple</strong>. <strong>El desarrollador nunca recibe tu nombre, dirección ni datos de pago.</strong></li>
-  <li>Si tienes Pro se comprueba en tu dispositivo consultando al App Store. No se envía información de compra al desarrollador (el desarrollador no tiene servidores).</li>
+  <li>Todos los pagos se procesan a través del <strong>App Store de Apple</strong> (iPhone y iPad) o de <strong>Google Play</strong> (Android). <strong>El desarrollador nunca recibe tu nombre, dirección ni datos de pago.</strong></li>
+  <li>Si tienes Pro se comprueba en tu dispositivo consultando al App Store o a Google Play. No se envía información de compra al desarrollador (el desarrollador no tiene servidores).</li>
   <li>No se usa ningún servicio ni SDK de terceros para gestionar compras.</li>
-  <li>Puedes cancelarla en Ajustes &gt; [tu nombre] &gt; Suscripciones en tu iPhone o iPad.</li>
+  <li>Puedes cancelarla en Ajustes &gt; [tu nombre] &gt; Suscripciones en tu iPhone o iPad; en Android, en Google Play &gt; Suscripciones, elige Mekuri Pro y toca Cancelar suscripción.</li>
 </ul>
 
 <h2>5. Privacidad de los menores</h2>
@@ -404,7 +410,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="pt-BR" lang="pt-BR">
 <h1>Política de Privacidade do Mekuri</h1>
-<p class="updated">Última atualização: 1º de novembro de 2026</p>
+<p class="updated">Última atualização: 7 de novembro de 2026</p>
 
 <p>O Mekuri (o “App”) foi feito para tratar os materiais de estudo que você importa e seus registros de estudo somente no seu próprio aparelho.</p>
 
@@ -413,12 +419,12 @@ a { color: var(--color-shu); }
   <li>O App <strong>não exibe anúncios</strong> e não contém SDKs de rastreamento de comportamento ou de análise.</li>
   <li><strong>Ele nunca acessa sua localização, fotos, contatos, calendário, microfone ou câmera.</strong></li>
   <li>Ele nunca pede seu nome, e-mail, telefone ou qualquer outra informação que identifique você. Não há cadastro de conta.</li>
-  <li>Ele não coleta o identificador de publicidade (IDFA) e não rastreia você entre apps.</li>
+  <li>Ele não coleta o identificador de publicidade (IDFA no iPhone e iPad, o ID de publicidade no Android) e não rastreia você entre apps.</li>
 </ul>
 
 <h2>2. Os PDFs que você importa</h2>
 <ul>
-  <li>O App lê <strong>somente os PDFs que você escolhe no app Arquivos</strong> e os copia para o próprio armazenamento.</li>
+  <li>O App lê <strong>somente os PDFs que você escolhe</strong> (no app Arquivos no iPhone e iPad, ou no seletor de arquivos do aparelho no Android) e os copia para o próprio armazenamento.</li>
   <li>Os PDFs importados e seu conteúdo (texto, posição do texto vermelho, marcadores etc.) <strong>nunca são enviados para fora do aparelho</strong>, e o desenvolvedor não pode vê-los.</li>
   <li>Materiais de estudo podem ter o nome do aluno impresso. O App não lê, armazena nem envia essas informações.</li>
 </ul>
@@ -429,18 +435,19 @@ a { color: var(--color-shu); }
   <li>PDFs importados</li>
   <li>Números e títulos dos tópicos registrados e a prioridade (A, B, C) de cada tópico</li>
   <li>Registros de domínio (autoavaliação) e do timer de foco</li>
-  <li>Anotações com marcador e caneta (Apple Pencil)</li>
+  <li>Anotações com marcador e caneta (Apple Pencil, caneta stylus ou dedo)</li>
   <li>Ajustes como data da prova, timer e exibição</li>
 </ul>
 <p>Esses dados podem ser incluídos nos backups do iPhone ou iPad (como o Backup do iCloud). Isso faz parte do sistema da Apple, e o desenvolvedor não pode ver o conteúdo desses backups. Ao apagar o App, os dados são removidos do aparelho.</p>
+<p>No Android, <strong>os PDFs importados não são incluídos nos backups</strong>. Somente seus registros, anotações e ajustes podem ser incluídos no backup do Google (Google Drive) quando o backup está ativado no aparelho. Isso faz parte do sistema do Google, e o desenvolvedor não pode ver o conteúdo desses backups. Depois de restaurar em um novo aparelho, importe o mesmo PDF de novo para reconectá-lo aos seus registros.</p>
 
 <h2>4. Assinatura (Pro)</h2>
 <ul>
   <li>O App oferece o “Mekuri Pro” como assinatura com renovação automática, mensal ou anual.</li>
-  <li>Todo o pagamento é processado pela <strong>App Store da Apple</strong>. <strong>O desenvolvedor nunca recebe seu nome, endereço ou dados de pagamento.</strong></li>
-  <li>Se você tem o Pro é verificado no aparelho junto à App Store. Nenhuma informação de compra é enviada ao desenvolvedor (o desenvolvedor não tem servidores).</li>
+  <li>Todo o pagamento é processado pela <strong>App Store da Apple</strong> (iPhone e iPad) ou pelo <strong>Google Play</strong> (Android). <strong>O desenvolvedor nunca recebe seu nome, endereço ou dados de pagamento.</strong></li>
+  <li>Se você tem o Pro é verificado no aparelho junto à App Store ou ao Google Play. Nenhuma informação de compra é enviada ao desenvolvedor (o desenvolvedor não tem servidores).</li>
   <li>Nenhum serviço ou SDK de terceiros para gestão de compras é usado.</li>
-  <li>Você pode cancelar em Ajustes &gt; [seu nome] &gt; Assinaturas no iPhone ou iPad.</li>
+  <li>Você pode cancelar em Ajustes &gt; [seu nome] &gt; Assinaturas no iPhone ou iPad; no Android, em Google Play &gt; Assinaturas, escolha Mekuri Pro e toque em Cancelar assinatura.</li>
 </ul>
 
 <h2>5. Privacidade de crianças</h2>
@@ -461,7 +468,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="de" lang="de">
 <h1>Datenschutzerklärung von Mekuri</h1>
-<p class="updated">Zuletzt aktualisiert: 1. November 2026</p>
+<p class="updated">Zuletzt aktualisiert: 7. November 2026</p>
 
 <p>Mekuri („die App“) verarbeitet die von dir importierten Lernmaterialien und deine Lerndaten ausschließlich auf deinem eigenen Gerät.</p>
 
@@ -470,12 +477,12 @@ a { color: var(--color-shu); }
   <li>Die App zeigt <strong>keine Werbung</strong> und enthält keine SDKs für Verhaltens-Tracking oder Analysen.</li>
   <li><strong>Sie greift nie auf deinen Standort, deine Fotos, Kontakte, deinen Kalender, dein Mikrofon oder deine Kamera zu.</strong></li>
   <li>Sie fragt nie nach deinem Namen, deiner E-Mail-Adresse, Telefonnummer oder anderen Angaben, die dich identifizieren. Es gibt keine Kontoregistrierung.</li>
-  <li>Sie erhebt die Werbe-ID (IDFA) nicht und verfolgt dich nicht über Apps hinweg.</li>
+  <li>Sie erhebt die Werbe-ID (IDFA auf iPhone und iPad, die Werbe-ID auf Android) nicht und verfolgt dich nicht über Apps hinweg.</li>
 </ul>
 
 <h2>2. Importierte PDFs</h2>
 <ul>
-  <li>Die App liest <strong>nur die PDFs, die du in der App „Dateien“ auswählst</strong>, und kopiert sie in ihren eigenen Speicher.</li>
+  <li>Die App liest <strong>nur die PDFs, die du auswählst</strong> (auf iPhone und iPad in der App „Dateien“, auf Android in der Dateiauswahl des Geräts), und kopiert sie in ihren eigenen Speicher.</li>
   <li>Importierte PDFs und ihre Inhalte (Text, Position des roten Texts, Lesezeichen usw.) werden <strong>nie von deinem Gerät übertragen</strong>, und der Entwickler kann sie nicht sehen.</li>
   <li>Auf Lernmaterialien kann der Name von Teilnehmenden gedruckt sein. Die App liest, speichert oder überträgt solche Angaben nicht.</li>
 </ul>
@@ -486,18 +493,19 @@ a { color: var(--color-shu); }
   <li>Importierte PDFs</li>
   <li>Nummern und Titel der eingetragenen Themen sowie die Priorität (A, B, C) jedes Themas</li>
   <li>Lernstand (Selbsteinschätzung) und Daten des Fokus-Timers</li>
-  <li>Markierungen mit Marker und Stift (Apple Pencil)</li>
+  <li>Markierungen mit Marker und Stift (Apple Pencil, Eingabestift oder Finger)</li>
   <li>Einstellungen wie Prüfungsdatum, Timer und Anzeige</li>
 </ul>
 <p>Diese Daten können in Backups deines iPhone oder iPad (etwa im iCloud-Backup) enthalten sein. Das ist Teil des Systems von Apple, und der Entwickler kann den Inhalt dieser Backups nicht sehen. Wenn du die App löschst, werden die Daten vom Gerät entfernt.</p>
+<p>Auf Android werden <strong>importierte PDFs nicht in Backups aufgenommen</strong>. Nur deine Aufzeichnungen, Markierungen und Einstellungen können im Google-Backup (Google Drive) enthalten sein, wenn das Backup auf deinem Gerät aktiviert ist. Das ist Teil des Systems von Google, und der Entwickler kann den Inhalt dieser Backups nicht sehen. Nach der Wiederherstellung auf einem neuen Gerät importierst du dasselbe PDF erneut, um es wieder mit deinen Aufzeichnungen zu verbinden.</p>
 
 <h2>4. Abonnement (Pro)</h2>
 <ul>
   <li>Die App bietet „Mekuri Pro“ als automatisch verlängerbares Abonnement mit monatlicher oder jährlicher Abrechnung an.</li>
-  <li>Alle Zahlungen werden über den <strong>App Store von Apple</strong> abgewickelt. <strong>Der Entwickler erhält nie deinen Namen, deine Adresse oder Zahlungsdaten.</strong></li>
-  <li>Ob du Pro hast, wird auf deinem Gerät beim App Store abgefragt. Es werden keine Kaufdaten an den Entwickler gesendet (der Entwickler betreibt keine Server).</li>
+  <li>Alle Zahlungen werden über den <strong>App Store von Apple</strong> (iPhone und iPad) oder <strong>Google Play</strong> (Android) abgewickelt. <strong>Der Entwickler erhält nie deinen Namen, deine Adresse oder Zahlungsdaten.</strong></li>
+  <li>Ob du Pro hast, wird auf deinem Gerät beim App Store oder bei Google Play abgefragt. Es werden keine Kaufdaten an den Entwickler gesendet (der Entwickler betreibt keine Server).</li>
   <li>Es wird kein Dienst oder SDK von Drittanbietern zur Kaufverwaltung verwendet.</li>
-  <li>Kündigen kannst du auf dem iPhone oder iPad unter Einstellungen &gt; [dein Name] &gt; Abonnements.</li>
+  <li>Kündigen kannst du auf dem iPhone oder iPad unter Einstellungen &gt; [dein Name] &gt; Abonnements, auf Android in Google Play unter Abos: Mekuri Pro auswählen und auf Abo kündigen tippen.</li>
 </ul>
 
 <h2>5. Datenschutz von Kindern</h2>
@@ -518,7 +526,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="fr" lang="fr">
 <h1>Politique de confidentialité de Mekuri</h1>
-<p class="updated">Dernière mise à jour : 1er novembre 2026</p>
+<p class="updated">Dernière mise à jour : 7 novembre 2026</p>
 
 <p>Mekuri (« l’App ») est conçue pour traiter les supports d’étude que vous importez et vos données d’étude uniquement sur votre propre appareil.</p>
 
@@ -527,12 +535,12 @@ a { color: var(--color-shu); }
   <li>L’App <strong>n’affiche aucune publicité</strong> et ne contient aucun SDK de suivi du comportement ou d’analyse.</li>
   <li><strong>Elle n’accède jamais à votre position, à vos photos, à vos contacts, à votre calendrier, à votre micro ni à votre caméra.</strong></li>
   <li>Elle ne vous demande jamais votre nom, votre adresse e-mail, votre numéro de téléphone ni aucune autre information permettant de vous identifier. Il n’y a pas de création de compte.</li>
-  <li>Elle ne collecte pas l’identifiant publicitaire (IDFA) et ne vous suit pas d’une app à l’autre.</li>
+  <li>Elle ne collecte pas l’identifiant publicitaire (IDFA sur iPhone et iPad, l’identifiant publicitaire sur Android) et ne vous suit pas d’une app à l’autre.</li>
 </ul>
 
 <h2>2. Les PDF que vous importez</h2>
 <ul>
-  <li>L’App lit <strong>uniquement les PDF que vous choisissez dans l’app Fichiers</strong> et les copie dans son propre espace de stockage.</li>
+  <li>L’App lit <strong>uniquement les PDF que vous choisissez</strong> (dans l’app Fichiers sur iPhone et iPad, ou dans le sélecteur de fichiers de l’appareil sur Android) et les copie dans son propre espace de stockage.</li>
   <li>Les PDF importés et leur contenu (texte, position du texte rouge, signets, etc.) <strong>ne quittent jamais votre appareil</strong>, et le développeur ne peut pas les voir.</li>
   <li>Les supports d’étude peuvent porter le nom de l’étudiant. L’App ne lit, n’enregistre ni ne transmet ces informations.</li>
 </ul>
@@ -543,18 +551,19 @@ a { color: var(--color-shu); }
   <li>Les PDF importés</li>
   <li>Les numéros et titres des thèmes enregistrés, et la priorité (A, B, C) de chaque thème</li>
   <li>Les données de maîtrise (auto-évaluation) et du minuteur de concentration</li>
-  <li>Les annotations au surligneur et au stylet (Apple Pencil)</li>
+  <li>Les annotations au surligneur et au stylet (Apple Pencil, stylet ou doigt)</li>
   <li>Les réglages comme la date d’examen, le minuteur et l’affichage</li>
 </ul>
 <p>Ces données peuvent être incluses dans les sauvegardes de votre iPhone ou iPad (par exemple la sauvegarde iCloud). Cela fait partie du système d’Apple, et le développeur ne peut pas voir le contenu de ces sauvegardes. La suppression de l’App efface les données de l’appareil.</p>
+<p>Sur Android, <strong>les PDF importés ne sont pas inclus dans les sauvegardes</strong>. Seuls vos relevés, vos annotations et vos réglages peuvent être inclus dans la sauvegarde Google (Google Drive) lorsque la sauvegarde est activée sur votre appareil. Cela fait partie du système de Google, et le développeur ne peut pas voir le contenu de ces sauvegardes. Après une restauration sur un nouvel appareil, importez à nouveau le même PDF pour le relier à vos relevés.</p>
 
 <h2>4. Abonnement (Pro)</h2>
 <ul>
   <li>L’App propose « Mekuri Pro » sous forme d’abonnement à renouvellement automatique, mensuel ou annuel.</li>
-  <li>Tous les paiements sont traités par <strong>l’App Store d’Apple</strong>. <strong>Le développeur ne reçoit jamais votre nom, votre adresse ni vos informations de paiement.</strong></li>
-  <li>Votre statut Pro est vérifié sur votre appareil auprès de l’App Store. Aucune information d’achat n’est envoyée au développeur (le développeur n’exploite aucun serveur).</li>
+  <li>Tous les paiements sont traités par <strong>l’App Store d’Apple</strong> (iPhone et iPad) ou par <strong>Google Play</strong> (Android). <strong>Le développeur ne reçoit jamais votre nom, votre adresse ni vos informations de paiement.</strong></li>
+  <li>Votre statut Pro est vérifié sur votre appareil auprès de l’App Store ou de Google Play. Aucune information d’achat n’est envoyée au développeur (le développeur n’exploite aucun serveur).</li>
   <li>Aucun service ni SDK tiers de gestion des achats n’est utilisé.</li>
-  <li>Vous pouvez résilier dans Réglages &gt; [votre nom] &gt; Abonnements sur votre iPhone ou iPad.</li>
+  <li>Vous pouvez résilier dans Réglages &gt; [votre nom] &gt; Abonnements sur votre iPhone ou iPad ; sur Android, dans Google Play &gt; Abonnements, choisissez Mekuri Pro puis touchez Résilier l’abonnement.</li>
 </ul>
 
 <h2>5. Confidentialité des enfants</h2>
@@ -575,7 +584,7 @@ a { color: var(--color-shu); }
 
 <section class="lang" id="ru" lang="ru">
 <h1>Политика конфиденциальности Mekuri</h1>
-<p class="updated">Последнее обновление: 1 ноября 2026 г.</p>
+<p class="updated">Последнее обновление: 7 ноября 2026 г.</p>
 
 <p>Mekuri («Приложение») обрабатывает импортированные вами учебные материалы и записи об учёбе только на вашем собственном устройстве.</p>
 
@@ -584,12 +593,12 @@ a { color: var(--color-shu); }
   <li>Приложение <strong>не показывает рекламу</strong> и не содержит SDK для отслеживания поведения или аналитики.</li>
   <li><strong>Оно никогда не обращается к вашей геопозиции, фото, контактам, календарю, микрофону или камере.</strong></li>
   <li>Оно никогда не запрашивает ваше имя, адрес электронной почты, номер телефона или другие данные, позволяющие вас идентифицировать. Регистрация учётной записи не требуется.</li>
-  <li>Оно не собирает рекламный идентификатор (IDFA) и не отслеживает вас в других приложениях.</li>
+  <li>Оно не собирает рекламный идентификатор (IDFA на iPhone и iPad, рекламный идентификатор на Android) и не отслеживает вас в других приложениях.</li>
 </ul>
 
 <h2>2. Импортированные PDF</h2>
 <ul>
-  <li>Приложение читает <strong>только PDF, которые вы выбираете в приложении «Файлы»</strong>, и копирует их в своё хранилище.</li>
+  <li>Приложение читает <strong>только PDF, которые вы выбираете</strong> (в приложении «Файлы» на iPhone и iPad или в окне выбора файлов на Android), и копирует их в своё хранилище.</li>
   <li>Импортированные PDF и их содержимое (текст, расположение красного текста, закладки и т. д.) <strong>никогда не передаются за пределы устройства</strong>, и разработчик не может их видеть.</li>
   <li>На учебных материалах может быть напечатано имя слушателя. Приложение не считывает, не сохраняет и не передаёт такие сведения.</li>
 </ul>
@@ -600,18 +609,19 @@ a { color: var(--color-shu); }
   <li>Импортированные PDF</li>
   <li>Номера и названия зарегистрированных тем, а также важность (A, B, C) каждой темы</li>
   <li>Записи об усвоении (самооценке) и записи таймера фокуса</li>
-  <li>Пометки маркером и пером (Apple Pencil)</li>
+  <li>Пометки маркером и пером (Apple Pencil, стилус или палец)</li>
   <li>Настройки: дата экзамена, таймер, отображение и т. п.</li>
 </ul>
 <p>Эти данные могут входить в резервные копии iPhone или iPad (например, в резервную копию iCloud). Это часть системы Apple, и разработчик не может видеть содержимое таких копий. При удалении Приложения данные удаляются с устройства.</p>
+<p>На Android <strong>импортированные PDF не включаются в резервные копии</strong>. Только ваши записи, пометки и настройки могут входить в резервную копию Google (Google Диск), если резервное копирование включено на устройстве. Это часть системы Google, и разработчик не может видеть содержимое таких копий. После восстановления на новом устройстве снова импортируйте тот же PDF, чтобы связать его с записями.</p>
 
 <h2>4. Подписка (Pro)</h2>
 <ul>
   <li>Приложение предлагает «Mekuri Pro» как автоматически продлеваемую подписку с ежемесячной или ежегодной оплатой.</li>
-  <li>Все платежи обрабатываются через <strong>App Store компании Apple</strong>. <strong>Разработчик никогда не получает ваше имя, адрес или платёжные данные.</strong></li>
-  <li>Наличие Pro проверяется на устройстве через App Store. Сведения о покупках разработчику не отправляются (у разработчика нет серверов).</li>
+  <li>Все платежи обрабатываются через <strong>App Store компании Apple</strong> (iPhone и iPad) или <strong>Google Play</strong> (Android). <strong>Разработчик никогда не получает ваше имя, адрес или платёжные данные.</strong></li>
+  <li>Наличие Pro проверяется на устройстве через App Store или Google Play. Сведения о покупках разработчику не отправляются (у разработчика нет серверов).</li>
   <li>Сторонние сервисы и SDK для управления покупками не используются.</li>
-  <li>Отменить подписку можно в разделе «Настройки» &gt; [ваше имя] &gt; «Подписки» на iPhone или iPad.</li>
+  <li>Отменить подписку можно в разделе «Настройки» &gt; [ваше имя] &gt; «Подписки» на iPhone или iPad, а на Android — в Google Play в разделе «Подписки»: выберите Mekuri Pro и нажмите «Отменить подписку».</li>
 </ul>
 
 <h2>5. Конфиденциальность детей</h2>
