@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>理論めくり — 赤い字を、隠して覚える</title>
-<meta name="description" content="理論めくりは、お手持ちの理論テキストの PDF を取り込み、赤い文字を赤シートで隠して覚える iPhone・iPad のアプリです。">
+<meta name="description" content="理論めくりは、お手持ちの理論テキストの PDF を取り込み、赤い文字を赤シートで隠して覚える iPhone・iPad・Android のアプリです。">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F5F2EA">
 <link rel="icon" href="./favicon.png" sizes="32x32">
@@ -79,6 +79,10 @@ li::marker { color: var(--color-shu); }
 .avail { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-sub); }
 .avail b { color: var(--color-ink); }
 .avail .store { display: inline-block; vertical-align: middle; line-height: 0; }
+/* Google Play の公式バッジは上下に透明の余白（646×250 のうち見える高さ 192）＝高さ 52px で見える高さが App Store の 40px と揃う */
+.avail .store--play img { height: 52px; width: auto; margin: -6px 0; }
+.avail.os2 { display: grid; grid-template-columns: max-content max-content; align-items: center; gap: 10px 16px; line-height: 1.4; }
+.avail .os { display: contents; }
 
 .demo-fig { margin: 0; min-width: 0; }
 /* 紙の束：後ろに本物の次のページを少し傾けて重ねる（「めくる」） */
@@ -212,8 +216,8 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
 <section class="hero" aria-labelledby="h-top">
   <div class="hero-text">
     <h1 id="h-top" class="mincho">赤い字を、<br><span class="hl">隠して</span><br class="wide">覚える。</h1>
-    <p class="lead">お手持ちの理論テキストの PDF を取り込むと、赤い文字をそのまま赤シートで隠せます。紙のテキストと赤シートで覚えてきたやり方を、iPhone と iPad で続けられます。</p>
-    <p class="avail"><b>iPhone・iPad</b>　<a class="store" href="https://apps.apple.com/jp/app/id6829268504"><img src="../onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="120" height="40"></a></p>
+    <p class="lead">お手持ちの理論テキストの PDF を取り込むと、赤い文字をそのまま赤シートで隠せます。紙のテキストと赤シートで覚えてきたやり方を、iPhone・iPad と Android で続けられます。</p>
+    <p class="avail os2"><span class="os"><b>iPhone・iPad</b><a class="store" href="https://apps.apple.com/jp/app/id6829268504"><img src="../onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="120" height="40"></a></span><span class="os"><b>Android</b><a class="store store--play" href="https://play.google.com/store/apps/details?id=com.nanabit.rironmekuri"><img src="../onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="134" height="52"></a></span></p>
   </div>
   <figure class="demo-fig">
     <div class="stack">
@@ -258,7 +262,7 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
   <article class="item">
     <div class="body">
       <h2 class="mincho" id="h-write"><span class="no">問題1−2</span><span class="ph">書き込みも、</span><span class="ph">紙と同じように。</span></h2>
-      <p>マーカーは <span class="ans">5 色</span>と、暗記マーカー。太さは 3 段階で、引いた線は水平にそろいます。Apple Pencil で書き込めます。暗記マーカーで引いた所は、<span class="ans">緑シート</span>を重ねると隠れます。</p>
+      <p>マーカーは <span class="ans">5 色</span>と、暗記マーカー。太さは 3 段階で、引いた線は水平にそろいます。Apple Pencil で書き込めます（Android はスタイラスペンや指で）。暗記マーカーで引いた所は、<span class="ans">緑シート</span>を重ねると隠れます。</p>
       <div class="pen" id="pen">
         <span class="mk mk-y">居住者</span>とは、国内に<span class="mk mk-k">住所</span>を有し、又は現在まで引き続いて<span class="mk mk-k">1年以上</span>国内に<span class="mk mk-b">居所</span>を有する<span class="mk mk-p">個人</span>をいう。
         <div class="gfilm" aria-hidden="true"></div>
@@ -302,7 +306,7 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
   <article class="item">
     <div class="body">
       <h2 class="mincho" id="h-private"><span class="no">問題2−2</span><span class="ph">PDF は、</span><span class="ph">端末の外へ出ない。</span></h2>
-      <p>取り込んだ PDF・書き込み・記録は、iPhone・iPad の<span class="ans">中だけ</span>に置き、外へは送りません。アカウントの登録はありません。広告もありません。</p>
+      <p>取り込んだ PDF・書き込み・記録は、端末の<span class="ans">中だけ</span>に置き、外へは送りません。アカウントの登録はありません。広告もありません。</p>
       <p>教材はアプリに入っていません。ご自身でお持ちの PDF を取り込んでお使いください。</p>
     </div>
     <aside class="margin" aria-label="欄外"><b>くわしくは</b><a href="privacy.html#ja">プライバシーポリシー</a></aside>
@@ -324,7 +328,7 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
           <tr><th scope="row">重要度 A・B・C で絞り込み</th><td>—</td><td>使える</td></tr>
         </tbody>
       </table>
-      <p class="demo-note">Pro は自動更新の定額課金です。解約は「設定」＞ 自分の名前 ＞「サブスクリプション」から。書き込んだページは、無料に戻っても読めて直せます。</p>
+      <p class="demo-note">Pro は自動更新の定額課金です。解約は iPhone・iPad では「設定」＞ 自分の名前 ＞「サブスクリプション」から、Android では Google Play の「定期購入」から。書き込んだページは、無料に戻っても読めて直せます。</p>
     </div>
     <aside class="margin" aria-label="欄外"><b>広告なし</b>無料のままでも広告は出ません。</aside>
   </article>
@@ -335,12 +339,12 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
   <article class="item">
     <div class="body">
       <h2 class="mincho" id="h-faq">よくある質問</h2>
-      <details><summary>PDF を取り込むには？</summary><p>「本棚」の「取り込む」を押し、「ファイル」から PDF を選んでください。</p></details>
+      <details><summary>PDF を取り込むには？</summary><p>「本棚」の「取り込む」を押し、PDF を選んでください（iPhone・iPad では「ファイル」から、Android では端末のファイルの選択画面から選びます）。</p></details>
       <details><summary>赤い文字が隠れません</summary><p>隠れるのは赤い文字（薄い赤を含む）だけです。青や緑の文字は隠れません。スキャンした PDF でも、文字が赤ければ隠れます。</p></details>
       <details><summary>理論の一覧が空です</summary><p>しおり（目次）のある PDF は、自動で一覧を作ります。しおりが無い PDF は、読む画面の理論一覧の「このページ（…）に足す」で登録できます。</p></details>
-      <details><summary>購入を復元するには？</summary><p>「今日」の右上の歯車 →「Pro について」→「購入を復元する」を押してください。同じ Apple ID で購入していれば Pro に戻ります。</p></details>
-      <details><summary>解約するには？</summary><p>iPhone・iPad の「設定」＞ 自分の名前 ＞「サブスクリプション」から解約できます。アプリを削除しただけでは解約されません。</p></details>
-      <details><summary>新しい端末に記録を移せますか？</summary><p>取り込んだ PDF と記録は端末の中だけに保存されます。iPhone・iPad のバックアップから新しい端末を復元すると、一緒に移ります。</p></details>
+      <details><summary>購入を復元するには？</summary><p>「今日」の右上の歯車 →「Pro について」→「購入を復元する」を押してください。同じ Apple ID（Android では同じ Google アカウント）で購入していれば Pro に戻ります。</p></details>
+      <details><summary>解約するには？</summary><p>iPhone・iPad では「設定」＞ 自分の名前 ＞「サブスクリプション」から、Android では Google Play の「定期購入」で理論めくり Pro を選んで「定期購入を解約」から解約できます（アプリの Pro の画面の「定期購入を管理」からも開けます）。アプリを削除しただけでは解約されません。</p></details>
+      <details><summary>新しい端末に記録を移せますか？</summary><p>取り込んだ PDF と記録は端末の中だけに保存されます。iPhone・iPad のバックアップから新しい端末を復元すると、一緒に移ります。Android では PDF をバックアップに含めず、記録だけが Google のバックアップで移ります（端末でバックアップが有効なとき）。新しい端末で同じ PDF を取り込み直すと、記録とつながります。</p></details>
       <p class="contact">お問い合わせ：<a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a>（Nanana Soft）</p>
     </div>
   </article>
@@ -351,21 +355,21 @@ body.sheet-on .ans.open { color: var(--color-shu); background: var(--color-shu-s
   <article class="item">
     <div class="body">
       <h2 class="mincho" id="h-en">Mekuri: Hide &amp; Recall PDFs</h2>
-      <p>Many textbooks and notes print the key words in red. Lay a red sheet over the page and the red words disappear, so you can test yourself and slide the sheet away to check. Mekuri does this on your iPhone and iPad with the PDFs you already have. In Japan it is available as 理論めくり.</p>
+      <p>Many textbooks and notes print the key words in red. Lay a red sheet over the page and the red words disappear, so you can test yourself and slide the sheet away to check. Mekuri does this on your iPhone, iPad and Android device with the PDFs you already have. In Japan, and on Google Play in every country, it is listed as 理論めくり.</p>
       <ul>
         <li>Hides the red text without re-typesetting the page. Diagrams, formulas and layout stay as printed</li>
-        <li>Highlighters in 5 colors, a hide marker with a green sheet, and Apple Pencil</li>
+        <li>Highlighters in 5 colors, a hide marker with a green sheet, and Apple Pencil (a stylus or your finger on Android)</li>
         <li>Rate your mastery from 0 to 100% per topic. Today's review list, table and calendar</li>
         <li>Your PDFs and records stay on your device. No account, no ads</li>
         <li>Free for one book. Mekuri Pro (monthly or yearly subscription) removes the limits</li>
       </ul>
-      <p class="demo-note"><a href="https://apps.apple.com/app/id6829268504">Available on the App Store</a>. Study materials are not included.</p>
-      <details><summary>How do I import a PDF?</summary><p>Tap “Import” in Library and choose a PDF from the Files app.</p></details>
+      <p class="demo-note">Available on the <a href="https://apps.apple.com/app/id6829268504">App Store</a> and <a href="https://play.google.com/store/apps/details?id=com.nanabit.rironmekuri">Google Play</a>. Study materials are not included.</p>
+      <details><summary>How do I import a PDF?</summary><p>Tap “Import” in Library and choose a PDF (from the Files app on iPhone and iPad, or from your device’s file picker on Android).</p></details>
       <details><summary>The red text is not hidden</summary><p>Only red text (including light red) is hidden. Blue or green text is not. Scanned PDFs work too, as long as the text is red.</p></details>
       <details><summary>The topic list is empty</summary><p>For PDFs with bookmarks, Mekuri builds the list automatically. For PDFs without bookmarks, add topics with “Add on page …” in Topics in the reader.</p></details>
-      <details><summary>How do I restore my purchase?</summary><p>Tap the gear at the top right of Today → “About Pro” → “Restore purchases”. If you bought with the same Apple ID, Pro comes back.</p></details>
-      <details><summary>How do I cancel?</summary><p>Go to Settings &gt; [your name] &gt; Subscriptions on your iPhone or iPad. Deleting the app does not cancel the subscription.</p></details>
-      <details><summary>Can I move my records to a new device?</summary><p>Your PDFs and records are stored only on your device. They move with it when you set up the new device from an iPhone or iPad backup.</p></details>
+      <details><summary>How do I restore my purchase?</summary><p>Tap the gear at the top right of Today → “About Pro” → “Restore purchases”. If you bought with the same Apple ID (on Android, the same Google account), Pro comes back.</p></details>
+      <details><summary>How do I cancel?</summary><p>On iPhone or iPad, go to Settings &gt; [your name] &gt; Subscriptions. On Android, open Subscriptions in Google Play, choose Mekuri Pro and tap Cancel subscription (you can also open it from “Manage subscription” on the Pro screen in the app). Deleting the app does not cancel the subscription.</p></details>
+      <details><summary>Can I move my records to a new device?</summary><p>Your PDFs and records are stored only on your device. They move with it when you set up the new device from an iPhone or iPad backup. On Android, PDFs are not included in backups; only your records move with Google’s backup (when backup is turned on for your device). Import the same PDF again on the new device to reconnect it with your records.</p></details>
       <p class="contact">Contact: <a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a> (Nanana Soft)</p>
       <p class="demo-note">Support in other languages:</p>
       <nav class="langs" aria-label="Support in other languages">
