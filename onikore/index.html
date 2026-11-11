@@ -381,7 +381,7 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     <p class="route-line"><span>国道</span><span class="num">1</span><span class="dash" aria-hidden="true"></span><span class="num">507</span><span>号</span></p>
     <h1>日本の<wbr>一般国道は<wbr><span class="nb"><span class="num">459</span>本。</span><wbr>走った<wbr>分だけ、<wbr>地図が<wbr>塗られる。</h1>
     <p class="lede">おにコレは、ドライブの走行をGPSで自動記録して、どの国道をどこまで走ったかを残すアプリです。記録は端末の中だけに保存されます。</p>
-    <p class="notice"><b>お知らせ</b>次のアップデート（審査中）で、まだ走っていない国道へ寄り道するルートを提案する「未走破ナビ」が入ります。<a href="#detour">詳しく</a></p>
+    <p class="notice"><b>お知らせ</b>まだ走っていない国道へ寄り道するルートを提案する「未走破ナビ」が入りました。地図の左下のボタンから使えます。<a href="#detour">詳しく</a></p>
     <p class="notice"><b>お知らせ</b>2026年10月21日から、全国ランキングには直近3週間にアプリを使った方だけを表示しています。記録は消えず、アプリを開けば表示に戻ります。<a href="#faq-ranking">詳しく</a></p>
     <div class="get">
       <!-- App Store バッジは Apple 提供の原本をそのまま置いている（作り直し・改変・回転・
@@ -495,15 +495,16 @@ h1, h2, h3, .statement { word-break: keep-all; overflow-wrap: anywhere; line-bre
     </div>
   </section>
 
-  <!-- 未走破ナビ（2026-11-08 追加・iOS 1.0.25 (42) は同日 12:51 JST に審査へ提出／Android 1.0.25 も Play の審査中）。
-       🔴 公開されたら「次のアップデート（審査中）で追加されます」とお知らせの1行を書き換える。
+  <!-- 未走破ナビ（2026-11-08 追加・審査中の書き方）。2026-11-11 に公開済みの書き方へ直した
+       （iOS 1.0.25 は 11-09 公開・いまは 1.0.26＝itunes lookup?id=6787720099／Android も Play で 1.0.26）。
+       入口＝地図の左下のボタン（kari-kokudo _store/whatsnew_1.0.25.json）。
        中身の根拠＝kari-kokudo（Mac は ~/onikore）src/detourPlan.js:29 ALPHAS [0.1, 0.3, 0.5]・:55 budgetM・URL の avoid=tolls（:14）／
        DetourScreen.js:30 FIRST_ALPHA＝最初は +30%／Pro は印の注記だけ（DetourScreen.js:309-310）＝無料版でも使える。
        画像＝シミュレータ（11-08 11:07 のビルド）の結果画面3枚（img/detour-10・30・50.webp）。記録は試験用のデータ。 -->
   <section class="sec" id="detour" aria-labelledby="h-detour">
     <div class="wrap">
       <h2 id="h-detour">目的地<wbr>までの<wbr>道に、<wbr>まだ<wbr>走っていない<wbr>国道を<wbr>混ぜる。</h2>
-      <p class="sub">未走破ナビは、行き先を決めると、まだ走っていない国道を通る寄り道のルートを提案して、Google マップで案内する機能です。次のアップデート（審査中）で追加されます。</p>
+      <p class="sub">未走破ナビは、行き先を決めると、まだ走っていない国道を通る寄り道のルートを提案して、Google マップで案内する機能です。地図の左下のボタンから開きます。</p>
       <figure class="detour-fig">
         <div class="detour-row">
           <figure>
