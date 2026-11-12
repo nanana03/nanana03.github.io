@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>利用規約 — 路線価めくり</title>
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f7fa">
+<style>
+/* 路線価めくりの色（アプリ apps/mobile/App.tsx の C と同じ）。法務ページなので飾りは足さない */
+:root {
+  --color-paper: #f5f7fa; --color-surface: #ffffff; --color-ink: #1b2733; --color-sub: #5b6876;
+  --color-line: #dde3ea; --color-accent: #1f5fa8; --color-night: #1e4f6c; --color-soft: #e8f0fa;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); line-height: 1.85; }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; border-radius: 6px; }
+a { color: var(--color-accent); }
+.back { max-width: 760px; margin: 0 auto; padding: 20px var(--gutter) 0; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-sub); text-decoration: none; font-size: 0.9rem; }
+.back a:hover { color: var(--color-accent); }
+.back .mark { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-night); font-weight: 800; letter-spacing: 0.06em; }
+.legal { max-width: 760px; margin: 20px auto 56px; padding: 32px var(--gutter); background: var(--color-surface);
+  border-radius: 20px; border: 1px solid var(--color-line); }
+@media (min-width: 48rem) { .legal { padding: 56px; } }
+.legal h1 { font-size: clamp(1.4rem, 1.1rem + 1.3vw, 1.9rem); line-height: 1.35; margin: 0; padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-night); overflow-wrap: anywhere; }
+.legal h2 { font-size: 1.08rem; margin: 2.2em 0 0.4em; padding: 6px 12px; background: var(--color-paper); border-left: 4px solid var(--color-night); border-radius: 4px; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin: 0.35em 0; }
+.legal li::marker { color: var(--color-night); }
+.legal .updated { color: var(--color-sub); font-size: 0.9rem; }
+.legal strong { background: var(--color-soft); padding: 0 3px; border-radius: 3px; }
+.legal .table { overflow-x: auto; }
+.legal table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 0.6em 0; }
+.legal th, .legal td { border: 1px solid var(--color-line); padding: 6px 10px; text-align: left; vertical-align: top; }
+.legal th { background: var(--color-paper); }
+</style>
+</head>
+<body>
+<nav class="back" aria-label="路線価めくり">
+  <span class="mark">路線価めくり</span>
+  <span><a href="privacy.html">プライバシーポリシー</a> <a href="terms.html" aria-current="page">利用規約</a> <a href="support.html">サポート</a></span>
+</nav>
+<main class="legal">
+<h1>利用規約 — 路線価めくり</h1>
+<p class="updated">最終更新日：2026年11月12日</p>
+<h2>第1条（本アプリの目的）</h2>
+<p>「路線価めくり」（以下「本アプリ」）は、年分と住所（または地図の点）から、国税庁が「財産評価基準書」として公開している路線価図を探し、開く・保存するためのアプリです（iPhone・Android・Windows）。</p>
+<h2>第2条（図の選び方は推定です）</h2>
+<ul><li>本アプリは、住所を緯度・経度に直し、国税庁の索引図と照らし合わせて、その場所が載っている路線価図を<strong>推定</strong>しています。</li><li><strong>推定が外れること、隣の図にまたがることがあります。</strong> 申告や評価に使う前に、必ず図面上の位置をご自身で確かめてください。</li><li>Pro の「赤い輪と塗り」は、図に印刷された街区番号を端末で読み取って重ねる<strong>目安</strong>です。読み取りの誤り、街区の境目のずれ、塗りが隣の道路にはみ出すことがあります。</li><li>本アプリは税務の助言をするものではありません。路線価の読み方・評価の方法は、国税庁の案内や税理士などの専門家にご確認ください。</li></ul>
+<h2>第3条（路線価図と出典について）</h2>
+<ul><li>路線価図・評価倍率表は国税庁が公開しているものです。本アプリは、国税庁のサイトから読み込んだ PDF を<strong>手を加えずに</strong>表示・保存します。路線価図の権利は、国税庁および図の作成に用いられた地図の権利者に帰属します。</li><li>Pro の「赤い輪と塗り」は、画面の上に重ねて表示するだけです。保存・共有する PDF には入りません。</li><li>住所検索と地図には国土地理院のサービスを、図の位置の推定には国土交通省の国土数値情報・位置参照情報をもとに加工したデータを使っています（出典はアプリ内に記載）。</li><li>国税庁のサイトの公開内容・公開する年分は国税庁が決めるものです。公開が終わった年分の図は、本アプリでも探せなくなります。</li></ul>
+<h2>第4条（禁止事項）</h2>
+<p>利用者は、次の行為をしてはいけません。</p>
+<ul><li>法令または公序良俗に反する行為</li><li>国税庁・国土地理院などのサービスに過大な負荷をかける行為（自動化された手段による大量の取得を含みます）</li><li>本アプリのリバースエンジニアリング、および本アプリを改変して配布する行為</li><li>路線価図その他の資料を、その権利者の定めに反して利用する行為</li></ul>
+<h2>第5条（有料機能「路線価めくり Pro」）</h2>
+<ul><li>本アプリは無料で使えます。無料版で路線価図を探せるのは、1か月（暦月）に5件までです。1件目はそのまま表示し、2件目から5件目は、iPhone・Android では利用者が選んだときに広告を見たあとで表示します（広告を読み込めないときはそのまま表示します）。Windows 版に広告はなく、5件目までそのまま表示します。</li><li>「1件」は、住所または地図の点から路線価図を探して、図が決まったときに数えます。同じ月に同じ年分・同じ住所を探し直したとき、見つかった図の隣の図を開いたとき、保存した図を開いたときは数えません。図が無い答え（倍率地域）も数えません。件数は端末の中で数えるため、本アプリを入れ直すと数え直しになります。</li><li><strong>路線価めくり Pro</strong> は、月額の自動更新の購読です（価格はストアに表示される金額）。Pro では、探せる件数の上限がなくなり、広告が流れず、路線価図の上に街区番号の赤い輪と塗りを表示します。</li><li>購読は1か月ごとに自動更新され、解約するまで続きます。解約しても、支払い済みの期間が終わるまでは Pro のまま使えます。</li><li>購入・更新・解約・復元・返金の手続きは、iPhone では Apple、Android では Google Play、Windows では Microsoft Store を通じて行われ、返金の可否はそれぞれの定めに従います。</li><li>価格を変更する場合は、各ストアの定め（既存の購読者への通知・同意など）に従います。</li></ul>
+<h2>第6条（外部サービス・免責）</h2>
+<ul><li>本アプリは、国税庁（路線価図）、国土地理院（住所検索・地理院タイル）、Google AdMob（無料版の広告）、Apple・Google Play・Microsoft Store（購読）を利用します。それぞれの利用には各社・各機関の規約が適用されます。</li><li>運営は、本アプリが中断・終了しないこと、国税庁などのサービスがいつでも使えること、推定した図が正しいことを保証しません。</li><li>本アプリの利用、または本アプリが示した図・印をもとにした判断によって生じた損害について、運営は、運営の故意または重大な過失による場合を除き、責任を負いません。</li><li>端末の中にのみ保存されるもの（最近探した住所・保存した路線価図・無料版の件数）は、端末の故障・紛失・本アプリの削除によって失われます。運営は復元できません。</li></ul>
+<h2>第7条（規約の変更・お問い合わせ）</h2>
+<p>運営は、必要に応じて本規約を変更できます。重要な変更はこのページの最終更新日を改めてお知らせします。変更後に本アプリの利用を続けた場合、変更に同意したものとみなされます。</p>
+<p><a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+</main>
+</body>
+</html>
