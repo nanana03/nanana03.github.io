@@ -1,0 +1,64 @@
+/* 路線価めくり — サイトの値（index.html が読む）。
+ * 色はアプリの値そのまま（~/rosenka/apps/mobile/src/theme.ts の C＝「夜の家」2026-11-17）。
+ * OKLCH に直さない例外＝製品の色そのもの（理論めくりの tokens.css と同じ扱い）。
+ * 字と地の比（theme.ts の実測）：ink/paper 14.4・sub/paper 5.65・link/paper 7.55・ink/amber 8.35・nightInk/night 7.62
+ */
+:root {
+  /* 色 */
+  --color-night: #1e4f6d;      /* 紺の帯＝家の絵の左端の色そのもの */
+  --color-night-ink: #e5f1f7;  /* 紺の上の字 */
+  --color-night-sub: #c1d4de;
+  --color-paper: #eef5f8;      /* 地（わずかに青みの紙） */
+  --color-paper-2: #e2ebf0;    /* 一段沈んだ面 */
+  --color-field: #f8fbfd;      /* カード・入力欄の面 */
+  --color-line: #cdd6db;
+  --color-ink: #14242f;        /* 墨紺 */
+  --color-sub: #53636d;
+  --color-link: #20536e;
+  --color-amber: #f0b135;      /* 街灯の琥珀＝色を付けるのはここ 1 色 */
+  --color-note: #f9edd5;       /* 注意の帯 */
+  --color-warn: #604018;
+  --color-focus: #20536e;
+  --color-focus-on-night: #f0b135;
+
+  /* 字 */
+  --font-display: "BIZ UDPGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.3rem, 1.1rem + 0.9vw, 1.6rem);
+  --text-2xl: clamp(1.55rem, 1.2rem + 1.6vw, 2.25rem);
+  --text-display: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+
+  /* 間隔（4pt） */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 72px;
+  --space-4xl: 104px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 34em;
+  --page: 1120px;
+
+  /* 角・線 */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --rule: 1px solid var(--color-line);
+
+  /* 動き */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+
+  /* お知らせの帯と上の帯の高さ（N12） */
+  --banner-h: 44px;
+  --bar-h: 60px;
+}

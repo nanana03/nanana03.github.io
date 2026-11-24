@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>路線価めくり — 年分と住所で路線価図を取り出す</title>
+<meta name="description" content="相続税・贈与税の土地の評価に使う「路線価図」を、年分と住所から探して開くアプリ。平成30年分から令和8年分まで。地図・現在地からも探せます。">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#1e4f6d">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta property="og:title" content="路線価めくり — 年分と住所で路線価図を取り出す">
+<meta property="og:description" content="相続税・贈与税の土地の評価に使う「路線価図」を、年分と住所から探して開くアプリ。">
+<meta property="og:image" content="https://nanana03.github.io/rosenka/img/house.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@700&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · genre: editorial（utilitarian）· macrostructure: Split Studio · design-system: rosenka/design.md
+ * nav: N12 banner + retract（配信の準備中のお知らせ）· footer: Ft4 dense colophon（出典と背景地図の表記）
+ * theme: studied-from-app（theme.ts「夜の家」・light / UD-gothic / amber 1 色）· enrichment: アプリの家の絵＋本物の画面写真
+ * 前回（理論めくり＝Marquee Hero / N9 / Ft5 / Shippori Mincho / 朱）から macrostructure・nav・footer・display・accent を変えた
+ * Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--bar-h) + var(--space-md)); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body);
+  font-size: var(--text-base); line-height: 1.85; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-link); text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: var(--space-md); top: -100px; background: var(--color-field); color: var(--color-ink);
+  padding: var(--space-xs) var(--space-md); z-index: 600; border-radius: var(--radius-sm); }
+.skip:focus { top: var(--space-md); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: normal; line-height: 1.35; margin: 0;
+  overflow-wrap: anywhere; min-width: 0; word-break: auto-phrase; }
+.wrap { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* ── N12：お知らせの帯＋上の帯（下へ送ると帯が引っ込む） ── */
+.nav { position: fixed; inset: 0 0 auto; z-index: 500; transition: transform var(--dur-base) var(--ease-out); }
+.nav.is-compact { transform: translateY(calc(var(--banner-h) * -1)); }
+.nav__banner { height: var(--banner-h); background: var(--color-amber); color: var(--color-ink);
+  display: flex; align-items: center; justify-content: center; gap: var(--space-sm); padding: 0 var(--space-2xl) 0 var(--gutter); position: relative; }
+.nav__banner p { margin: 0; font-size: var(--text-sm); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav__banner .long { display: none; }
+@media (min-width: 40rem) { .nav__banner .long { display: inline; } .nav__banner .short { display: none; } }
+.nav__x { position: absolute; right: var(--space-2xs); top: 0; width: 44px; height: var(--banner-h); border: 0; background: transparent;
+  color: var(--color-ink); cursor: pointer; font-size: 1.25rem; line-height: 1; border-radius: var(--radius-sm); }
+.nav__x:hover { background: color-mix(in srgb, var(--color-ink) 8%, transparent); }
+.nav__x:active { background: color-mix(in srgb, var(--color-ink) 14%, transparent); }
+.nav__bar { height: var(--bar-h); background: var(--color-night); color: var(--color-night-ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-night-ink) 14%, transparent); }
+.nav__bar .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.brand { display: inline-flex; align-items: center; gap: var(--space-sm); color: var(--color-night-ink); text-decoration: none;
+  font-family: var(--font-display); font-size: var(--text-lg); white-space: nowrap; min-height: 44px; }
+.brand img { width: 32px; height: 32px; border-radius: 8px; }
+.nav__links { display: flex; gap: var(--space-2xs); }
+.nav__links a { color: var(--color-night-sub); text-decoration: none; font-size: var(--text-sm); white-space: nowrap;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-sm); border-radius: var(--radius-sm); }
+.nav__links a:hover { color: var(--color-night-ink); background: color-mix(in srgb, var(--color-night-ink) 10%, transparent); }
+.nav__links a:active { background: color-mix(in srgb, var(--color-night-ink) 18%, transparent); }
+.nav :focus-visible, .hero :focus-visible { outline-color: var(--color-focus-on-night); }
+.nav__banner :focus-visible { outline-color: var(--color-ink); }
+.nav__links .opt-s { display: inline-flex; }
+@media (max-width: 40rem) { .nav__links .opt { display: none; } .nav__links a { padding: 0 var(--space-xs); } }
+@media (max-width: 26rem) { .nav__links .opt-s { display: none; } }
+.is-dismissed { --banner-h: 0px; }
+.is-dismissed .nav__banner { display: none; }
+
+/* ── 最初の帯（紺の夜と家の絵＝アプリの見出しと同じ） ── */
+.hero { background: var(--color-night); color: var(--color-night-ink); padding-top: calc(var(--banner-h) + var(--bar-h)); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-xl); align-items: end;
+  padding-top: var(--space-3xl); }
+.hero__text { padding-bottom: var(--space-4xl); }
+.hero h1 { font-size: var(--text-display); letter-spacing: 0.01em; }
+.hero h1 .ph { display: inline-block; }
+.hero__lede { color: var(--color-night-sub); font-size: var(--text-lg); max-width: var(--measure); margin: var(--space-lg) 0 0; }
+.status { display: inline-flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-xl) 0 0; padding: 0; list-style: none; }
+.status li { border: 1px solid color-mix(in srgb, var(--color-night-ink) 34%, transparent); border-radius: 999px;
+  padding: var(--space-2xs) var(--space-md); font-size: var(--text-sm); color: var(--color-night-ink); white-space: nowrap; }
+.status b { color: var(--color-amber); font-weight: 700; }
+.hero__art { margin: 0; align-self: end; }
+.hero__art img { width: 100%; aspect-ratio: 768 / 450; object-fit: cover; object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%); mask-image: linear-gradient(to right, transparent, #000 18%); }
+@media (max-width: 60rem) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: var(--space-2xl); }
+  .hero__text { padding-bottom: var(--space-xl); }
+  .hero__art img { -webkit-mask-image: none; mask-image: none; max-height: 240px; object-position: 60% bottom; }
+}
+
+/* ── 道のりの比べ（アプリの「カード」と同じく、紺の帯に少しかかる） ── */
+.route { position: relative; margin-top: calc(var(--space-2xl) * -1); }
+.route__card { background: var(--color-field); border: var(--rule); border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-xl); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl);
+  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--color-night) 60%, transparent); }
+.route h2 { font-size: var(--text-lg); color: var(--color-sub); margin-bottom: var(--space-md); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); counter-reset: step; }
+.steps li { counter-increment: step; display: flex; align-items: center; gap: var(--space-sm); color: var(--color-sub);
+  border: 1px dashed var(--color-line); border-radius: var(--radius-sm); padding: 2px var(--space-sm); background: var(--color-paper);
+  margin-left: calc((var(--n, 1) - 1) * var(--space-md)); width: fit-content; white-space: nowrap; }
+.steps li::before { content: counter(step); font-family: var(--font-display); font-size: var(--text-sm); color: var(--color-sub); min-width: 1ch; }
+.steps li:nth-child(2) { --n: 2; } .steps li:nth-child(3) { --n: 3; } .steps li:nth-child(4) { --n: 4; } .steps li:nth-child(5) { --n: 5; }
+.steps-note { margin: var(--space-sm) 0 0; color: var(--color-sub); font-size: var(--text-sm); }
+.oneline { display: grid; gap: var(--space-xs); }
+.oneline .row { display: flex; flex-wrap: wrap; gap: var(--space-xs); align-items: center; }
+.oneline .year { background: var(--color-night); color: var(--color-night-ink); border-radius: 999px; padding: 2px var(--space-md); font-weight: 700; white-space: nowrap; }
+.oneline .addr { border: var(--rule); background: var(--color-paper); border-radius: var(--radius-sm); padding: 2px var(--space-sm); overflow-wrap: anywhere; min-width: 0; }
+.oneline .arrow { color: var(--color-sub); }
+.oneline .sheet { font-family: var(--font-display); font-size: var(--text-2xl); letter-spacing: 0.04em; }
+.oneline .sheet small { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-sub); letter-spacing: 0; margin-left: var(--space-xs); }
+@media (max-width: 48rem) { .route__card { grid-template-columns: minmax(0, 1fr); padding: var(--space-lg); gap: var(--space-lg); } }
+
+/* ── Split Studio：文と本物の画面を左右に（段ごとに入れ替える） ── */
+.ways { padding: var(--space-4xl) 0 var(--space-2xl); }
+.ways > .wrap > h2 { font-size: var(--text-2xl); max-width: 20em; }
+.ways__lede { color: var(--color-sub); max-width: var(--measure); margin: var(--space-sm) 0 0; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3xl); align-items: center;
+  padding: var(--space-3xl) 0; }
+.pair + .pair { border-top: var(--rule); }
+.pair--flip .pair__text { order: 2; }
+.pair__text h3 { font-size: var(--text-xl); display: flex; align-items: center; gap: var(--space-sm); }
+.pair__text h3 svg { flex: none; width: 28px; height: 28px; color: var(--color-link); }
+.pair__text p { max-width: var(--measure); margin: var(--space-md) 0 0; }
+.pair__text ul { margin: var(--space-md) 0 0; padding-left: 1.2em; max-width: var(--measure); }
+.pair__text li { margin: var(--space-2xs) 0; }
+.pair__text li::marker { color: var(--color-amber); }
+.pair figure { margin: 0; justify-self: center; width: min(100%, 320px); }
+/* 画面写真は上の要る所だけを見せ、下はぼかして「続きがある」と分かるようにする（写真そのものは切らない） */
+.shot { border: var(--rule); border-radius: var(--radius-lg); background: var(--color-field); overflow: hidden;
+  aspect-ratio: 640 / 1100; box-shadow: 0 24px 48px -36px color-mix(in srgb, var(--color-night) 70%, transparent); }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top;
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent); mask-image: linear-gradient(to bottom, #000 86%, transparent); }
+/* 要る所が下にある写真（現在地＝図番号の行が下）は下から見せ、上をぼかす */
+.shot--low img { object-position: bottom;
+  -webkit-mask-image: linear-gradient(to top, #000 86%, transparent); mask-image: linear-gradient(to top, #000 86%, transparent); }
+.pair figcaption { color: var(--color-sub); font-size: var(--text-sm); margin-top: var(--space-sm); text-align: center; }
+@media (max-width: 52rem) {
+  .pair { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); padding: var(--space-2xl) 0; }
+  .pair--flip .pair__text { order: 0; }
+  .pair figure { width: min(100%, 280px); }
+}
+
+/* ── できることと料金（F3 表） ── */
+.spec { background: var(--color-paper-2); padding: var(--space-3xl) 0; }
+.spec h2 { font-size: var(--text-2xl); }
+.spec__table { width: 100%; border-collapse: collapse; margin-top: var(--space-xl); background: var(--color-field);
+  border-radius: var(--radius-md); overflow: hidden; }
+.spec__table th, .spec__table td { text-align: left; vertical-align: top; padding: var(--space-md) var(--space-lg); border-top: var(--rule); }
+.spec__table tr:first-child th, .spec__table tr:first-child td { border-top: 0; }
+.spec__table th { width: 9em; color: var(--color-sub); font-weight: 700; font-size: var(--text-sm); white-space: nowrap; }
+.spec__table td.v { font-family: var(--font-display); font-size: var(--text-lg); white-space: nowrap; }
+.spec__table td.n { color: var(--color-sub); font-size: var(--text-sm); }
+.spec__table .pro td.v { color: var(--color-ink); }
+.spec__table .pro th { color: var(--color-ink); }
+.spec__table .pro th::after { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-amber); margin-left: var(--space-xs); vertical-align: middle; }
+.spec__foot { color: var(--color-sub); font-size: var(--text-sm); margin: var(--space-md) 0 0; max-width: 48em; }
+@media (max-width: 44rem) {
+  .spec__table, .spec__table tbody, .spec__table tr, .spec__table th, .spec__table td { display: block; width: 100%; }
+  .spec__table tr { border-top: var(--rule); padding: var(--space-md) var(--space-lg); }
+  .spec__table tr:first-child { border-top: 0; }
+  .spec__table th, .spec__table td { border: 0; padding: 0; white-space: normal; }
+  .spec__table td.v { margin-top: var(--space-2xs); }
+  .spec__table td.n { margin-top: var(--space-2xs); }
+}
+
+/* ── ご注意 ── */
+.care { padding: var(--space-3xl) 0; }
+.care h2 { font-size: var(--text-2xl); }
+.care ul { margin: var(--space-lg) 0 0; padding: 0; list-style: none; display: grid; gap: var(--space-sm); max-width: 48em; }
+.care li { border-left: 4px solid var(--color-amber); background: var(--color-field); padding: var(--space-sm) var(--space-md); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.care p { color: var(--color-sub); margin: var(--space-lg) 0 0; }
+
+/* ── Ft4：奥付（出典・背景地図の表記・連絡先） ── */
+.colophon { background: var(--color-night); color: var(--color-night-sub); padding: var(--space-2xl) 0 var(--space-3xl); font-size: var(--text-sm); line-height: 1.9; }
+.colophon a { color: var(--color-night-ink); }
+.colophon :focus-visible { outline-color: var(--color-focus-on-night); }
+.colophon .brand { font-size: var(--text-base); }
+.colophon__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-lg); margin: var(--space-md) 0 var(--space-lg); padding: 0; list-style: none; }
+.colophon__links a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+.colophon p { margin: 0 0 var(--space-sm); max-width: 62em; overflow-wrap: anywhere; }
+.colophon .copy { margin-top: var(--space-lg); color: var(--color-night-sub); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+
+<header class="nav" id="nav">
+  <div class="nav__banner" id="banner" role="region" aria-label="お知らせ">
+    <p><span class="long">iPhone 版は App Store の審査中です。Android 版・Windows 版も準備しています。</span><span class="short">iPhone 版は審査中・Android 版も準備中</span></p>
+    <button class="nav__x" id="banner-x" type="button" aria-label="お知らせを閉じる">×</button>
+  </div>
+  <div class="nav__bar">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="img/icon-192.png" alt="" width="32" height="32">路線価めくり</a>
+      <nav class="nav__links" aria-label="ページの中">
+        <a class="opt-s" href="#ways">探し方</a>
+        <a class="opt" href="#spec">料金</a>
+        <a class="opt" href="#care">ご注意</a>
+        <a href="support.html">サポート</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-title"><span class="ph">年分と住所で、</span><span class="ph">路線価図を</span><span class="ph">取り出す。</span></h1>
+        <p class="hero__lede">相続税・贈与税の土地の評価に使う「路線価図」を、住所から探して開くアプリです。平成30年分から令和8年分まで。</p>
+        <ul class="status" aria-label="対応する端末">
+          <li><b>iPhone・iPad</b>　App Store で審査中</li>
+          <li><b>Android</b>　Google Play で準備中</li>
+          <li><b>Windows</b>　準備中</li>
+        </ul>
+      </div>
+      <figure class="hero__art"><img src="img/house.jpg" alt="" width="768" height="450"></figure>
+    </div>
+  </section>
+
+  <section class="route" aria-labelledby="route-title">
+    <div class="wrap">
+      <div class="route__card">
+        <div>
+          <h2 id="route-title">国税庁のサイトでは</h2>
+          <ol class="steps">
+            <li>都道府県</li><li>市区町村</li><li>町名</li><li>索引図</li><li>図の番号</li>
+          </ol>
+          <p class="steps-note">順にたどって、やっと 1 枚の路線価図にたどり着きます。</p>
+        </div>
+        <div>
+          <h2>路線価めくりでは</h2>
+          <div class="oneline">
+            <div class="row"><span class="year">令和8年分</span><span class="addr">東京都千代田区丸の内一丁目9番1号</span></div>
+            <div class="row"><span class="arrow" aria-hidden="true">↓</span><span class="sheet tnum">15022<small>この住所の図</small></span></div>
+          </div>
+          <p class="steps-note">年分と住所を入れると、その土地が載っている図を探して開きます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ways" id="ways" aria-labelledby="ways-title">
+    <div class="wrap">
+      <h2 id="ways-title">探し方は 3 つ</h2>
+      <p class="ways__lede">住所・地図・現在地のどれからでも探せます。路線価図に載っていない場所なら、そう知らせます。画面はアプリの実物です（iPhone・令和8年分）。</p>
+
+      <div class="pair">
+        <div class="pair__text">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/></svg>住所で探す</h3>
+          <p>年分と住所（番地まで）を入れると、その場所が載っている路線価図を開きます。隣の図もそのまま並びます。</p>
+          <ul>
+            <li>郵便番号 7 桁から、町名までを入れられます</li>
+            <li>都道府県 → 市区町村 → 町名を、一覧から順に選べます</li>
+            <li>キーボードのマイクを使えば、話して入力できます</li>
+          </ul>
+        </div>
+        <figure><div class="shot"><img src="img/shot-address.jpg" width="640" height="1391" loading="lazy" alt="住所で探した結果の画面。令和8年分・東京都千代田区丸の内一丁目9番1号で、この住所の図 15022 と、隣の図 15017・15027・15021・15016 が並んでいる"></div><figcaption>住所で探した結果</figcaption></figure>
+      </div>
+
+      <div class="pair pair--flip">
+        <div class="pair__text">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>地図で選ぶ</h3>
+          <p>地図をタップした地点の路線価図を探します。住所が分からない土地でも探せます。</p>
+          <ul>
+            <li>拡大すると、路線価図の範囲と図の番号が地図の上に出ます（令和8年分）</li>
+            <li>駅名・地名・住所で地図を動かせます</li>
+          </ul>
+        </div>
+        <figure><div class="shot"><img src="img/shot-map.jpg" width="640" height="1391" loading="lazy" alt="地図で選ぶ画面。東京駅のあたりの地図に、路線価図の範囲の枠と図の番号 15017・15022・15027 が重なっている"></div><figcaption>地図で選ぶ（地図は国土地理院の地理院タイル）</figcaption></figure>
+      </div>
+
+      <div class="pair">
+        <div class="pair__text">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 21 3l-8 18-2-8-8-2z"/></svg>現在地で探す</h3>
+          <p>いま立っている場所の路線価図を探します。現地で土地を見ながら、その場で図を確かめられます。</p>
+          <ul>
+            <li>位置情報の利用を許可したときだけ使います</li>
+          </ul>
+        </div>
+        <figure><div class="shot shot--low"><img src="img/shot-here.jpg" width="640" height="1391" loading="lazy" alt="現在地で探した画面。新宿区西新宿二丁目のあたりの地図に図の範囲が出て、この地点の図 22038 が出ている"></div><figcaption>現在地で探す</figcaption></figure>
+      </div>
+
+      <div class="pair pair--flip">
+        <div class="pair__text">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>倍率地域なら、評価倍率表を開く</h3>
+          <p>路線価図に載っていない場所（倍率地域）と出たときは、その市町村の評価倍率表を開きます。国税庁のページで見ることもできます。</p>
+        </div>
+        <figure><div class="shot"><img src="img/shot-ratio.jpg" width="640" height="1391" loading="lazy" alt="倍率地域と出た画面。神奈川県足柄上郡山北町山北1301 は路線価図に載っていない（倍率地域）と表示され、山北町の評価倍率表を開くボタンがある"></div><figcaption>倍率地域と出たとき</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="spec" id="spec" aria-labelledby="spec-title">
+    <div class="wrap">
+      <h2 id="spec-title">できることと料金</h2>
+      <table class="spec__table">
+        <tbody>
+          <tr><th scope="row">年分</th><td class="v tnum">平成30年分〜令和8年分</td><td class="n">年分を切り替えると、同じ場所の別の年分の図をすぐに開けます。市町村の合併・区の再編・市の名前の変更があった場所は、その年分の名前で探します。</td></tr>
+          <tr><th scope="row">開いた図</th><td class="v">国税庁の PDF のまま</td><td class="n">保存・共有できます。保存した図はいつでも開けます。最近探した住所から、もう一度探せます。</td></tr>
+          <tr><th scope="row">無料</th><td class="v tnum">1か月に5件まで</td><td class="n">1件目はそのまま表示します。2〜5件目は、ボタンを押して広告を見たあとに表示します。保存した図を開くとき・隣の図を開くとき・倍率地域と出たときは数えません。</td></tr>
+          <tr class="pro"><th scope="row">Pro</th><td class="v tnum">月額 600円</td><td class="n">探せる件数の上限がなくなり、広告が出なくなります。路線価図の上で、住所の街区番号を赤い輪で囲み、その街区を塗ります（無料版は位置の目安の円）。</td></tr>
+          <tr><th scope="row">配信</th><td class="v">日本</td><td class="n">iPhone・iPad・Android。Windows 版も準備しています。</td></tr>
+        </tbody>
+      </table>
+      <p class="spec__foot">Pro は自動で更新される月ごとの購読です。解約しても、支払い済みの期間が終わるまでは Pro のまま使えます。解約の仕方は<a href="support.html">サポート</a>にあります。</p>
+    </div>
+  </section>
+
+  <section class="care" id="care" aria-labelledby="care-title">
+    <div class="wrap">
+      <h2 id="care-title">ご注意</h2>
+      <ul>
+        <li>本アプリは国税庁の公式アプリではありません。路線価図は国税庁のサイト「財産評価基準書 路線価図・評価倍率表」から読み込んでいます。</li>
+        <li>どの図に載っているかは、住所の位置と国税庁の索引図から推定しています。推定が外れること、隣の図にまたがることがあります。申告や評価に使う前に、必ず図面上の位置をご自身で確かめてください。</li>
+        <li>印と赤い輪・塗りは目安です。税務の助言をするものではありません。</li>
+        <li>国税庁が公開を終えた年分は探せなくなります。</li>
+      </ul>
+      <p>詳しくは<a href="terms.html">利用規約</a>をご覧ください。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="colophon">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icon-192.png" alt="" width="32" height="32">路線価めくり</a>
+    <ul class="colophon__links">
+      <li><a href="support.html">サポート</a></li>
+      <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <li><a href="terms.html">利用規約</a></li>
+      <li><a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></li>
+    </ul>
+    <p>出典：国税庁ホームページ「財産評価基準書 路線価図・評価倍率表」（<a href="https://www.rosenka.nta.go.jp/">https://www.rosenka.nta.go.jp/</a>）／住所検索：国土地理院（地理院地図の住所検索）／郵便番号：日本郵便「郵便番号データ」／地図：国土地理院（地理院タイル <a href="https://maps.gsi.go.jp/development/ichiran.html">https://maps.gsi.go.jp/development/ichiran.html</a>）／国土交通省国土数値情報ダウンロードサイト（<a href="https://nlftp.mlit.go.jp/ksj/">https://nlftp.mlit.go.jp/ksj/</a>）／位置参照情報ダウンロードサービス（国土交通省）（<a href="https://nlftp.mlit.go.jp/isj/">https://nlftp.mlit.go.jp/isj/</a>）</p>
+    <p>図の位置は「財産評価基準書」の索引図（国税庁）と「国土数値情報（行政区域データ 令和7年・鉄道データ 令和6年度）」（国土交通省）、町丁の代表点は「大字・町丁目レベル位置参照情報（令和7年 19.0b）」（国土交通省）をもとに加工して作成（国が作成したものではありません）。</p>
+    <p id="map-notice">路線価図は路線価情報と背景地図により作成されています。路線価情報は国税庁が作成し、背景地図は株式会社ゼンリンの地図を基に国税庁が経年変化に伴う道路等の修正を行い作成しています。背景地図に誤字・脱字、道路の位置ずれ、表記上、内容上の誤りがあった場合及び地図を利用した結果、何らかのトラブル、損害が利用者又は第三者に発生した場合であっても、株式会社ゼンリンは一切責任を負いません。（国税庁「路線価図の商用利用について」<a href="https://www.rosenka.nta.go.jp/copyright.htm">https://www.rosenka.nta.go.jp/copyright.htm</a>）</p>
+    <p class="copy">© 2026 Nanana</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const nav = document.getElementById('nav');
+  const x = document.getElementById('banner-x');
+  const root = document.documentElement;
+  let dismissed = false;
+  try { dismissed = localStorage.getItem('rosenka-banner') === 'closed'; } catch (e) {}
+  const close = () => { root.classList.add('is-dismissed'); nav.classList.remove('is-compact'); };
+  if (dismissed) close();
+  x.addEventListener('click', () => { close(); try { localStorage.setItem('rosenka-banner', 'closed'); } catch (e) {} });
+  let last = window.scrollY;
+  window.addEventListener('scroll', () => {
+    if (root.classList.contains('is-dismissed')) return;
+    const y = window.scrollY;
+    if (y < 48) nav.classList.remove('is-compact');
+    else if (y > last + 4) nav.classList.add('is-compact');
+    else if (y < last - 4) nav.classList.remove('is-compact');
+    last = y;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
