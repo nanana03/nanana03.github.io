@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ミチボシ — 通った信号機が星座になる</title>
-<meta name="description" content="車で通った信号機を記録して、星座のような線にして眺める iPhone・iPad のアプリ。青で抜けた信号は緑、止まった信号は赤の星。走った道を 3D の星空にもう一度描いて、動画で共有できます。">
+<meta name="description" content="車で通った信号機を記録して、星座のような線にして眺める iPhone・iPad・Android のアプリ。青で抜けた信号は緑、止まった信号は赤の星。走った道を 3D の星空にもう一度描いて、動画で共有できます。">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="img/icon-192.png">
 <meta property="og:title" content="ミチボシ — 通った信号機が星座になる">
 <meta property="og:description" content="車で通った信号機が、夜空の星座になる。青で抜けた信号は緑、止まった信号は赤の星。">
-<meta property="og:image" content="https://nanana03.github.io/michiboshi/img/drawn-1200.jpg">
+<meta property="og:image" content="https://nanana03.github.io/michiboshi/img/mine-1200.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,6 +76,7 @@ p { margin: 0; }
 /* ── 写真の段（Photographic：写真が段の主役・字は隅の注記） ── */
 .fold { position: relative; }
 .fold img.bleed { width: 100%; }
+.fold video.bleed { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; background: var(--color-paper); }
 .fold > .caption { padding: var(--space-xs) var(--gutter) 0; text-align: right; }
 .caption { font-size: var(--text-sm); color: var(--color-muted); }
 .caption b { font-weight: 500; color: var(--color-ink); }
@@ -156,24 +157,24 @@ p { margin: 0; }
       <li class="wide"><a href="#draw">3D で描く</a></li>
       <li class="wide"><a href="#pro">Pro</a></li>
       <li class="wide"><a href="support.html">サポート</a></li>
-      <li><span class="status"><span class="long">App Store で</span>近日公開</span></li>
+      <li><span class="status"><span class="long">App Store・Google Play で</span>近日公開</span></li>
     </ul>
   </div>
 </header>
 
 <main id="main">
-  <!-- 1. 描き終えた星座（アプリの実際の画面・見本のドライブ） -->
+  <!-- 1. 描き終えた星座（アプリの実際の画面・実際に走ったドライブ＝富士見高原・出発地の周りは隠した＝design.md） -->
   <section class="fold hero" aria-labelledby="t-hero">
     <div class="hero__copy">
       <h1 id="t-hero">ミチボシ</h1>
       <p class="sub"><span class="nw">通った信号機が、</span><span class="nw">星座になる。</span></p>
-      <p class="where"><span class="nw">iPhone・iPad ／</span> <span class="nw">日本の App Store で近日公開</span></p>
+      <p class="where"><span class="nw">iPhone・iPad・Android ／</span> <span class="nw">日本の App Store・Google Play で近日公開</span></p>
     </div>
     <picture>
-      <source media="(min-width: 56rem)" srcset="img/drawn-2000.jpg">
-      <img class="bleed" src="img/drawn-1200.jpg" width="1200" height="552" alt="星空の上に、通った信号機を結んだ線が星座のように描かれている。大手町駅前・小伝馬町・甘酒横丁・京橋一丁目などの交差点の名前が添えられ、左下に 5.3 km・信号機 33（青 22・赤 11）と出ている。" fetchpriority="high">
+      <source media="(min-width: 56rem)" srcset="img/mine-2000.jpg">
+      <img class="bleed" src="img/mine-1200.jpg" width="1200" height="600" alt="星空の上に、通った信号機を結んだ線が星座のように描かれている。東京から秩父、八ヶ岳のふもとまでの道に、花園橋（北）・道の駅ちちぶ入口・日原街道入口・五町田交差点などの交差点の名前が添えられ、左下に 474 km・信号機 552（青 426・赤 126）と出ている。" fetchpriority="high">
     </picture>
-    <p class="caption"><span class="nw">見本のドライブ「日本橋まわり」を</span><span class="nw">描き終えたところ</span></p>
+    <p class="caption"><span class="nw">実際に走ったドライブ「富士見高原」を</span><span class="nw">描き終えたところ（出発地の周りは「自宅の周りを隠す」で隠しています）</span></p>
   </section>
 
   <section class="band" aria-labelledby="t-what">
@@ -181,7 +182,7 @@ p { margin: 0; }
     <p class="lede">車で通った信号機を記録して、星座のような線にして眺めるアプリです。全国の信号機データ（<span class="tnum">20</span> 万基あまり）の中から、走った道で通った信号機を見つけ、青で抜けた信号は<b class="go">緑</b>、止まった信号は<b class="stop">赤</b>の星として結びます。</p>
     <ul class="points">
       <li>「ドライブを始める」を押すと、画面を消している間も記録を続けます</li>
-      <li>「自動で記録する」をオンにすると、出かけるたびに記録を始め、しばらく止まると終えます</li>
+      <li>「自動で記録する」をオンにすると、出かけるたびに記録を始め、しばらく止まると終えます（iPhone・iPad）</li>
       <li>おにコレの走行の記録や、GPX ファイルからも取り込めます</li>
     </ul>
   </section>
@@ -209,13 +210,10 @@ p { margin: 0; }
     </ul>
   </section>
 
-  <!-- 3. 3D で描いている途中 -->
+  <!-- 3. 3D で描いている様子の動画（同じ富士見高原のドライブ・アプリの描写画面を録ったもの・等速（2 倍速は速いと 2026-11-24 ユーザー）・押したときだけ読み込む） -->
   <section class="fold" id="draw" aria-labelledby="t-draw">
-    <picture>
-      <source media="(min-width: 56rem)" srcset="img/draw3d-2000.jpg">
-      <img class="bleed" src="img/draw3d-1200.jpg" width="1200" height="552" loading="lazy" alt="天の川の見える星空の下で、大手町駅前から兜町・甘酒横丁を経て小伝馬町へ、光の線が伸びている途中の 3D の画面。">
-    </picture>
-    <p class="caption">描いている途中。光の先が、いま走っているところ</p>
+    <video class="bleed" src="img/draw.mp4" poster="img/drawvideo-poster-1200.jpg" width="1280" height="640" controls muted playsinline preload="none" aria-label="富士見高原のドライブを 3D で描いている動画。天の川の見える星空の下で、通った信号機を結ぶ光の線が伸びていき、最後に真上から見た星座になる。"></video>
+    <p class="caption"><span class="nw">同じドライブを 3D で描いているところ。</span><span class="nw">光の先が、そのとき走っていたところ（音はありません）</span></p>
   </section>
 
   <section class="band" aria-labelledby="t-draw">
@@ -252,7 +250,8 @@ p { margin: 0; }
     <ul class="points">
       <li>運転中は操作しないでください</li>
       <li>通った信号機と青・赤は、位置情報と信号機データからの推定です。実際の信号の色を記録するものではありません</li>
-      <li>「自動で記録する」には、位置情報の「常に」の許可が必要です。バックグラウンドで位置情報を使い続けると、電池の減りが早くなることがあります</li>
+      <li>「自動で記録する」は iPhone・iPad だけの機能で、位置情報の「常に」の許可が必要です。バックグラウンドで位置情報を使い続けると、電池の減りが早くなることがあります</li>
+      <li>Android では、「ドライブを始める」で記録している間、通知を表示します（画面を消している間も記録を続けるため）。記録を終えると消えます</li>
       <li>記録は端末の中だけに保存します。運営のサーバーには送りません</li>
     </ul>
   </section>
