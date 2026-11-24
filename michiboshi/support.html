@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>サポート — ミチボシ</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0d12">
+<style>
+/* ミチボシの色（アプリ app/App.js の C と同じ・暗い色）。法務ページなので飾りは足さない。作りは路線価めくり（../rosenka/）と同じ */
+:root {
+  --color-paper: #0b0d12; --color-surface: #151922; --color-ink: #e8eaf0; --color-sub: #8a90a0;
+  --color-line: #2b3140; --color-accent: #4dbbff; --color-night: #9fd4ff; --color-soft: #1c2738;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); line-height: 1.85; }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; border-radius: 6px; }
+a { color: var(--color-accent); }
+.back { max-width: 760px; margin: 0 auto; padding: 20px var(--gutter) 0; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-sub); text-decoration: none; font-size: 0.9rem; }
+.back a:hover, .back a[aria-current] { color: var(--color-accent); }
+.back .mark { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-night); font-weight: 700; letter-spacing: 0.4em; }
+.legal { max-width: 760px; margin: 20px auto 56px; padding: 32px var(--gutter); background: var(--color-surface);
+  border-radius: 20px; border: 1px solid var(--color-line); }
+@media (min-width: 48rem) { .legal { padding: 56px; } }
+.legal h1 { font-size: clamp(1.4rem, 1.1rem + 1.3vw, 1.9rem); line-height: 1.35; margin: 0; padding-bottom: 12px;
+  border-bottom: 3px solid var(--color-night); overflow-wrap: anywhere; }
+.legal h2 { font-size: 1.08rem; margin: 2.2em 0 0.4em; padding: 6px 12px; background: var(--color-paper); border-left: 4px solid var(--color-night); border-radius: 4px; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin: 0.35em 0; }
+.legal li::marker { color: var(--color-night); }
+.legal .updated { color: var(--color-sub); font-size: 0.9rem; }
+.legal strong { background: var(--color-soft); padding: 0 3px; border-radius: 3px; }
+.legal .table { overflow-x: auto; }
+.legal table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 0.6em 0; }
+.legal th, .legal td { border: 1px solid var(--color-line); padding: 6px 10px; text-align: left; vertical-align: top; }
+.legal th { background: var(--color-paper); }
+</style>
+</head>
+<body>
+<nav class="back" aria-label="ミチボシ">
+  <span class="mark">ミチボシ</span>
+  <span><a href="privacy.html">プライバシーポリシー</a> <a href="terms.html">利用規約</a> <a href="support.html" aria-current="page">サポート</a></span>
+</nav>
+<main class="legal">
+<h1>サポート — ミチボシ</h1>
+<p class="updated">最終更新日：2026年11月24日</p>
+<p>「ミチボシ」は、車で通った信号機を記録し、星座のような線や 3D の描写にして眺めるためのアプリです（iPhone・iPad）。</p>
+<h2>お問い合わせ</h2>
+<p>不具合のご報告・ご質問は、次のアドレスへお送りください。お使いの端末（機種と iOS の版）と、どの画面で何をしたときに起きたかを添えていただくと、調べやすくなります。走った場所など、差し支えのある情報は書かなくてかまいません。</p>
+<p><a href="mailto:nanana03info@gmail.com">nanana03info@gmail.com</a></p>
+<h2>よくあるご質問</h2>
+<ul>
+<li><strong>自動で記録が始まりません。</strong> 位置情報の許可が「常に」になっているかをご確認ください（設定アプリ → ミチボシ → 位置情報）。自動で記録は、今いる場所の周りから出たと端末が知らせてから始まるため、走り出しの部分は記録されないことがあります。</li>
+<li><strong>通っていない信号機が入っている／通った信号機が抜けている。</strong> 通った信号機は、位置情報と本アプリに入っている信号機の位置から推定しています。位置情報の誤差や、信号機の位置の誤り・抜けで起きることがあります（利用規約 第3条）。</li>
+<li><strong>「赤」で止まっていないのに赤になっている。</strong> 青と赤は、信号機の近くで止まったかどうかから推定したもので、実際の信号の色ではありません。渋滞や右折待ちでも赤になることがあります。</li>
+<li><strong>ドライブを消してしまいました。</strong> 一覧の下の「最近削除した項目」から、削除して30日以内なら戻せます。</li>
+<li><strong>自宅の近くを見せたくない。</strong> 設定の「自宅の周りを隠す」で、自宅から決めた距離の内側にある信号機を、一覧・記録中の表示・3D・動画から隠せます。</li>
+<li><strong>おにコレの記録を取り込みたい。</strong> 同じ端末に「おにコレ」が入っていれば、メイン画面の「ログ」から日を選んで取り込めます。おにコレの「元データを書き出し」で作ったファイルや、GPX ファイルからも取り込めます。</li>
+<li><strong>動画の透かしを消したい／共有のときの広告をなくしたい。</strong> ミチボシ Pro（買い切り）にすると、透かしが入らず、広告も流れません。設定の「Pro」からどうぞ。</li>
+<li><strong>機種を変えたら Pro が外れました。</strong> 同じ Apple ID でサインインし、設定の「Pro」の「購入を復元」を押してください。</li>
+<li><strong>iPad で描写が縦のままです。</strong> iPad では、描写の画面は端末の向きに合わせて描きます。横向きにすると横いっぱいに描きます。</li>
+</ul>
+<p>利用規約：<a href="terms.html">nanana03.github.io/michiboshi/terms.html</a> ／ プライバシーポリシー：<a href="privacy.html">nanana03.github.io/michiboshi/privacy.html</a></p>
+</main>
+</body>
+</html>
