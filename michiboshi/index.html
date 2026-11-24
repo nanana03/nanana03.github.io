@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ミチボシ — 通った信号機が星座になる</title>
+<meta name="description" content="車で通った信号機を記録して、星座のような線にして眺める iPhone・iPad のアプリ。青で抜けた信号は緑、止まった信号は赤の星。走った道を 3D の星空にもう一度描いて、動画で共有できます。">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta property="og:title" content="ミチボシ — 通った信号機が星座になる">
+<meta property="og:description" content="車で通った信号機が、夜空の星座になる。青で抜けた信号は緑、止まった信号は赤の星。">
+<meta property="og:image" content="https://nanana03.github.io/michiboshi/img/drawn-1200.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@300;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · genre: atmospheric · macrostructure: Photographic · theme: studied-from-app（App.js の C・dark / thin-geometric-sans / cool-blue）
+ * enrichment: 本物の画面写真 5 枚（ASC に出したもの・作り物の端末枠は描かない）· nav: N10 floating-on-scroll morph · footer: Ft1 mast-headed
+ * design-system: michiboshi/design.md · 他の製品のページと違えたもの＝構造（写真が主役）・ナビ・奥付・字（M PLUS 1 の細字）・暗い地
+ * Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V5 */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + var(--space-lg)); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body);
+  font-size: var(--text-base); line-height: 1.9; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-accent); text-underline-offset: 0.22em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+.skip { position: absolute; left: var(--space-md); top: -100px; background: var(--color-paper-2); color: var(--color-ink);
+  padding: var(--space-xs) var(--space-md); z-index: 600; border-radius: var(--radius-sm); }
+.skip:focus { top: var(--space-md); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; font-style: normal; line-height: 1.4; margin: 0;
+  overflow-wrap: anywhere; min-width: 0; word-break: auto-phrase; }
+p { margin: 0; }
+.tnum { font-variant-numeric: tabular-nums; }
+.nw { display: inline-block; }  /* 句の途中で折らない（Safari は word-break: auto-phrase を知らない） */
+.go { color: var(--color-go); } .stop { color: var(--color-stop); }
+
+/* ── N10：上の帯 → 下へ送ると浮いた錠剤になる（1 つの DOM・高さは変えない・背景だけ入れ替える） ── */
+.nav { position: fixed; inset: 0 0 auto; z-index: 500; padding: 0 var(--gutter); pointer-events: none; }
+.nav__inner { pointer-events: auto; position: relative; max-width: var(--page); height: var(--nav-h); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+  padding: 0 var(--space-xs) 0 var(--space-sm); border-radius: var(--radius-pill);
+  transition: transform var(--dur-base) var(--ease-out); }
+.nav__inner::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
+  background: var(--color-scrim); border: 1px solid var(--color-line); opacity: 0;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: opacity var(--dur-base) var(--ease-out); }
+.nav.is-floating .nav__inner { transform: translateY(var(--space-sm)); }
+.nav.is-floating .nav__inner::before { opacity: 1; }
+.brand { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 44px; color: var(--color-ink);
+  text-decoration: none; font-family: var(--font-display); font-weight: 300; font-size: var(--text-lg);
+  letter-spacing: var(--track-wide); white-space: nowrap; }
+.brand img { width: 32px; height: 32px; border-radius: 8px; }
+.nav__links { display: flex; align-items: center; gap: var(--space-2xs); list-style: none; margin: 0; padding: 0; }
+.nav__links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-sm); border-radius: var(--radius-pill);
+  color: var(--color-muted); text-decoration: none; font-size: var(--text-sm); white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
+.nav__links a:hover { color: var(--color-ink); background: var(--color-paper-2); }
+.nav__links a:active { background: var(--color-line); }
+.nav__links .wide { display: none; }
+@media (min-width: 40rem) { .nav__links .wide { display: list-item; } }
+.status { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: 32px; padding: 0 var(--space-sm);
+  border: 1px solid var(--color-line); border-radius: var(--radius-pill); color: var(--color-night);
+  font-size: var(--text-xs); white-space: nowrap; }
+.status .long { display: none; }
+@media (min-width: 30rem) { .status .long { display: inline; } }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-go); }
+
+/* ── 写真の段（Photographic：写真が段の主役・字は隅の注記） ── */
+.fold { position: relative; }
+.fold img.bleed { width: 100%; }
+.fold > .caption { padding: var(--space-xs) var(--gutter) 0; text-align: right; }
+.caption { font-size: var(--text-sm); color: var(--color-muted); }
+.caption b { font-weight: 500; color: var(--color-ink); }
+
+/* 最初の段：描き終えた星座。狭い幅＝写真の比のまま・字は下。広い幅＝画面いっぱい・字は左上の空 */
+.hero { padding-top: var(--nav-h); }
+.hero__copy { padding: var(--space-xl) var(--gutter) var(--space-2xl); max-width: calc(var(--page) + var(--gutter) * 2); margin: 0 auto; }
+.hero h1 { font-weight: 300; font-size: var(--text-display); letter-spacing: var(--track-wide); line-height: 1.2; }
+.hero .sub { margin-top: var(--space-sm); font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); color: var(--color-night); }
+.hero .where { margin-top: var(--space-lg); color: var(--color-muted); font-size: var(--text-sm); }
+/* 字は写真に重ねない（星座の線と交差点の名前が写真のどこにでも来るため・1024×768 で重なった）。広い幅は見出しと注記を 1 行に */
+@media (min-width: 56rem) {
+  .hero__copy { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--space-xl);
+    padding-top: var(--space-2xl); }
+  .hero .where { grid-column: 2; grid-row: 1 / span 2; margin: 0; padding-bottom: var(--space-xs); }
+}
+
+/* 字の段（細い帯） */
+.band { max-width: calc(var(--measure) + var(--gutter) * 2); margin: 0 auto; padding: var(--space-3xl) var(--gutter); }
+.band h2 { font-size: var(--text-2xl); font-weight: 300; }
+.band h2 + p, .band h2 + ul, .band p + p { margin-top: var(--space-md); }
+.band .lede { font-size: var(--text-lg); line-height: 2; }
+.points { list-style: none; margin: var(--space-lg) 0 0; padding: 0; }
+.points li { position: relative; padding-left: 1.4em; margin-top: var(--space-xs); }
+.points li::before { content: ""; position: absolute; left: 0.2em; top: 0.8em; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-night); box-shadow: 0 0 8px var(--color-night); }
+
+/* 縦の画面写真を並べる段（端末の枠は描かない・角の丸みと細い線だけ） */
+.shots { max-width: var(--page); margin: 0 auto; padding: var(--space-xl) var(--gutter); }
+.shots__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); max-width: 46rem; margin: 0 auto; }
+.shot { margin: 0; }
+.shot img { border-radius: var(--radius-lg); border: 1px solid var(--color-line); }
+.shot figcaption { margin-top: var(--space-sm); }
+
+/* 星図（Pro）：写真と字を 1 段に。狭い幅は縦に積む */
+.pro { max-width: var(--page); margin: 0 auto; padding: var(--space-3xl) var(--gutter);
+  display: grid; gap: var(--space-2xl); align-items: center; }
+.pro .shot { max-width: 20rem; margin: 0 auto; }
+@media (min-width: 48rem) { .pro { grid-template-columns: minmax(0, 20rem) minmax(0, var(--measure)); justify-content: center; } }
+.pro h2 { font-size: var(--text-2xl); font-weight: 300; }
+.price { margin-top: var(--space-md); font-family: var(--font-display); font-weight: 300; font-size: var(--text-xl); }
+.price small { font-size: var(--text-sm); color: var(--color-muted); font-family: var(--font-body); margin-left: var(--space-xs); }
+.pro .note { margin-top: var(--space-lg); color: var(--color-muted); font-size: var(--text-sm); }
+
+/* ご注意 */
+.care { border-top: 1px solid var(--color-line); }
+.care h2 { font-size: var(--text-xl); }
+.care .points li::before { background: var(--color-muted); box-shadow: none; }
+
+/* ── Ft1：屋号の帯＋小さなリンク＋出典 ── */
+.foot { position: relative; isolation: isolate; overflow: hidden; border-top: 1px solid var(--color-line); padding: var(--space-3xl) var(--gutter) var(--space-2xl); }
+.foot::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 0; width: 60rem; height: 30rem; transform: translate(-50%, -55%);
+  background: radial-gradient(closest-side, var(--color-bloom), transparent); opacity: 0.55; }
+.foot__inner { max-width: var(--page); margin: 0 auto; }
+.foot .wordmark { display: flex; align-items: center; gap: var(--space-md); font-family: var(--font-display); font-weight: 300;
+  font-size: var(--text-2xl); letter-spacing: var(--track-wide); }
+.foot .wordmark img { width: 48px; height: 48px; border-radius: 12px; }
+.foot .tagline { margin-top: var(--space-xs); color: var(--color-muted); }
+.foot__links { display: flex; flex-wrap: wrap; gap: 0 var(--space-lg); list-style: none; margin: var(--space-xl) 0 0; padding: 0; }
+.foot__links a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+.credits { margin-top: var(--space-xl); color: var(--color-muted); font-size: var(--text-xs); line-height: 1.9; overflow-wrap: anywhere; }
+.credits a { color: var(--color-muted); }
+.copy { margin-top: var(--space-lg); color: var(--color-muted); font-size: var(--text-xs); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__inner, .nav__inner::before, .nav__links a { transition-duration: 0.01ms; }
+  .nav.is-floating .nav__inner { transform: none; }
+}
+</style>
+</head>
+<body id="top">
+<a class="skip" href="#main">本文へ</a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top"><img src="img/icon-192.png" alt="" width="32" height="32">ミチボシ</a>
+    <ul class="nav__links">
+      <li class="wide"><a href="#draw">3D で描く</a></li>
+      <li class="wide"><a href="#pro">Pro</a></li>
+      <li class="wide"><a href="support.html">サポート</a></li>
+      <li><span class="status"><span class="long">App Store で</span>近日公開</span></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <!-- 1. 描き終えた星座（アプリの実際の画面・見本のドライブ） -->
+  <section class="fold hero" aria-labelledby="t-hero">
+    <div class="hero__copy">
+      <h1 id="t-hero">ミチボシ</h1>
+      <p class="sub"><span class="nw">通った信号機が、</span><span class="nw">星座になる。</span></p>
+      <p class="where"><span class="nw">iPhone・iPad ／</span> <span class="nw">日本の App Store で近日公開</span></p>
+    </div>
+    <picture>
+      <source media="(min-width: 56rem)" srcset="img/drawn-2000.jpg">
+      <img class="bleed" src="img/drawn-1200.jpg" width="1200" height="552" alt="星空の上に、通った信号機を結んだ線が星座のように描かれている。大手町駅前・小伝馬町・甘酒横丁・京橋一丁目などの交差点の名前が添えられ、左下に 5.3 km・信号機 33（青 22・赤 11）と出ている。" fetchpriority="high">
+    </picture>
+    <p class="caption"><span class="nw">見本のドライブ「日本橋まわり」を</span><span class="nw">描き終えたところ</span></p>
+  </section>
+
+  <section class="band" aria-labelledby="t-what">
+    <h2 id="t-what">走った道が、夜空に残る</h2>
+    <p class="lede">車で通った信号機を記録して、星座のような線にして眺めるアプリです。全国の信号機データ（<span class="tnum">20</span> 万基あまり）の中から、走った道で通った信号機を見つけ、青で抜けた信号は<b class="go">緑</b>、止まった信号は<b class="stop">赤</b>の星として結びます。</p>
+    <ul class="points">
+      <li>「ドライブを始める」を押すと、画面を消している間も記録を続けます</li>
+      <li>「自動で記録する」をオンにすると、出かけるたびに記録を始め、しばらく止まると終えます</li>
+      <li>おにコレの走行の記録や、GPX ファイルからも取り込めます</li>
+    </ul>
+  </section>
+
+  <!-- 2. ホームとギャラリー -->
+  <section class="shots" aria-label="ホームとドライブの一覧の画面">
+    <div class="shots__row">
+      <figure class="shot">
+        <img src="img/home.jpg" width="720" height="1565" loading="lazy" alt="ホーム画面。星空の中央に地球が浮かび、その下に「ドライブを始める」と「自動で記録する」のスイッチ。下に前回のドライブ（日本橋まわり 5.3 km・信号機 33）。">
+        <figcaption class="caption"><b>ホーム</b>　押すのは「ドライブを始める」だけ</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="img/list.jpg" width="720" height="1565" loading="lazy" alt="「これまでのドライブ」の一覧。日本橋まわり・札幌・大通から・京都・四条通・御堂筋などのドライブが、緑と赤の点を結んだ星座の形で 2 列に並ぶ。">
+        <figcaption class="caption"><b>ギャラリー</b>　ドライブごとに星座が並ぶ</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="t-gallery">
+    <h2 id="t-gallery">ひと目で分かる、その日の信号</h2>
+    <ul class="points">
+      <li>青で通った信号・赤で止まった信号の数、走行距離、時間が並びます</li>
+      <li>お気に入りの印を付けて、お気に入りだけを並べられます</li>
+      <li>削除したドライブは <span class="tnum">30</span> 日間、「最近削除した項目」から戻せます</li>
+    </ul>
+  </section>
+
+  <!-- 3. 3D で描いている途中 -->
+  <section class="fold" id="draw" aria-labelledby="t-draw">
+    <picture>
+      <source media="(min-width: 56rem)" srcset="img/draw3d-2000.jpg">
+      <img class="bleed" src="img/draw3d-1200.jpg" width="1200" height="552" loading="lazy" alt="天の川の見える星空の下で、大手町駅前から兜町・甘酒横丁を経て小伝馬町へ、光の線が伸びている途中の 3D の画面。">
+    </picture>
+    <p class="caption">描いている途中。光の先が、いま走っているところ</p>
+  </section>
+
+  <section class="band" aria-labelledby="t-draw">
+    <h2 id="t-draw">走りを、星空にもう一度描く</h2>
+    <ul class="points">
+      <li>星空の上に、通った信号機を結ぶ光の線を伸ばしていきます</li>
+      <li>線の色は「速度」か「信号間の距離」。高さは標高をもとに強調できます</li>
+      <li>カメラは「回る」「追う」「止める」から選べます</li>
+      <li>描いた様子を動画にして共有できます</li>
+      <li>自宅から決めた距離の内側にある信号機は、一覧・3D・動画から隠せます</li>
+    </ul>
+  </section>
+
+  <!-- 4. 自分の星図（Pro） -->
+  <section class="pro" id="pro" aria-labelledby="t-pro">
+    <figure class="shot">
+      <img src="img/starmap.jpg" width="720" height="1565" loading="lazy" alt="「自分の星図」の画面。通った信号機 193 基・全国 204,648 基。日本列島の形に、通った信号機が明るい星として灯っている。">
+      <figcaption class="caption"><b>自分の星図</b>　「灯る星」で見たところ</figcaption>
+    </figure>
+    <div>
+      <h2 id="t-pro">ミチボシ Pro</h2>
+      <p class="price"><span class="tnum">380</span> 円<small>買い切り</small></p>
+      <ul class="points">
+        <li>自分の星図：これまでに通った信号機を星にした地図。「灯る星」「赤と青」「育つ星図」の <span class="tnum">3</span> つの見せ方を切り替えられます</li>
+        <li>動画の共有に広告が出ません</li>
+        <li>動画に透かしが入りません</li>
+      </ul>
+      <p class="note">無料版でも、記録の本数に上限はありません。無料版で動画を共有するときは、そのたびに、選んだときだけ短い広告を <span class="tnum">1</span> 本見てから共有します。</p>
+    </div>
+  </section>
+
+  <section class="band care" aria-labelledby="t-care">
+    <h2 id="t-care">ご注意</h2>
+    <ul class="points">
+      <li>運転中は操作しないでください</li>
+      <li>通った信号機と青・赤は、位置情報と信号機データからの推定です。実際の信号の色を記録するものではありません</li>
+      <li>「自動で記録する」には、位置情報の「常に」の許可が必要です。バックグラウンドで位置情報を使い続けると、電池の減りが早くなることがあります</li>
+      <li>記録は端末の中だけに保存します。運営のサーバーには送りません</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot__inner">
+    <p class="wordmark"><img src="img/icon-192.png" alt="" width="48" height="48">ミチボシ</p>
+    <p class="tagline">通った信号機が、星座になる。</p>
+    <ul class="foot__links">
+      <li><a href="support.html">サポート</a></li>
+      <li><a href="privacy.html">プライバシーポリシー</a></li>
+      <li><a href="terms.html">利用規約</a></li>
+      <li><a href="../">Nanana Soft のアプリ</a></li>
+    </ul>
+    <p class="credits">出典（アプリ内の表記と同じ）：星空：NASA/Goddard Space Flight Center Scientific Visualization Studio. Gaia DR2: ESA/Gaia/DPAC.（Deep Star Maps 2020）／信号機：「交通規制情報」（公益財団法人日本道路交通情報センター）（<a href="https://www.jartic.or.jp/service/opendata/">https://www.jartic.or.jp/service/opendata/</a>）を加工して作成／© OpenStreetMap contributors（ODbL・信号機データの作り方＝<a href="https://github.com/nanana03/michiboshi-signal-db">https://github.com/nanana03/michiboshi-signal-db</a>）／警察庁「交通事故統計情報のオープンデータ」を加工して作成／外形・県境：「国土数値情報（行政区域データ）」（国土交通省）をもとに簡略化して作成／標高：端末の GPS、または国土地理院（標高タイル・標高API）／世界地図（メイン画面の地球）：Made with Natural Earth（world-atlas, Copyright 2013-2019 Michael Bostock, ISC License）</p>
+    <p class="copy">© 2026 Nanana</p>
+  </div>
+</footer>
+
+<script>
+// N10：少し下へ送ったら帯を錠剤にする（クラス 1 つの入れ替えだけ）
+(() => {
+  const nav = document.getElementById('nav');
+  let on = null;
+  const tick = () => { const v = window.scrollY > 24; if (v !== on) { on = v; nav.classList.toggle('is-floating', v); } };
+  addEventListener('scroll', tick, { passive: true }); tick();
+})();
+</script>
+</body>
+</html>

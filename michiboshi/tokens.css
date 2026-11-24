@@ -1,0 +1,47 @@
+/* ミチボシの字と色（studied from the app：app/App.js の C ＝ 2026-11-24 時点）。
+ * 法務ページ（privacy / terms / support）の :root と同じ値。暗い地だけ（アプリが暗い地だけのため）。
+ * axes：dark / thin-geometric-sans / cool-blue（信号の赤と緑は「星の色」だけに使う） */
+:root {
+  /* 地と字 */
+  --color-paper:   #0b0d12;   /* App.js C.bg */
+  --color-paper-2: #151922;   /* C.card */
+  --color-ink:     #e8eaf0;   /* C.fg   … 地との比 15.9:1 */
+  --color-muted:   #8a90a0;   /* C.sub  … 地との比 6.1:1 */
+  --color-line:    #2b3140;   /* C.line */
+  /* 色 */
+  --color-accent:  #4dbbff;   /* リンク（C.accent #22aaff を暗い地で読める明るさに・地との比 8.6:1） */
+  --color-night:   #9fd4ff;   /* 星の白っぽい青（見出しの細線・箇条の印） */
+  --color-go:      #30d158;   /* C.green＝青で抜けた信号の星 */
+  --color-stop:    #ff453a;   /* C.red＝止まった信号の星 */
+  --color-focus:   var(--color-accent);
+  --color-bloom:   #2a3d8f;   /* アイコンの青紫のにじみ（地の奥に 1 つだけ） */
+  --color-scrim:   #0b0d12cc; /* 写真の上の字の下敷き */
+
+  /* 字 */
+  --font-display: "M PLUS 1", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+  --font-body: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  --text-xs:   0.78rem;
+  --text-sm:   0.88rem;
+  --text-base: 1rem;
+  --text-lg:   1.15rem;
+  --text-xl:   clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+  --text-2xl:  clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+  --text-display: clamp(2.2rem, 1.4rem + 4vw, 4.6rem);
+  --track-wide: 0.42em;      /* アプリのホームの「ミ チ ボ シ」の字間 */
+
+  /* 間（4pt） */
+  --space-2xs: 4px;  --space-xs: 8px;  --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px;  --space-xl: 32px; --space-2xl: 48px; --space-3xl: 72px; --space-4xl: 120px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 34rem;
+  --page: 1200px;
+  --nav-h: 56px;
+
+  --radius-sm: 6px; --radius-md: 14px; --radius-lg: 22px; --radius-pill: 999px;
+
+  /* 動き */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms; --dur-base: 280ms;
+}
