@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="tokens.css">
 <style>
 /* Hallmark · genre: editorial（utilitarian）· macrostructure: Split Studio · design-system: rosenka/design.md
- * nav: N12 banner + retract（配信の準備中のお知らせ）· footer: Ft4 dense colophon（出典と背景地図の表記）
+ * nav: N12 banner + retract（配信開始のお知らせ・11-25 公開）· footer: Ft4 dense colophon（出典と背景地図の表記）
  * theme: studied-from-app（theme.ts「夜の家」・light / UD-gothic / amber 1 色）· enrichment: アプリの家の絵＋本物の画面写真
  * 前回（理論めくり＝Marquee Hero / N9 / Ft5 / Shippori Mincho / 朱）から macrostructure・nav・footer・display・accent を変えた
  * Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 */
@@ -79,6 +79,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: nor
 .hero h1 { font-size: var(--text-display); letter-spacing: 0.01em; }
 .hero h1 .ph { display: inline-block; }
 .hero__lede { color: var(--color-night-sub); font-size: var(--text-lg); max-width: var(--measure); margin: var(--space-lg) 0 0; }
+.get { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); margin: var(--space-xl) 0 0; }
+.get .badge { display: inline-flex; align-items: center; min-height: 44px; border-radius: var(--radius-sm); }
+.get .badge img { height: 48px; width: auto; }
+.get .badge--play img { height: 63px; margin: -7px -8px; }
+.get .badge:hover { opacity: 0.88; }
+.get .badge:active { opacity: 0.76; }
+.get-note { color: var(--color-night-sub); font-size: var(--text-sm); margin: var(--space-sm) 0 0; }
 .status { display: inline-flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-xl) 0 0; padding: 0; list-style: none; }
 .status li { border: 1px solid color-mix(in srgb, var(--color-night-ink) 34%, transparent); border-radius: 999px;
   padding: var(--space-2xs) var(--space-md); font-size: var(--text-sm); color: var(--color-night-ink); white-space: nowrap; }
@@ -194,7 +201,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: nor
 
 <header class="nav" id="nav">
   <div class="nav__banner" id="banner" role="region" aria-label="お知らせ">
-    <p><span class="long">iPhone 版は App Store の審査中です。Android 版・Windows 版も準備しています。</span><span class="short">iPhone 版は審査中・Android 版も準備中</span></p>
+    <p><span class="long">2026年11月25日、App Store と Google Play で配信を始めました。</span><span class="short">App Store・Google Play で配信中</span></p>
     <button class="nav__x" id="banner-x" type="button" aria-label="お知らせを閉じる">×</button>
   </div>
   <div class="nav__bar">
@@ -216,11 +223,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: nor
       <div class="hero__text">
         <h1 id="hero-title"><span class="ph">年分と住所で、</span><span class="ph">路線価図を</span><span class="ph">取り出す。</span></h1>
         <p class="hero__lede">相続税・贈与税の土地の評価に使う「路線価図」を、住所から探して開くアプリです。平成30年分から令和8年分まで。</p>
-        <ul class="status" aria-label="対応する端末">
-          <li><b>iPhone・iPad</b>　App Store で審査中</li>
-          <li><b>Android</b>　Google Play で準備中</li>
-          <li><b>Windows</b>　準備中</li>
-        </ul>
+        <p class="get">
+          <a class="badge" href="https://apps.apple.com/jp/app/id6833948249"><img src="../onikore/img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="130" height="48"></a>
+          <a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.nanabit.rosenka"><img src="../onikore/img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="162" height="63"></a>
+        </p>
+        <p class="get-note">iPhone・iPad・Android で配信中。Windows 版は準備しています。</p>
       </div>
       <figure class="hero__art"><img src="img/house.jpg" alt="" width="768" height="450"></figure>
     </div>
@@ -308,7 +315,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: nor
           <tr><th scope="row">開いた図</th><td class="v">国税庁の PDF のまま</td><td class="n">保存・共有できます。保存した図はいつでも開けます。最近探した住所から、もう一度探せます。</td></tr>
           <tr><th scope="row">無料</th><td class="v tnum">1か月に5件まで</td><td class="n">1件目はそのまま表示します。2〜5件目は、ボタンを押して広告を見たあとに表示します。保存した図を開くとき・隣の図を開くとき・倍率地域と出たときは数えません。</td></tr>
           <tr class="pro"><th scope="row">Pro</th><td class="v tnum">月額 600円</td><td class="n">探せる件数の上限がなくなり、広告が出なくなります。路線価図の上で、住所の街区番号を赤い輪で囲み、その街区を塗ります（無料版は位置の目安の円）。</td></tr>
-          <tr><th scope="row">配信</th><td class="v">日本</td><td class="n">iPhone・iPad・Android。Windows 版も準備しています。</td></tr>
+          <tr><th scope="row">配信</th><td class="v">日本</td><td class="n">iPhone・iPad（App Store）・Android（Google Play）で配信中。Windows 版は準備しています。</td></tr>
         </tbody>
       </table>
       <p class="spec__foot">Pro は自動で更新される月ごとの購読です。解約しても、支払い済みの期間が終わるまでは Pro のまま使えます。解約の仕方は<a href="support.html">サポート</a>にあります。</p>
@@ -351,10 +358,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; font-style: nor
   const x = document.getElementById('banner-x');
   const root = document.documentElement;
   let dismissed = false;
-  try { dismissed = localStorage.getItem('rosenka-banner') === 'closed'; } catch (e) {}
+  try { dismissed = localStorage.getItem('rosenka-banner-1125') === 'closed'; } catch (e) {}
   const close = () => { root.classList.add('is-dismissed'); nav.classList.remove('is-compact'); };
   if (dismissed) close();
-  x.addEventListener('click', () => { close(); try { localStorage.setItem('rosenka-banner', 'closed'); } catch (e) {} });
+  x.addEventListener('click', () => { close(); try { localStorage.setItem('rosenka-banner-1125', 'closed'); } catch (e) {} });
   let last = window.scrollY;
   window.addEventListener('scroll', () => {
     if (root.classList.contains('is-dismissed')) return;
