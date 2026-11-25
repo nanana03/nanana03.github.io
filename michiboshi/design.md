@@ -38,7 +38,7 @@
 - Android（2026-11-24 追加）：「自動で記録する」は iPhone・iPad だけ（Android 1.0 は手で始める記録だけ＝ユーザー決定）。Android は記録中に通知が出る。購入は Google Play
 - 出典は viewer.html（アプリの描写画面）の表記と同じ文。アプリ側を直したらここも直す
 - ✅ **App Store は 2026-11-25 に公開**（lookup＝1.0.0・2026-11-24T21:59:39Z）→ ナビを「App Store で配信中」、最初の段を公式バッジにし、会社トップの棚に載せた。
-- 🔴 **Google Play はまだ「近日公開」（最初の段の `.soon`）。公開されたら直す。**
+- ✅ **Google Play も 2026-11-25 に公開**（公開ページ 200・名前「ミチボシ」）→ 最初の段にバッジを 2 つ並べ、ナビを「App Store・Google Play で配信中」（2 つのストアなのでリンクにしない）、会社トップの行にも Play のバッジ。
   公開を `itunes lookup?id=6838543571&country=jp` で確かめてから、Apple の公式バッジ（App Store で入手）に替え、会社トップの棚に載せる。
   Google Play は公開ページ `play.google.com/store/apps/details?id=com.nanabit.signaldrive` が 200 になってから公式バッジ（Google Play で手に入れよう）に替える（2026-11-24 足した）
 - 確かめた幅＝320・375・414・768・1280（横のはみ出し 0・2 行に折れるナビ／奥付のリンク 0・2026-11-24）

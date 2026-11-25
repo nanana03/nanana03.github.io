@@ -91,6 +91,11 @@ p { margin: 0; }
 .hero .where { margin-top: var(--space-lg); color: var(--color-muted); font-size: var(--text-sm); }
 .hero .where .badge { display: inline-block; line-height: 0; border-radius: 8px; margin-bottom: var(--space-xs); }
 .hero .where .badge img { height: 48px; width: auto; display: block; }
+.hero .where .badges { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xs); }
+.hero .where .badges .badge { margin-bottom: 0; }
+/* Google Play の公式バッジは上下に透明の余白がある（646×250 のうち不透明は 192）＝高さ 62.5px で見えるバッジが App Store と同じ 48px（onikore/index.html と同じ扱い） */
+.hero .where .badge--play { margin: -7px 0; }
+.hero .where .badge--play img { height: 62.5px; }
 .hero .where .soon { display: block; }
 /* 字は写真に重ねない（星座の線と交差点の名前が写真のどこにでも来るため・1024×768 で重なった）。広い幅は見出しと注記を 1 行に */
 @media (min-width: 56rem) {
@@ -162,7 +167,7 @@ p { margin: 0; }
       <li class="wide"><a href="#draw">3D で描く</a></li>
       <li class="wide"><a href="#pro">Pro</a></li>
       <li class="wide"><a href="support.html">サポート</a></li>
-      <li><a class="status" href="https://apps.apple.com/jp/app/id6838543571"><span class="long">App Store で</span>配信中</a></li>
+      <li><span class="status"><span class="long">App Store・Google Play で</span>配信中</span></li>
     </ul>
   </div>
 </header>
@@ -173,8 +178,8 @@ p { margin: 0; }
     <div class="hero__copy">
       <h1 id="t-hero">ミチボシ</h1>
       <p class="sub"><span class="nw">通った信号機が、</span><span class="nw">星座になる。</span></p>
-      <p class="where"><a class="badge" href="https://apps.apple.com/jp/app/id6838543571"><img src="img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="131" height="48"></a>
-        <span class="soon"><span class="nw">iPhone・iPad は配信中 ／</span> <span class="nw">Android（Google Play）は近日公開</span></span></p>
+      <p class="where"><span class="badges"><a class="badge" href="https://apps.apple.com/jp/app/id6838543571"><img src="img/appstore-badge-ja.svg" alt="App Store からダウンロード" width="131" height="48"></a><a class="badge badge--play" href="https://play.google.com/store/apps/details?id=com.nanabit.signaldrive"><img src="img/googleplay-badge-ja.png" alt="Google Play で手に入れよう" width="161" height="62"></a></span>
+        <span class="soon"><span class="nw">iPhone・iPad・Android</span></span></p>
     </div>
     <picture>
       <source media="(min-width: 56rem)" srcset="img/mine-2000.jpg">
